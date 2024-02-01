@@ -31,33 +31,49 @@ export default function Login() {
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-1"
           >
-            <div className="flex justify-between">
-              <label>UserName</label>
-              <input
-                className="border-b-2 border-slate-600 bg-slate-200 outline-0"
-                type="text"
-                name="name"
-                {...register("username", {
-                  required: "ce champ est obligatoir",
-                })}
-              />
-              {errors.username && (
-                <span style={{ color: "red" }}>{errors.username.message}</span>
-              )}
+            <div className="flex flex-col ">
+              <div className="flex justify-between">
+                <label>UserName</label>
+                <input
+                  className="border-b-2 border-slate-600 bg-slate-200 outline-0"
+                  type="text"
+                  name="name"
+                  {...register("username", {
+                    required: "ce champ est obligatoir",
+                  })}
+                />
+              </div>
+              <p className="self-end text-xs h-4">
+                {errors.username && (
+                  <span style={{ color: "red" }}>
+                    {errors.username.message}
+                  </span>
+                )}
+              </p>
             </div>
-            <div className="flex justify-between">
-              <label>Passeword</label>
-              <input
-                className="border-b-2 border-slate-600 bg-slate-200 outline-0"
-                type="password"
-                name="passeword"
-                {...register("passeword", {
-                  required: "ce champ est obligatoir",
-                })}
-              />
+            <div className="flex flex-col">
+              <div className="flex justify-between">
+                <label>Passeword</label>
+                <input
+                  className="border-b-2 border-slate-600 bg-slate-200 outline-0"
+                  type="password"
+                  name="passeword"
+                  {...register("passeword", {
+                    required: "ce champ est obligatoir",
+                  })}
+                />
+              </div>
+              <p className="self-end text-xs h-4">
+                {errors.passeword && (
+                  <span style={{ color: "red" }}>
+                    {errors.passeword.message}
+                  </span>
+                )}
+              </p>
             </div>
+
             <button
               type="submit"
               className="bg-orange-600 p-2 text-white rounded-md hover:bg-fuchsia-700"
