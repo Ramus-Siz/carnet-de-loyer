@@ -20,7 +20,7 @@ export default function Navigation() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/home" onClick={() => setLiActive((prev) => !prev)}>
+            <NavLink to="#" onClick={() => setLiActive((prev) => !prev)}>
               <div className="flex gap-3 items-center ">
                 <ion-icon name="duplicate-outline"></ion-icon>
                 <div className="flex justify-between w-full items-center">
@@ -47,7 +47,7 @@ export default function Navigation() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="home">
+                  <NavLink to="/my-tenants">
                     <div className="flex gap-3 items-center">
                       <ion-icon name="list-circle-outline"></ion-icon>
                       <h3>Mes Locataires</h3>
@@ -59,7 +59,7 @@ export default function Navigation() {
           )}
 
           <li>
-            <NavLink to="home">
+            <NavLink to="/messages">
               <div className="flex gap-3 items-center">
                 <img src="/images/icon/config.png" alt="config-icon" />
                 <h3>Messages</h3>
@@ -67,10 +67,10 @@ export default function Navigation() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="home">
+            <NavLink to="/settings">
               <div className="flex gap-3 items-center">
                 <img src="/images/icon/config.png" alt="config-icon" />
-                <h3>Parametres</h3>
+                <h3>Paramètres</h3>
               </div>
             </NavLink>
           </li>

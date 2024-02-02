@@ -8,6 +8,9 @@ import NewAccount from "./pages/form-new-account.jsx";
 import Layout from "./components/layout.jsx";
 import Home from "./pages/home.jsx";
 import MyHouses from "./pages/houses/my-houses.jsx";
+import Messages from "./pages/messages.jsx";
+import Settings from "./pages/settings.jsx";
+import MyTenants from "./pages/my-tenants.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,18 @@ const router = createBrowserRouter([
       {
         path: "/my-houses",
         element: <MyHouses />,
+      },
+      {
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+      {
+        path: "/my-tenants",
+        element: <MyTenants />,
       },
     ],
   },
