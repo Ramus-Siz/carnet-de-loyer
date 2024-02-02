@@ -16,8 +16,11 @@ export default function Login() {
   } = useForm({ defaultValues: formData });
 
   const onSubmit = (data) => {
-    console.log(data);
-    alert(`${data.name} a été enregistré`);
+    {
+      data.username == "admin" && data.passeword == "admin"
+        ? navigate("/home")
+        : navigate("/");
+    }
   };
 
   function handlCreateAccount() {
@@ -39,7 +42,7 @@ export default function Login() {
                 <input
                   className="border-b-2 border-slate-600 bg-slate-200 outline-0"
                   type="text"
-                  name="name"
+                  name="username"
                   {...register("username", {
                     required: "ce champ est obligatoir",
                   })}
