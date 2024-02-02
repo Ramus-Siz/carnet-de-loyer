@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export default function Navigation() {
   const [liActive, setLiActive] = useState(false);
@@ -6,41 +7,73 @@ export default function Navigation() {
     <>
       <nav className="text-white">
         <ul className="flex flex-col gap-4 text-lg">
-          <div className="flex gap-3 items-center">
-            <img
-              src="/images/icon/dashboard.png"
-              alt="icon-home"
-              className=""
-            />
+          <li>
+            <NavLink to="/home">
+              <div className="flex gap-3 items-center">
+                <img
+                  src="/images/icon/dashboard.png"
+                  alt="icon-home"
+                  className=""
+                />
+                <h3 className="">Dashboard</h3>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/home" onClick={() => setLiActive((prev) => !prev)}>
+              <div className="flex gap-3 items-center ">
+                <ion-icon name="duplicate-outline"></ion-icon>
+                <div className="flex justify-between w-full items-center">
+                  <h3>Inventaire</h3>
+                  {liActive ? (
+                    <ion-icon name="chevron-up-outline "></ion-icon>
+                  ) : (
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                  )}
+                </div>
+              </div>
+            </NavLink>
+          </li>
 
-            <li className="">Dashboard</li>
-          </div>
-
-          <div className="flex gap-3 items-center ">
-            <ion-icon name="duplicate-outline"></ion-icon>
-            <div className="flex justify-between w-full items-center">
-              <li onClick={() => setLiActive((prev) => !prev)}>Inventaire</li>
-              {liActive ? (
-                <ion-icon name="chevron-up-outline "></ion-icon>
-              ) : (
-                <ion-icon name="chevron-down-outline"></ion-icon>
-              )}
-            </div>
-          </div>
           {liActive && (
             <div id="dropdown">
-              <ul>
-                <li>Liste de maison</li>
-                <li>Liste de Locataire</li>
+              <ul className="pl-3">
+                <li>
+                  <NavLink to="home">
+                    <div className="flex gap-3 items-center">
+                      <ion-icon name="list-outline"></ion-icon>
+                      <h3>Mes Maisons</h3>
+                    </div>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="home">
+                    <div className="flex gap-3 items-center">
+                      <ion-icon name="list-circle-outline"></ion-icon>
+                      <h3>Mes Locataires</h3>
+                    </div>
+                  </NavLink>
+                </li>
               </ul>
             </div>
           )}
 
-          <li>Dashboard</li>
-          <div className="flex gap-3 items-center">
-            <img src="/images/icon/config.png" alt="config-icon" />
-            <li>Parametres</li>
-          </div>
+          <li>
+            <NavLink to="home">
+              <div className="flex gap-3 items-center">
+                <img src="/images/icon/config.png" alt="config-icon" />
+                <h3>Messages</h3>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="home">
+              <div className="flex gap-3 items-center">
+                <img src="/images/icon/config.png" alt="config-icon" />
+                <h3>Parametres</h3>
+              </div>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </>
