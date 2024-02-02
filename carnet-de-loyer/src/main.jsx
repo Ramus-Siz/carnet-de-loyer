@@ -7,6 +7,7 @@ import Login from "./pages/login.jsx";
 import NewAccount from "./pages/form-new-account.jsx";
 import Layout from "./components/layout.jsx";
 import Home from "./pages/home.jsx";
+import MyHouses from "./pages/houses/my-houses.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/my-houses",
+        element: <MyHouses />,
       },
     ],
   },

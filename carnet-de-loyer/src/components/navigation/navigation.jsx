@@ -39,7 +39,7 @@ export default function Navigation() {
             <div id="dropdown">
               <ul className="pl-3">
                 <li>
-                  <NavLink to="home">
+                  <NavLink to="/my-houses">
                     <div className="flex gap-3 items-center">
                       <ion-icon name="list-outline"></ion-icon>
                       <h3>Mes Maisons</h3>
