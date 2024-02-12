@@ -11,7 +11,7 @@ export default function Home() {
           <div className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg">
             <h3 className="bg-[#283342] text-white  p-5">Biens</h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
-              <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full">
+              <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="home-outline"></ion-icon>
               </div>
               <div className="flex flex-col">
@@ -37,7 +37,7 @@ export default function Home() {
           <div className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg">
             <h3 className="bg-[#283342] text-white  p-5">Locataires</h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
-              <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full">
+              <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="person-outline"></ion-icon>
               </div>
               <div className="flex flex-col">
@@ -63,7 +63,7 @@ export default function Home() {
           <div className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg">
             <h3 className="bg-[#283342] text-white  p-5">Locations</h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
-              <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full">
+              <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="key-outline"></ion-icon>
               </div>
               <div className="flex flex-col">
