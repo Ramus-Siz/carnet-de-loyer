@@ -11,6 +11,7 @@ import MyHouses from "./pages/houses/my-houses.jsx";
 import Messages from "./pages/messages.jsx";
 import Settings from "./pages/settings.jsx";
 import MyTenants from "./pages/my-tenants.jsx";
+import Locations from "./pages/locations.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/my-tenants",
         element: <MyTenants />,
+      },
+      {
+        path: "/locations",
+        element: <Locations />,
       },
     ],
   },

@@ -14,7 +14,9 @@ export default function DateAndTime() {
     <>
       <div className="text-sm">
         <p className="text-orange-600 text-right">Salutations</p>
-        <p>{`${datetime.date}/${datetime.month}/${datetime.year} | ${datetime.hour}h : ${datetime.minute}`}</p>
+        <p>{`${datetime.date}/${datetime.month + 1}/${datetime.year} | ${
+          datetime.hour
+        }h : ${datetime.minute}`}</p>
       </div>
     </>
   );
