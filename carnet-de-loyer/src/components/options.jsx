@@ -42,13 +42,13 @@ export default function Options({
           />
           Tout selectionner
           <button
-            className="flex items-center flex items-center bg-[#283342] text-white rounded p-2"
+            className="flex items-center flex items-center text-white rounded p-2 pr-4 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleDelete}
           >
             <ion-icon name="remove-outline"></ion-icon>Suprimer
           </button>
           <button
-            className="flex items-center bg-[#283342] text-white rounded p-2"
+            className="flex items-center bg-[#283342] text-white rounded p-2 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleAddHouses}
           >
             <ion-icon name="add-outline"></ion-icon>Ajouter une maison

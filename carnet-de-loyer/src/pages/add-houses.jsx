@@ -68,7 +68,10 @@ export default function AddHouses({ register, HandleAddHouses }) {
             {...register("description", { require: "Obligatoire" })}
           />
         </div>
-        <button type="submit" className="w-[500px] bg-[#283342] p-3 text-white">
+        <button
+          type="submit"
+          className="w-[500px] bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ... p-3 text-white"
+        >
           Enregistrer
         </button>
       </form>
