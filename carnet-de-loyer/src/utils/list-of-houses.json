@@ -1,0 +1,32 @@
+{
+  "houses": [
+    {
+      "id": "2",
+      "label": "Kasai 1",
+      "adress": "1,Kasai, Kinshasa ",
+      "composition": "3 Chambres, salon, Cuisine, salle de bain",
+      "type": "Maison basse"
+    },
+    {
+      "id": "3",
+      "label": "Boende 32",
+      "adress": "32,Boende, Lingwala ",
+      "composition": "2 Chambres, salon, Cuisine, salle de bain",
+      "type": "Appartement"
+    },
+    {
+      "id": "4",
+      "label": "Bocage 32",
+      "adress": "32,Bocage, Ngaliema ",
+      "composition": "4 Chambres, salon, Cuisine, salle de bain",
+      "type": "Maison basse"
+    },
+    {
+      "id": "5",
+      "label": "Luvua 10",
+      "adress": "10,Luvua, Lingwala ",
+      "composition": "2 Chambres, salon, Cuisine, salle de bain",
+      "type": "Appartement"
+    }
+  ]
+}

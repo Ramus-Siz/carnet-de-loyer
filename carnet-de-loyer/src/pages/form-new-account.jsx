@@ -113,7 +113,7 @@ export default function NewAccount() {
       </div>
       <div className="flex flex-col items-center w-96 bg-fuchsia-700 border-solid shadow-white rounded-r-2xl  p-8 h-[423px]">
         <img
-          src="public/images/icone-grafiki.png"
+          src="/images/icone-grafiki.png"
           alt="icone-grafiki"
           className="max-w-72"
           viewBox="0 0 24 24"
