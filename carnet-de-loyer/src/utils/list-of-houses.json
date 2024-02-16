@@ -28,5 +28,32 @@
       "composition": "2 Chambres, salon, Cuisine, salle de bain",
       "type": "Appartement"
     }
+  ],
+
+  "tenants": [
+    {
+      "id": "1",
+      "nom": "Junior",
+      "prenom": "asosa",
+      "birthday": "10/02/1997",
+      "sexe": "masculin",
+      "maison": "Luvua 10"
+    },
+    {
+      "id": "2",
+      "nom": "Chadrack",
+      "prenom": "Mbala",
+      "birthday": "17/02/1997",
+      "sexe": "masculin",
+      "maison": "Kasai 1"
+    },
+    {
+      "id": "3",
+      "nom": "Isaac",
+      "prenom": "Mayela",
+      "birthday": "11/02/1997",
+      "sexe": "masculin",
+      "maison": "Boende 32"
+    }
   ]
 }
