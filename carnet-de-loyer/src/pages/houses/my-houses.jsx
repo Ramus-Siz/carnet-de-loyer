@@ -71,6 +71,7 @@ export default function MyHouses() {
         HandleDelete={HandleDelete}
         isCheck={isCheck}
         catalog={catalog}
+        user="une maison"
       />
     </>
   );

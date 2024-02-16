@@ -1,7 +1,22 @@
-import Header from "../components/header";
-import Options from "../components/options";
+import { useForm } from "react-hook-form";
+import Header from "./header";
+import Options from "./options";
+import { useState } from "react";
+import RegisterButton from "./registre-button";
 
-export default function AddHouses({ register, HandleAddHouses }) {
+export default function AddHouses({ HandleAddHouses }) {
+  const [formData, setFormData] = useState({
+    libele: "",
+    adress: "",
+    type: "",
+    composition: "",
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ defaultValues: formData });
+
   return (
     <>
       <p className="bg-[#283342] text-white p-2 pl-4 ">
@@ -16,7 +31,7 @@ export default function AddHouses({ register, HandleAddHouses }) {
             type="text"
             name="libele"
             id=""
-            className="w-[500px] p-2 bg-[#F7FAFD] border-none outline-none pl-3"
+            className=" p-2 bg-[#F7FAFD] border-none outline-none pl-3"
             placeholder="Ex:Boende 32"
             {...register("libele", { require: "Obligatoire" })}
           />
@@ -27,7 +42,7 @@ export default function AddHouses({ register, HandleAddHouses }) {
             type="text"
             name="Adress"
             id=""
-            className="w-[500px] p-2 bg-[#F7FAFD] border-none outline-none pl-3"
+            className=" p-2 bg-[#F7FAFD] border-none outline-none pl-3"
             placeholder="Ex:32, Bocage, Joli-parck,Ngaliema"
             {...register("libele", { require: "Obligatoire" })}
           />
@@ -38,7 +53,7 @@ export default function AddHouses({ register, HandleAddHouses }) {
           <select
             name="type"
             {...register("type")}
-            className="border-none outline-none p-2 w-[500px] bg-[#F7FAFD] "
+            className="border-none outline-none p-2  bg-[#F7FAFD] "
           >
             <option value="Maison Basse">Maison Basse</option>
             <option value="Apartement">Apartement</option>
@@ -50,7 +65,7 @@ export default function AddHouses({ register, HandleAddHouses }) {
           <select
             name="composition"
             {...register("composition")}
-            className="border-none outline-none p-2 w-[500px] bg-[#F7FAFD] "
+            className="border-none outline-none p-2  bg-[#F7FAFD] "
           >
             <option value=" t1-c">T1-c</option>
             <option value="t2-c">T2-c</option>
@@ -63,17 +78,12 @@ export default function AddHouses({ register, HandleAddHouses }) {
           <textarea
             name="description"
             id=""
-            className="w-[500px] p-2 bg-[#F7FAFD] border-none outline-none pl-3"
+            className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
             placeholder="Brève description ... "
             {...register("description", { require: "Obligatoire" })}
           />
         </div>
-        <button
-          type="submit"
-          className="w-[500px] bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ... p-3 text-white"
-        >
-          Enregistrer
-        </button>
+        <RegisterButton />
       </form>
     </>
   );

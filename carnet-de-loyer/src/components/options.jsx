@@ -2,7 +2,8 @@ import { useState } from "react";
 import CheckBox from "./checkbox";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import AddHouses from "../pages/add-houses";
+import AddHouses from "./add-houses";
+import AddTenants from "./add-tenants";
 
 export default function Options({
   selectAll,
@@ -10,23 +11,13 @@ export default function Options({
   HandleDelete,
   isCheck,
   catalog,
+  user,
 }) {
-  const [addHouses, setAddHouses] = useState(false);
-  const [formData, setFormData] = useState({
-    libele: "",
-    adress: "",
-    type: "",
-    composition: "",
-  });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ defaultValues: formData });
+  const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
   const navigate = useNavigate();
-  const HandleAddHouses = () => {
-    setAddHouses(!addHouses);
+  const HandleAddData = () => {
+    setIsTrueToAddData(!isTrueToAddData);
   };
 
   return (
@@ -49,20 +40,29 @@ export default function Options({
           </button>
           <button
             className="flex items-center bg-[#283342] text-white rounded p-2 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
-            onClick={HandleAddHouses}
+            onClick={HandleAddData}
           >
-            <ion-icon name="add-outline"></ion-icon>Ajouter une maison
+            <ion-icon name="add-outline"></ion-icon>Ajouter {user}
           </button>
         </div>
         <div className="pt-8">{catalog}</div>
       </div>
-      {addHouses ? (
+      {isTrueToAddData && user === "une maison" ? (
         <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-1000">
-          <AddHouses register={register} HandleAddHouses={HandleAddHouses} />
+          <AddHouses HandleAddHouses={HandleAddData} />
         </div>
       ) : (
         <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-1000 translate-x-full">
-          <AddHouses register={register} HandleAddHouses={HandleAddHouses} />
+          <AddHouses HandleAddHouses={HandleAddData} />
+        </div>
+      )}
+      {isTrueToAddData && user === "un / une locataire" ? (
+        <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500">
+          <AddTenants HandleAddTenants={HandleAddData} />
+        </div>
+      ) : (
+        <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 translate-x-full">
+          <AddTenants HandleAddTenants={HandleAddData} />
         </div>
       )}
     </>
