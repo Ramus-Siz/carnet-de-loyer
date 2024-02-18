@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 
 export default function Home() {
+  const navigation = useNavigate();
   return (
     <>
       <div className="">
@@ -8,7 +10,10 @@ export default function Home() {
       </div>
       <div className="p-8">
         <div className="flex gap-8">
-          <div className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg">
+          <div
+            className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg cursor-pointer"
+            onClick={() => navigation("/my-houses")}
+          >
             <h3 className="bg-[#283342] text-white  p-5">Biens</h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
               <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full animate-pulse">
@@ -34,7 +39,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg">
+          <div
+            className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg cursor-pointer"
+            onClick={() => navigation("/my-tenants")}
+          >
             <h3 className="bg-[#283342] text-white  p-5">Locataires</h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
               <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full animate-pulse">
@@ -60,7 +68,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg">
+          <div
+            className="h-[250px] w-[385px] bg-[#F7FAFD] rounded-lg cursor-pointer"
+            onClick={() => navigation("/locations")}
+          >
             <h3 className="bg-[#283342] text-white  p-5">Locations</h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
               <div className="text-6xl text-fuchsia-700 border-solid border-fuchsia-700 border-2 p-3 rounded-full animate-pulse">
@@ -87,7 +98,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex items-center p-5 mt-8 text-red-500 bg-[#f2dedf] gap-4  rounded-lg">
+        <div className="flex items-center p-5 mt-8 text-red-500 bg-[#f2dedf] gap-4  rounded-lg cursor-pointer">
           <span className="text-xl">
             <ion-icon name="chatbox-ellipses-outline"></ion-icon>
           </span>

@@ -3,6 +3,7 @@ import Header from "./header";
 import Options from "./options";
 import { useState } from "react";
 import RegisterButton from "./registre-button";
+import { Link } from "react-router-dom";
 
 export default function AddHouses({ HandleAddHouses }) {
   const [formData, setFormData] = useState({
@@ -57,6 +58,7 @@ export default function AddHouses({ HandleAddHouses }) {
           >
             <option value="Maison Basse">Maison Basse</option>
             <option value="Apartement">Apartement</option>
+            <option value="Apartement">Boutique</option>
           </select>
         </div>
         <div className="flex flex-col gap-2">

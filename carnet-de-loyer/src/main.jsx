@@ -12,6 +12,9 @@ import Messages from "./pages/messages.jsx";
 import Settings from "./pages/settings.jsx";
 import MyTenants from "./pages/my-tenants.jsx";
 import Locations from "./pages/locations.jsx";
+import HousesPreview from "./components/preview/houses-preview.jsx";
+import SinglePreviewHouses from "./components/single/single-houses.jsx";
+import Houses from "./components/houses.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,12 +40,28 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-houses",
-        element: <MyHouses />,
+        element: <Houses />,
+        children: [
+          {
+            path: "",
+            element: <MyHouses />,
+          },
+          {
+            path: ":id",
+            element: <HousesPreview />,
+          },
+        ],
       },
+      // {
+      //   path: "/my-houses/:id",
+      //   element: <HousesPreview />,
+      //   Houses,
+      // },
       {
         path: "/messages",
         element: <Messages />,
       },
+
       {
         path: "/settings",
         element: <Settings />,

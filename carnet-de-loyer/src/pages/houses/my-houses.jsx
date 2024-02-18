@@ -3,7 +3,7 @@ import CheckBox from "../../components/checkbox";
 import Header from "../../components/header";
 import allHouses from "../../utils/list-of-houses";
 import Options from "../../components/options";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function MyHouses() {
   const houses = allHouses.houses;
@@ -12,10 +12,6 @@ export default function MyHouses() {
     choises: [],
   });
   const [list, setList] = useState([]);
-
-  useEffect(() => {
-    setList(houses);
-  }, [list]);
 
   const HandleDelete = (housesToDelete) => {};
   const handleSelectAll = (e) => {
@@ -54,13 +50,19 @@ export default function MyHouses() {
             />
             {label}
           </div>
-          <span className="justify-self-end pr-2">
-            <ion-icon name="eye-outline"></ion-icon>
-          </span>
+          <Link to={`/my-houses/${id}`}>
+            <span className="justify-self-end pr-2">
+              <ion-icon name="eye-outline"></ion-icon>
+            </span>
+          </Link>
         </div>
       </div>
     );
   });
+
+  useEffect(() => {
+    setList(houses);
+  }, [list]);
 
   return (
     <>

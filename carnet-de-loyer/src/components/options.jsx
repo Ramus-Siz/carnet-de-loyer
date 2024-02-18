@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AddHouses from "./add-houses";
 import AddTenants from "./add-tenants";
+import { Link } from "react-router-dom";
 
 export default function Options({
   selectAll,
@@ -33,13 +34,13 @@ export default function Options({
           />
           Tout selectionner
           <button
-            className="flex items-center flex items-center text-white rounded p-2 pr-4 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
+            className="flex items-center flex items-center text-white rounded-3xl p-2 pl-4 pr-4 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleDelete}
           >
-            <ion-icon name="remove-outline"></ion-icon>Suprimer
+            <ion-icon name="remove-outline"></ion-icon> Suprimer
           </button>
           <button
-            className="flex items-center bg-[#283342] text-white rounded p-2 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
+            className="flex items-center bg-[#283342] text-white rounded-3xl p-2 pl-4 pr-4 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleAddData}
           >
             <ion-icon name="add-outline"></ion-icon>Ajouter {user}

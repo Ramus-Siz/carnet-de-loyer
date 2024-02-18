@@ -6,7 +6,7 @@ export default function Sidebar() {
       <div>
         <div className="flex bg-fuchsia-700 h-20   items-center text-xl">
           <img
-            src="public/images/icone-grafiki.png"
+            src="/images/icone-grafiki.png"
             alt="icone-grafiki"
             className="max-w-12"
             viewBox="0 0 24 24"

@@ -4,7 +4,7 @@ import CheckBox from "../components/checkbox";
 import allHouses from "../utils/list-of-houses";
 import Options from "../components/options";
 export default function MyTenants() {
-  const houses = allHouses.houses;
+  const houses = allHouses.tenants;
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
     choises: [],
@@ -37,20 +37,20 @@ export default function MyTenants() {
 
   console.log(isCheck.choises);
 
-  const catalog = list.map(({ id, label }) => {
+  const catalog = list.map(({ id, nom, prenom }) => {
     return (
       <div key={id}>
         <div className="flex gap-4 p-3 justify-between bg-[#F7FAFD] border-white border-solid border-2 w-full hover:scale-95 hover:bg-orange-200">
           <div className="flex gap-4">
             <CheckBox
-              name={label}
+              name={nom}
               key={id}
               type="checkbox"
               id={id}
               isChecked={isCheck.choises.includes(id)}
               handleClick={handleClick}
             />
-            {label}
+            {`${nom} ${prenom}`}
           </div>
           <span className="justify-self-end pr-2">
             <ion-icon name="eye-outline"></ion-icon>
