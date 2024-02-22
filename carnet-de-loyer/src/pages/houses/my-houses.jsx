@@ -8,7 +8,16 @@ import { useRentBooklet } from "../../components/contexts/context";
 export default function MyHouses() {
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
+  const [isTrueToAddData, setIsTrueToAddData] = useState(false);
+
   console.log("Mhouses: ", houses);
+
+  const HandleAddData = () => {
+    setIsTrueToAddData(!isTrueToAddData);
+  };
+  const HandleresetAddData = () => {
+    setIsTrueToAddData(false);
+  };
 
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
@@ -31,6 +40,7 @@ export default function MyHouses() {
     }
 
     updateHouses(housesAfterDelete);
+    isCheck.choises = [];
   };
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
@@ -85,15 +95,19 @@ export default function MyHouses() {
 
   return (
     <>
-      <Header />
-      <Options
-        selectAll={selectAll}
-        handleSelectAll={handleSelectAll}
-        HandleDelete={HandleDelete}
-        isCheck={isCheck}
-        catalog={catalog}
-        user="une maison"
-      />
+      <div>
+        <Header />
+        <Options
+          selectAll={selectAll}
+          handleSelectAll={handleSelectAll}
+          HandleDelete={HandleDelete}
+          isCheck={isCheck}
+          catalog={catalog}
+          user="une maison"
+          HandleAddData={HandleAddData}
+          isTrueToAddData={isTrueToAddData}
+        />
+      </div>
     </>
   );
 }

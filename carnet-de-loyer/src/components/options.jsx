@@ -13,13 +13,10 @@ export default function Options({
   isCheck,
   catalog,
   user,
+  isTrueToAddData,
+  HandleAddData,
 }) {
-  const [isTrueToAddData, setIsTrueToAddData] = useState(false);
-
   const navigate = useNavigate();
-  const HandleAddData = () => {
-    setIsTrueToAddData(!isTrueToAddData);
-  };
 
   return (
     <>

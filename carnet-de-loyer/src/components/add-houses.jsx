@@ -13,6 +13,7 @@ export default function AddHouses({ HandleAddHouses }) {
     type: "",
     composition: "",
   });
+
   const {
     register,
     reset,
@@ -28,8 +29,14 @@ export default function AddHouses({ HandleAddHouses }) {
   }
 
   function BuildNewHouseObject(newHouse) {
-    let keyOftheLastHouse = houses.length;
-    let keyOfHouse = keyOftheLastHouse + 1;
+    let keyOftheLastHouse = [];
+
+    for (const house of houses) {
+      keyOftheLastHouse.push(parseInt(house.id));
+    }
+    console.log(keyOftheLastHouse);
+    let keyOfHouse = Math.max(...keyOftheLastHouse) + 1;
+
     const newHouseObject = {
       id: `${keyOfHouse}`,
       libele: newHouse.libele,
