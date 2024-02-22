@@ -40,24 +40,42 @@
       "nom": "Junior",
       "prenom": "Asosa",
       "birthday": "10/02/1997",
-      "sexe": "masculin",
-      "maison": "Luvua 10"
+      "sexe": "Masculin",
+      "maison": "Luvua 10",
+      "phoneNumber": "+243970283628",
+      "contrat": {
+        "start": "20/02/2024",
+        "guarantee": "4 Mois",
+        "rentPrice": "500$"
+      }
     },
     {
       "id": "2",
       "nom": "Chadrack",
       "prenom": "Mbala",
       "birthday": "17/02/1997",
-      "sexe": "masculin",
-      "maison": "Kasai 1"
+      "sexe": "Masculin",
+      "maison": "Kasai 1",
+      "phoneNumber": "+243970283628",
+      "contrat": {
+        "start": "28/02/2024",
+        "guarantee": "4 Mois",
+        "rentPrice": "600$"
+      }
     },
     {
       "id": "3",
       "nom": "Isaac",
       "prenom": "Mayela",
       "birthday": "11/02/1997",
-      "sexe": "masculin",
-      "maison": "Boende 32"
+      "sexe": "Masculin",
+      "maison": "Boende 32",
+      "phoneNumber": "+243970283628",
+      "contrat": {
+        "start": "10/02/2024",
+        "guarantee": "4 Mois",
+        "rentPrice": "500$"
+      }
     }
   ]
 }

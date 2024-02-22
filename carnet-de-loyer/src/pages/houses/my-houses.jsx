@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import CheckBox from "../../components/checkbox";
 import Header from "../../components/header";
-import allHouses from "../../utils/list-of-houses";
 import Options from "../../components/options";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useRentBooklet } from "../../components/contexts/context";
 
 export default function MyHouses() {
-  const houses = allHouses.houses;
+  const houses = useRentBooklet((state) => state.houses);
+  console.log("Mhouses: ", houses);
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
     choises: [],
@@ -62,7 +63,7 @@ export default function MyHouses() {
 
   useEffect(() => {
     setList(houses);
-  }, [list]);
+  }, [houses]);
 
   return (
     <>

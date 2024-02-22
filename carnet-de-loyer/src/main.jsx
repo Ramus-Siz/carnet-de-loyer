@@ -13,8 +13,9 @@ import Settings from "./pages/settings.jsx";
 import MyTenants from "./pages/my-tenants.jsx";
 import Locations from "./pages/locations.jsx";
 import HousesPreview from "./components/preview/houses-preview.jsx";
-import SinglePreviewHouses from "./components/single/single-houses.jsx";
 import Houses from "./components/houses.jsx";
+import Tenants from "./components/tenants.jsx";
+import TenantPreview from "./components/preview/tenants-preview.jsx";
 
 const router = createBrowserRouter([
   {
@@ -68,7 +69,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-tenants",
-        element: <MyTenants />,
+        element: <Tenants />,
+        children: [
+          {
+            path: "",
+            element: <MyTenants />,
+          },
+          {
+            path: ":id",
+            element: <TenantPreview />,
+          },
+        ],
       },
       {
         path: "/locations",

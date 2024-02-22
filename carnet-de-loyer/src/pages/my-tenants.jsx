@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import CheckBox from "../components/checkbox";
 import allHouses from "../utils/list-of-houses";
 import Options from "../components/options";
+import { Link } from "react-router-dom";
+import { useRentBooklet } from "../components/contexts/context";
 export default function MyTenants() {
-  const houses = allHouses.tenants;
+  const tenants = useRentBooklet((state) => state.tenants);
+
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
     choises: [],
@@ -12,7 +15,7 @@ export default function MyTenants() {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    setList(houses);
+    setList(tenants);
   }, [list]);
 
   const HandleDelete = (housesToDelete) => {};
@@ -52,9 +55,11 @@ export default function MyTenants() {
             />
             {`${nom} ${prenom}`}
           </div>
-          <span className="justify-self-end pr-2">
-            <ion-icon name="eye-outline"></ion-icon>
-          </span>
+          <Link to={`/my-tenants/${id}`}>
+            <span className="justify-self-end pr-2">
+              <ion-icon name="eye-outline"></ion-icon>
+            </span>
+          </Link>
         </div>
       </div>
     );
