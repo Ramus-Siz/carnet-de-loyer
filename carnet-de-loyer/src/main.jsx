@@ -16,6 +16,7 @@ import HousesPreview from "./components/preview/houses-preview.jsx";
 import Houses from "./components/houses.jsx";
 import Tenants from "./components/tenants.jsx";
 import TenantPreview from "./components/preview/tenants-preview.jsx";
+import SinglePreviewHouses from "./components/single/single-houses.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
           },
           {
             path: ":id",
-            element: <HousesPreview />,
+            element: <SinglePreviewHouses />,
           },
         ],
       },

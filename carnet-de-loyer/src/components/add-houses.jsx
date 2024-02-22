@@ -9,7 +9,6 @@ import { useRentBooklet } from "./contexts/context";
 export default function AddHouses({ HandleAddHouses }) {
   const houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
-  const [dataHouse, setDataHouse] = useState({});
 
   const [formData, setFormData] = useState({
     libele: "",
@@ -29,8 +28,8 @@ export default function AddHouses({ HandleAddHouses }) {
     let keyOftheLastHouse = houses.length;
     let keyOfHouse = keyOftheLastHouse + 1;
     const newHouseObject = {
-      id: keyOfHouse,
-      label: newHouse.libele,
+      id: `${keyOfHouse}`,
+      libele: newHouse.libele,
       adress: newHouse.adress,
       composition: newHouse.composition,
       type: newHouse.type,

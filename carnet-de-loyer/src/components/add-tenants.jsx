@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import allHouses from "../utils/list-of-houses";
 import RegisterButton from "./registre-button";
+import { useRentBooklet } from "./contexts/context";
 
 export default function AddTenants({ HandleAddTenants }) {
+  const tenants = useRentBooklet((state) => state.tenants);
+  const updateTenants = useRentBooklet((state) => state.updateTenants);
   const [formData, setFormData] = useState({
     libele: "",
     adress: "",

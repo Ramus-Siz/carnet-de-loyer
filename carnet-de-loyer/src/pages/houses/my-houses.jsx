@@ -36,20 +36,20 @@ export default function MyHouses() {
 
   console.log(isCheck.choises);
 
-  const catalog = list.map(({ id, label }) => {
+  const catalog = list.map(({ id, libele }) => {
     return (
       <div key={id}>
         <div className="flex gap-4 p-3 justify-between bg-[#F7FAFD] border-white border-solid border-2 w-full hover:scale-95 hover:bg-orange-200">
           <div className="flex gap-4">
             <CheckBox
-              name={label}
+              name={libele}
               key={id}
               type="checkbox"
               id={id}
               isChecked={isCheck.choises.includes(id)}
               handleClick={handleClick}
             />
-            {label}
+            {libele}
           </div>
           <Link to={`/my-houses/${id}`}>
             <span className="justify-self-end pr-2">

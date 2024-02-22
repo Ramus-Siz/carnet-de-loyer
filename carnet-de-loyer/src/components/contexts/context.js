@@ -8,7 +8,10 @@ export const useRentBooklet = create((set) => ({
   houses: [...housesData],
   tenants: tenants,
   updateHouses: (newHouse) => {
-    console.log("Houses: ", newHouse);
     set({ houses: newHouse });
+  },
+  updateTenants: (newTenants) => {
+    console.log("Tenants: ", newTenants);
+    set({ tenants: newTenants });
   },
 }));

@@ -1,6 +1,13 @@
+import { useParams } from "react-router-dom";
 import Header from "../header";
+import { useRentBooklet } from "../contexts/context";
 
-export default function SinglePreviewHouses({ housesParams }) {
+export default function SinglePreviewHouses() {
+  const { id } = useParams();
+  const listHouses = useRentBooklet((state) => state.houses);
+
+  const houses = listHouses.find((house) => house.id === id);
+  console.log(houses);
   return (
     <>
       <Header />
@@ -9,7 +16,7 @@ export default function SinglePreviewHouses({ housesParams }) {
           <span className="text-orange-600 text-xl">
             <ion-icon name="home-outline"></ion-icon>
           </span>
-          <h2 className="   font-semibold">Maison sur {housesParams.label}</h2>
+          <h2 className="   font-semibold">Maison sur {houses.libele}</h2>
         </div>
 
         <table className="w-fuul text-center border-collapse border border-slate-400 ... ">
@@ -18,10 +25,10 @@ export default function SinglePreviewHouses({ housesParams }) {
               <th scope="col" className=" p-8 border border-slate-300 ...">
                 Type
               </th>
-              <th scope="col" className="border border-slate-300 ...">
+              <th scope="col" className=" p-8  border border-slate-300 ...">
                 Adress
               </th>
-              <th scope="col" className="border border-slate-300 ...">
+              <th scope="col" className="p-8  border border-slate-300 ...">
                 Composition
               </th>
               <th scope="col" className="p-8 border border-slate-300 ...">
@@ -35,13 +42,13 @@ export default function SinglePreviewHouses({ housesParams }) {
           <tbody>
             <tr className="">
               <td className=" p-8 border border-slate-300 ...">
-                {housesParams.type}
+                {houses.type}
               </td>
               <td className="p-8 border border-slate-300 ...">
-                {housesParams.adress}
+                {houses.adress}
               </td>
               <td className="p-8 border border-slate-300 ...">
-                {housesParams.composition}
+                {houses.composition}
               </td>
               <td className="p-8 border border-slate-300 ...">Oui</td>
               <td className="p-8 border border-slate-300 ...">Non</td>
@@ -51,7 +58,7 @@ export default function SinglePreviewHouses({ housesParams }) {
         </table>
         <div className="flex flex-col gap-4 w-[90%]">
           <h2 className="font-semibold">Description:</h2>
-          <p>{housesParams.description}</p>
+          <p>{houses.description}</p>
         </div>
       </div>
     </>
