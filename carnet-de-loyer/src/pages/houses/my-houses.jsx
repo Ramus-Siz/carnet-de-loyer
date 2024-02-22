@@ -60,7 +60,7 @@ export default function MyHouses() {
       </div>
     );
   });
-
+  //re set the list of house
   useEffect(() => {
     setList(houses);
   }, [houses]);
