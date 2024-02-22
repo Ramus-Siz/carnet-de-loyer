@@ -14,10 +14,6 @@ export default function MyTenants() {
   });
   const [list, setList] = useState([]);
 
-  useEffect(() => {
-    setList(tenants);
-  }, [list]);
-
   const HandleDelete = (housesToDelete) => {};
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
@@ -40,20 +36,20 @@ export default function MyTenants() {
 
   console.log(isCheck.choises);
 
-  const catalog = list.map(({ id, nom, prenom }) => {
+  const catalog = list.map(({ id, name, prenom }) => {
     return (
       <div key={id}>
         <div className="flex gap-4 p-3 justify-between bg-[#F7FAFD] border-white border-solid border-2 w-full hover:scale-95 hover:bg-orange-200">
           <div className="flex gap-4">
             <CheckBox
-              name={nom}
+              name={name}
               key={id}
               type="checkbox"
               id={id}
               isChecked={isCheck.choises.includes(id)}
               handleClick={handleClick}
             />
-            {`${nom} ${prenom}`}
+            {`${name} ${prenom}`}
           </div>
           <Link to={`/my-tenants/${id}`}>
             <span className="justify-self-end pr-2">
@@ -64,6 +60,10 @@ export default function MyTenants() {
       </div>
     );
   });
+
+  useEffect(() => {
+    setList(tenants);
+  }, [tenants]);
 
   return (
     <>

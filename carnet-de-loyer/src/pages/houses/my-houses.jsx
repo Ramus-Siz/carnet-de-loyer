@@ -6,15 +6,32 @@ import { Link } from "react-router-dom";
 import { useRentBooklet } from "../../components/contexts/context";
 
 export default function MyHouses() {
-  const houses = useRentBooklet((state) => state.houses);
+  let houses = useRentBooklet((state) => state.houses);
+  const updateHouses = useRentBooklet((state) => state.updateHouses);
   console.log("Mhouses: ", houses);
+
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
     choises: [],
   });
+
   const [list, setList] = useState([]);
 
-  const HandleDelete = (housesToDelete) => {};
+  const HandleDelete = () => {
+    let housesAfterDelete = [];
+    if (selectAll) {
+      houses = [];
+      setSelectAll(false);
+      isCheck.choises = [];
+    }
+    for (let index = 0; index < isCheck.choises.length; index++) {
+      housesAfterDelete = houses.filter(
+        (house) => house.id !== isCheck.choises[index]
+      );
+    }
+
+    updateHouses(housesAfterDelete);
+  };
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
     setIsCheck({ choises: list.map((li) => li.id) });
@@ -27,6 +44,7 @@ export default function MyHouses() {
     const { id, checked } = e.target;
     const { choises: reponses } = isCheck;
     console.log(id, "is", checked);
+
     if (checked) {
       setIsCheck({ choises: [...reponses, id] });
     } else {

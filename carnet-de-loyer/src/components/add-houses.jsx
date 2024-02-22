@@ -1,9 +1,6 @@
 import { useForm } from "react-hook-form";
-import Header from "./header";
-import Options from "./options";
 import { useState } from "react";
 import RegisterButton from "./registre-button";
-import { Link } from "react-router-dom";
 import { useRentBooklet } from "./contexts/context";
 
 export default function AddHouses({ HandleAddHouses }) {
@@ -16,12 +13,18 @@ export default function AddHouses({ HandleAddHouses }) {
     type: "",
     composition: "",
   });
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ defaultValues: formData });
 
   function onSubmit(newHouse) {
     console.log(newHouse);
-    const databuild = BuildNewHouseObject(newHouse);
-    console.log(databuild);
-    updateHouses([...houses, databuild]);
+    const houseObjectBuild = BuildNewHouseObject(newHouse);
+    updateHouses([...houses, houseObjectBuild]);
+    reset();
   }
 
   function BuildNewHouseObject(newHouse) {
@@ -37,11 +40,6 @@ export default function AddHouses({ HandleAddHouses }) {
     };
     return newHouseObject;
   }
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ defaultValues: formData });
 
   return (
     <>

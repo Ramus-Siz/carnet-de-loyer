@@ -37,10 +37,10 @@
   "tenants": [
     {
       "id": "1",
-      "nom": "Junior",
+      "name": "Junior",
       "prenom": "Asosa",
       "birthday": "10/02/1997",
-      "sexe": "Masculin",
+      "genre": "Masculin",
       "maison": "Luvua 10",
       "phoneNumber": "+243970283628",
       "contrat": {
@@ -51,10 +51,10 @@
     },
     {
       "id": "2",
-      "nom": "Chadrack",
+      "name": "Chadrack",
       "prenom": "Mbala",
       "birthday": "17/02/1997",
-      "sexe": "Masculin",
+      "genre": "Masculin",
       "maison": "Kasai 1",
       "phoneNumber": "+243970283628",
       "contrat": {
@@ -65,10 +65,10 @@
     },
     {
       "id": "3",
-      "nom": "Isaac",
+      "name": "Isaac",
       "prenom": "Mayela",
       "birthday": "11/02/1997",
-      "sexe": "Masculin",
+      "genre": "Masculin",
       "maison": "Boende 32",
       "phoneNumber": "+243970283628",
       "contrat": {
