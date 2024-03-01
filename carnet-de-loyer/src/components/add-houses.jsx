@@ -30,12 +30,18 @@ export default function AddHouses({ HandleAddHouses }) {
 
   function BuildNewHouseObject(newHouse) {
     let keyOftheLastHouse = [];
-
-    for (const house of houses) {
-      keyOftheLastHouse.push(parseInt(house.id));
+    let keyOfHouse;
+    console.log(keyOftheLastHouse.length);
+    if (houses.length == 0) {
+      keyOfHouse = 1;
+      console.log(keyOfHouse);
+    } else {
+      for (const house of houses) {
+        keyOftheLastHouse.push(parseInt(house.id));
+      }
+      console.log(keyOftheLastHouse);
+      keyOfHouse = Math.max(...keyOftheLastHouse) + 1;
     }
-    console.log(keyOftheLastHouse);
-    let keyOfHouse = Math.max(...keyOftheLastHouse) + 1;
 
     const newHouseObject = {
       id: `${keyOfHouse}`,
@@ -67,7 +73,7 @@ export default function AddHouses({ HandleAddHouses }) {
             id=""
             className=" p-2 bg-[#F7FAFD] border-none outline-none pl-3"
             placeholder="Ex:Boende 32"
-            {...register("libele", { require: "Obligatoire" })}
+            {...register("libele", { required: "Obligatoire" })}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -78,7 +84,7 @@ export default function AddHouses({ HandleAddHouses }) {
             id=""
             className=" p-2 bg-[#F7FAFD] border-none outline-none pl-3"
             placeholder="Ex:32, Bocage, Joli-parck,Ngaliema"
-            {...register("adress", { require: "Obligatoire" })}
+            {...register("adress", { required: "Obligatoire" })}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -86,7 +92,7 @@ export default function AddHouses({ HandleAddHouses }) {
 
           <select
             name="type"
-            {...register("type")}
+            {...register("type", { required: "Obligatoire" })}
             className="border-none outline-none p-2  bg-[#F7FAFD] "
           >
             <option value="Maison Basse">Maison Basse</option>
@@ -99,7 +105,7 @@ export default function AddHouses({ HandleAddHouses }) {
 
           <select
             name="composition"
-            {...register("composition")}
+            {...register("composition", { required: "Obligatoire" })}
             className="border-none outline-none p-2  bg-[#F7FAFD] "
           >
             <option value=" t1-c">T1-c</option>
@@ -115,7 +121,7 @@ export default function AddHouses({ HandleAddHouses }) {
             id=""
             className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
             placeholder="Brève description ... "
-            {...register("description", { require: "Obligatoire" })}
+            {...register("description", { required: "Obligatoire" })}
           />
         </div>
         <RegisterButton />

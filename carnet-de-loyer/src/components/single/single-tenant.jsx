@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useRentBooklet } from "../contexts/context";
 import Header from "../header";
+import { delay, motion } from "framer-motion";
 
 export default function SinglePreviewTenants() {
   const listTenants = useRentBooklet((state) => state.tenants);
@@ -11,12 +12,16 @@ export default function SinglePreviewTenants() {
     <>
       <Header />
       <div className="flex flex-col gap-8 p-8">
-        <div className="flex justify-between items-center gap-8 p-5 bg-[#F7FAFD] rounded-xl">
+        <motion.div
+          className="flex justify-between items-center text-[#b3b5b7] gap-8 p-5 border  rounded-xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           <div className="flex gap-4 items-center ">
             <p>{tenants.name} est en ordre</p>
             <ion-icon name="checkmark-outline"></ion-icon>
           </div>
-          <div className="flex gap-8">
+          <motion.div className="flex gap-8">
             <button className="  flex items-center rounded-3xl ">
               <span className="text-orange-600 text-2xl">
                 <ion-icon name="create-outline"></ion-icon>
@@ -29,10 +34,16 @@ export default function SinglePreviewTenants() {
               </span>
               Telecharger le Contrat
             </button>
-          </div>
-        </div>
-        <div className=" flex justify-between gap-8 ">
-          <div className=" flex flex-col gap-10 w-[50%] h-[400px] bg-[#283342]  rounded-3xl p-8 ">
+          </motion.div>
+        </motion.div>
+        <motion.div className=" flex justify-between gap-8 ">
+          <motion.div
+            className=" flex flex-col gap-10 w-[50%] h-[400px] bg-[#283342]  rounded-3xl p-8 border border-[#b3b5b7]"
+            initial={{ opacity: 0 }}
+            whileHover={{ scale: 0.9 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+          >
             <div className="flex justify-between items-center p-2 rounded-xl border-solid border text-[#acaeb0] border-[#6e6f70]">
               <div className="flex gap-4">
                 <h2 className="text-xl">{tenants.name}</h2>
@@ -44,77 +55,83 @@ export default function SinglePreviewTenants() {
             </div>
             <table className=" border-collapse border border-[#b3b5b7] rounded-3xl text-[#b3b5b7]">
               <tr>
-                <td scope="col" className=" p-4 border border-[#3d3e3f] ...">
+                <td scope="col" className=" p-4 border border-[#b3b5b7] ...">
                   Genre :
                 </td>
-                <td scope="col" className=" p-4 border border-[#3d3e3f] ...">
+                <td scope="col" className=" p-4 border border-[#b3b5b7] ...">
                   {tenants.genre}
                 </td>
               </tr>
 
               <tr className="">
-                <td className=" p-4 border border-[#3d3e3f] ...">
+                <td className=" p-4 border border-[#b3b5b7] ...">
                   Naissance :
                 </td>
-                <td className="p-4 border border-[#3d3e3f] ...">
+                <td className="p-4 border border-[#b3b5b7] ...">
                   {tenants.birthday}
                 </td>
               </tr>
               <tr className="">
-                <td className=" p-4 border border-[#3d3e3f] ...">ID :</td>
-                <td className="p-4 border border-[#3d3e3f] ...">
+                <td className=" p-4 border border-[#b3b5b7] ...">ID :</td>
+                <td className="p-4 border border-[#b3b5b7] ...">
                   {tenants.id}
                 </td>
               </tr>
               <tr className="">
-                <td className=" p-4 border border-[#3d3e3f] ...">Tél :</td>
-                <td className="p-4 border border-[#3d3e3f] ...">
+                <td className=" p-4 border border-[#b3b5b7] ...">Tél :</td>
+                <td className="p-4 border border-[#b3b5b7] ...">
                   {tenants.phoneNumber}
                 </td>
               </tr>
             </table>
-          </div>
+          </motion.div>
 
-          <div className="flex gap-10 flex-col  w-[50%] h-[400px] text-[#d6d8da]  bg-fuchsia-700  rounded-3xl p-8">
+          <motion.div
+            className="flex gap-10 flex-col  w-[50%] h-[400px] text-[#d6d8da]  bg-fuchsia-700  rounded-3xl p-8"
+            initial={{ opacity: 0 }}
+            whileHover={{ scale: 0.9 }}
+            animate={{ opacity: 1 }}
+            transition={{ delayChildren: 0.4 }}
+          >
             <div className="flex justify-between items-center p-2 rounded-xl border-solid border border-[#afb0b1]">
               <h2 className="text-xl">Contrat</h2>
               <span className="text-xl hover:text-white">
                 <ion-icon name="create-outline"></ion-icon>
               </span>
             </div>
-            <table className=" border-collapse border border-[#b3b5b7] rounded-3xl">
+            <table className=" border-collapse border border-[#afb0b1] rounded-3xl">
               <tr>
-                <td scope="col" className=" p-4 border border-[#b3b5b7] ...">
+                <td scope="col" className=" p-4 border border-[#afb0b1] ...">
                   Maison :
                 </td>
-                <td scope="col" className=" p-4 border border-[#b3b5b7] ...">
+                <td scope="col" className=" p-4 border border-[#afb0b1] ...">
                   {tenants.maison}
                 </td>
               </tr>
 
               <tr className="">
-                <td className=" p-4 border border-[#b3b5b7] ...">Début :</td>
-                <td className="p-4 border border-[#b3b5b7] ...">
+                <td className=" p-4 border border-[#afb0b1] ...">Début :</td>
+                <td className="p-4 border border-[#afb0b1] ...">
                   {tenants.contrat.start}
                 </td>
               </tr>
               <tr className="">
-                <td className=" p-4 border border-[#b3b5b7] ...">Garantie :</td>
-                <td className="p-4 border border-[#b3b5b7] ...">
+                <td className=" p-4 border border-[#afb0b1] ...">Garantie :</td>
+                <td className="p-4 border border-[#afb0b1] ...">
                   {tenants.contrat.guarantee}
                 </td>
               </tr>
               <tr className="">
-                <td className=" p-4 border border-[#b3b5b7] ...">
+                <td className=" p-4 border border-[#afb0b1] ...">
                   Prix loyer/mois :
                 </td>
-                <td className="p-4 border border-[#b3b5b7] ...">
+                <td className="p-4 border border-[#afb0b1] ...">
                   {tenants.contrat.rentPrice}
                 </td>
               </tr>
             </table>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import allHouses from "../utils/list-of-houses";
 import RegisterButton from "./registre-button";
 import { useRentBooklet } from "./contexts/context";
 
@@ -17,6 +16,7 @@ export default function AddTenants({ HandleAddTenants }) {
   });
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -28,11 +28,24 @@ export default function AddTenants({ HandleAddTenants }) {
     const tenantObjetBuild = BuildNewTenantObject(newTenant);
     console.log(tenantObjetBuild);
     updateTenants([...tenants, tenantObjetBuild]);
+    reset();
   }
 
   function BuildNewTenantObject(newTenant) {
-    let keyOftheLasTenant = tenants.length;
-    let keyOfTenants = keyOftheLasTenant + 1;
+    let keyOftheLasTenant = [];
+    let keyOfTenants;
+    // console.log(keyOftheLasTenant.length);
+    if (tenants.length == 0) {
+      keyOfTenants = 1;
+      console.log(keyOfTenants);
+    } else {
+      for (const tenant of tenants) {
+        keyOftheLasTenant.push(parseInt(tenant.id));
+      }
+      // console.log(keyOftheLasTenant);
+      keyOfTenants = Math.max(...keyOftheLasTenant) + 1;
+    }
+
     const newTenantsObject = {
       id: `${keyOfTenants}`,
       name: newTenant.name,
@@ -168,6 +181,9 @@ export default function AddTenants({ HandleAddTenants }) {
               {...register("maison")}
               className="border-none outline-none p-2 pr-3 rounded  bg-[#F7FAFD] "
             >
+              <option value="choix" className="text-[#a1a9b4]">
+                Choisir
+              </option>
               {catalog}
             </select>
           </div>
@@ -182,13 +198,16 @@ export default function AddTenants({ HandleAddTenants }) {
               {...register("guarantee", { require: "Obligatoire" })}
             />
           </div>
+        </div>
+
+        <div className="flex justify-between items-center">
           <div className="flex flex-col gap-2">
             <label>Prix</label>
             <input
               type="number"
               name="rentPrice"
               id=""
-              className="p-2 bg-[#F7FAFD] border-none outline-none pl-3 w-[300pxpx]"
+              className="p-2 bg-[#F7FAFD] border-none outline-none pl-3  w-[80pxpx]"
               placeholder="1"
               {...register("rentPrice", { require: "Obligatoire" })}
             />

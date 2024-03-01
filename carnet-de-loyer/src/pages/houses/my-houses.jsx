@@ -15,9 +15,6 @@ export default function MyHouses() {
   const HandleAddData = () => {
     setIsTrueToAddData(!isTrueToAddData);
   };
-  const HandleresetAddData = () => {
-    setIsTrueToAddData(false);
-  };
 
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
@@ -32,15 +29,18 @@ export default function MyHouses() {
       houses = [];
       setSelectAll(false);
       isCheck.choises = [];
-    }
-    for (let index = 0; index < isCheck.choises.length; index++) {
-      housesAfterDelete = houses.filter(
-        (house) => house.id !== isCheck.choises[index]
-      );
-    }
+      updateHouses(housesAfterDelete);
+    } else {
+      for (let index = 0; index < isCheck.choises.length; index++) {
+        housesAfterDelete = houses.filter(
+          (house) => house.id !== isCheck.choises[index]
+        );
+        console.log(housesAfterDelete);
+        updateHouses(housesAfterDelete);
 
-    updateHouses(housesAfterDelete);
-    isCheck.choises = [];
+        isCheck.choises = [];
+      }
+    }
   };
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
@@ -67,7 +67,7 @@ export default function MyHouses() {
   const catalog = list.map(({ id, libele }) => {
     return (
       <div key={id}>
-        <div className="flex gap-4 p-3 justify-between bg-[#F7FAFD] border-white border-solid border-2 w-full hover:scale-95 hover:bg-orange-200">
+        <div className="flex gap-4 p-3 justify-between text-[#b3b5b7]  shadow-xl  w-full hover:scale-95 ">
           <div className="flex gap-4">
             <CheckBox
               name={libele}
@@ -80,7 +80,7 @@ export default function MyHouses() {
             {libele}
           </div>
           <Link to={`/my-houses/${id}`}>
-            <span className="justify-self-end pr-2">
+            <span className="justify-self-end pr-2 text-fuchsia-700">
               <ion-icon name="eye-outline"></ion-icon>
             </span>
           </Link>

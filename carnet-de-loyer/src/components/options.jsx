@@ -21,7 +21,7 @@ export default function Options({
   return (
     <>
       <div className="p-8">
-        <div className="flex gap-4 bg-[#E3EBF3] p-3 items-center">
+        <div className="flex gap-4  p-3 items-center">
           <CheckBox
             type="checkbox"
             id="all"
@@ -29,15 +29,15 @@ export default function Options({
             isChecked={selectAll}
             handleClick={handleSelectAll}
           />
-          Tout selectionner
+          <span className="text-[#b3b5b7]">Tout selectionner</span>
           <button
-            className="flex items-center flex items-center text-white rounded-3xl p-2 pl-4 pr-4 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
+            className="flex items-center flex items-center text-white rounded-3xl p-2 pl-8 pr-8  bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleDelete}
           >
             <ion-icon name="remove-outline"></ion-icon> Suprimer
           </button>
           <button
-            className="flex items-center bg-[#283342] text-white rounded-3xl p-2 pl-4 pr-4 bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ..."
+            className="flex items-center bg-fuchsia-700 text-white rounded-3xl p-2 pl-8 pr-8  hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleAddData}
           >
             <ion-icon name="add-outline"></ion-icon>Ajouter {user}
@@ -46,11 +46,11 @@ export default function Options({
         <div className="pt-8">{catalog}</div>
       </div>
       {isTrueToAddData && user === "une maison" ? (
-        <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-1000">
+        <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500">
           <AddHouses HandleAddHouses={HandleAddData} />
         </div>
       ) : (
-        <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-1000 translate-x-full">
+        <div className="h-screen w-[40%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 translate-x-full">
           <AddHouses HandleAddHouses={HandleAddData} />
         </div>
       )}

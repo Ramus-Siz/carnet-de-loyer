@@ -1,12 +1,14 @@
 import Header from "../components/header";
 import { useEffect, useState } from "react";
 import CheckBox from "../components/checkbox";
-import allHouses from "../utils/list-of-houses";
 import Options from "../components/options";
 import { Link } from "react-router-dom";
 import { useRentBooklet } from "../components/contexts/context";
 export default function MyTenants() {
-  const tenants = useRentBooklet((state) => state.tenants);
+  let tenants = useRentBooklet((state) => state.tenants);
+  const updateTenants = useRentBooklet((state) => state.updateTenants);
+
+  const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
@@ -14,7 +16,29 @@ export default function MyTenants() {
   });
   const [list, setList] = useState([]);
 
-  const HandleDelete = (housesToDelete) => {};
+  const HandleAddData = () => {
+    setIsTrueToAddData(!isTrueToAddData);
+  };
+  const HandleDelete = () => {
+    let tenantsAfterDelete = [];
+    if (selectAll) {
+      tenants = [];
+      setSelectAll(false);
+      updateTenants(tenantsAfterDelete);
+
+      isCheck.choises = [];
+    } else {
+      for (let index = 0; index < isCheck.choises.length; index++) {
+        tenantsAfterDelete = tenants.filter(
+          (tenant) => tenant.id !== isCheck.choises[index]
+        );
+        console.log(tenantsAfterDelete);
+        updateTenants(tenantsAfterDelete);
+        isCheck.choises = [];
+      }
+    }
+  };
+
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
     setIsCheck({ choises: list.map((li) => li.id) });
@@ -39,7 +63,7 @@ export default function MyTenants() {
   const catalog = list.map(({ id, name, prenom }) => {
     return (
       <div key={id}>
-        <div className="flex gap-4 p-3 justify-between bg-[#F7FAFD] border-white border-solid border-2 w-full hover:scale-95 hover:bg-orange-200">
+        <div className="flex gap-4 p-3 justify-between shadow-xl text-[#b3b5b7]  w-full hover:scale-95 ">
           <div className="flex gap-4">
             <CheckBox
               name={name}
@@ -52,7 +76,7 @@ export default function MyTenants() {
             {`${name} ${prenom}`}
           </div>
           <Link to={`/my-tenants/${id}`}>
-            <span className="justify-self-end pr-2">
+            <span className="justify-self-end pr-2 text-fuchsia-700">
               <ion-icon name="eye-outline"></ion-icon>
             </span>
           </Link>
@@ -75,6 +99,8 @@ export default function MyTenants() {
         isCheck={isCheck}
         catalog={catalog}
         user="un / une locataire"
+        HandleAddData={HandleAddData}
+        isTrueToAddData={isTrueToAddData}
       />
     </>
   );
