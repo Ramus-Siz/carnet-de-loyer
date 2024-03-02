@@ -31,16 +31,22 @@ export default function Options({
           />
           <span className="text-[#b3b5b7]">Tout selectionner</span>
           <button
-            className="flex items-center flex items-center text-white rounded-3xl p-2 pl-8 pr-8  bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
+            className="flex items-center flex items-center text-white rounded-3xl  p-2 pr-8  bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleDelete}
           >
-            <ion-icon name="remove-outline"></ion-icon> Suprimer
+            <span className=" bg-white p-2 text-fuchsia-700 mr-4 rounded-full">
+              {/* <ion-icon name="remove-outline"></ion-icon> */}
+            </span>
+            Suprimer
           </button>
           <button
-            className="flex items-center bg-fuchsia-700 text-white rounded-3xl p-2 pl-8 pr-8  hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
+            className="flex items-center bg-fuchsia-700 text-white rounded-3xl  p-2 pr-8 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
             onClick={HandleAddData}
           >
-            <ion-icon name="add-outline"></ion-icon>Ajouter {user}
+            <span className=" bg-white p-2 text-fuchsia-700 mr-4 rounded-full">
+              {/* <ion-icon name="add-outline"></ion-icon> */}
+            </span>
+            Ajouter {user}
           </button>
         </div>
         <div className="pt-8">{catalog}</div>

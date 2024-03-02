@@ -1,26 +1,25 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navigation() {
   const [liActive, setLiActive] = useState(false);
   return (
     <>
-      <nav className="text-[#b3b5b7] mt-4">
+      <nav className="text-[#b3b5b7] ">
         <ul className="flex flex-col gap-2 text-lg">
-          <li className="active:text-white">
+          <li className="">
             <NavLink to="/home">
               <span className="flex gap-3  items-center p-4 hover:bg-[#b3b5b7] hover:text-white ">
-                <img
-                  src="/images/icon/dashboard.png"
-                  alt="icon-home"
-                  className=""
-                />
-                <h3 className="">Dashboard</h3>
+                <ion-icon name="home-outline"></ion-icon>
+                Dashboard
               </span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="#" onClick={() => setLiActive((prev) => !prev)}>
+            <div
+              onClick={() => setLiActive((prev) => !prev)}
+              className="cursor-pointer"
+            >
               <div className="flex gap-3 items-center p-3 hover:bg-[#b3b5b7] hover:text-white ">
                 <ion-icon name="duplicate-outline"></ion-icon>
                 <div className="flex justify-between pr-3 w-full items-center ">
@@ -32,7 +31,7 @@ export default function Navigation() {
                   )}
                 </div>
               </div>
-            </NavLink>
+            </div>
           </li>
 
           {liActive && (
@@ -78,8 +77,15 @@ export default function Navigation() {
           <li>
             <NavLink to="/settings">
               <div className="flex gap-3 items-center p-3 hover:bg-[#b3b5b7] hover:text-white">
-                <img src="/images/icon/config.png" alt="config-icon" />
-                <h3>Paramètres</h3>
+                <ion-icon name="settings-outline"></ion-icon>
+                <div className="flex justify-between pr-3 w-full items-center">
+                  <h3>Paramètres</h3>
+                  {liActive ? (
+                    <ion-icon name="chevron-up-outline "></ion-icon>
+                  ) : (
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                  )}
+                </div>
               </div>
             </NavLink>
           </li>

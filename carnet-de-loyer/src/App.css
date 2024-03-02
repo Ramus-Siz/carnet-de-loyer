@@ -14,5 +14,9 @@
   justify-content: center;
   height: 100vh;
   width: 100%;
-  background-color: #283342 rgba(18, 17, 17, 0.204);
+  background-color: #283342 #474747 rgba(18, 17, 17, 0.204);
+}
+
+.active {
+  color: rgb(227, 227, 234);
 }
