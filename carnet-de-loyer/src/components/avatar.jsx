@@ -8,7 +8,7 @@ export default function Avatar() {
             alt=""
             className="rounded-[50%] w-[3rem]"
           />
-          <div className="flex flex-col gap-0 text-lg leading-5">
+          <div className="flex flex-col gap-0 text-lg  leading-5">
             <p className="text-[#b3b5b7] ">Rafiki </p>
             <p className="text-[#b3b5b7] ">Richard</p>
           </div>

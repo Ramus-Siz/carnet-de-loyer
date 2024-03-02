@@ -18,6 +18,10 @@ import Tenants from "./components/tenants.jsx";
 import TenantPreview from "./components/preview/tenants-preview.jsx";
 import SinglePreviewHouses from "./components/single/single-houses.jsx";
 import SinglePreviewTenants from "./components/single/single-tenant.jsx";
+import MyAgreement from "./pages/tenantsPages/my-agreement.jsx";
+import MyRentBook from "./pages/tenantsPages/my-rent-booklet.jsx";
+import Notifications from "./pages/tenantsPages/notifications.jsx";
+import TenantsLayout from "./components/tenantsDashboard/tenantsLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +90,35 @@ const router = createBrowserRouter([
       {
         path: "/locations",
         element: <Locations />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <TenantsLayout />,
+    children: [
+      {
+        path: "/",
+        element: <MyRentBook />,
+      },
+
+      // {
+      //   path: "/my-houses/:id",
+      //   element: <HousesPreview />,
+      //   Houses,
+      // },
+      {
+        path: "/my-agreement",
+        element: <MyAgreement />,
+      },
+
+      {
+        path: "/my-rent-book",
+        element: <MyRentBook />,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
       },
     ],
   },

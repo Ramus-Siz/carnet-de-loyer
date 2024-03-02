@@ -76,10 +76,10 @@ export default function Navigation() {
 
           <li>
             <NavLink to="/settings">
-              <div className="flex gap-3 items-center p-3 hover:bg-[#b3b5b7] hover:text-white">
+              <div className="flex gap-3 items-center  p-3 hover:bg-[#b3b5b7] hover:text-white">
                 <ion-icon name="settings-outline"></ion-icon>
-                <div className="flex justify-between pr-3 w-full items-center">
-                  <h3>Paramètres</h3>
+                <div className="flex justify-between pr-3 w-full items-center ">
+                  <h3 className="">Paramètres</h3>
                   {liActive ? (
                     <ion-icon name="chevron-up-outline "></ion-icon>
                   ) : (
