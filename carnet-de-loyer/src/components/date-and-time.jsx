@@ -12,11 +12,11 @@ export default function DateAndTime() {
 
   return (
     <>
-      <div className="text-sm">
+      <div className="text-sm ">
         <p className="text-orange-600 text-right">Salutations</p>
-        <p>{`${datetime.date}/${datetime.month + 1}/${datetime.year} | ${
-          datetime.hour
-        }h : ${datetime.minute}`}</p>
+        <p className="text-[#b3b5b7]">{`${datetime.date}/${
+          datetime.month + 1
+        }/${datetime.year} | ${datetime.hour}h : ${datetime.minute}`}</p>
       </div>
     </>
   );

@@ -76,11 +76,14 @@ export default function AddTenants({ HandleAddTenants }) {
   }, [houses]);
   return (
     <>
-      <p className="bg-[#283342] text-white p-2 pl-4 ">
-        <button onClick={HandleAddTenants} className="text-orange-600">
-          <ion-icon name="arrow-forward-outline"></ion-icon>
-        </button>
-      </p>
+      <div className="flex items-center h-20 bg-[#283342]  border-b-8 border-[#F7FAFD] p-4">
+        <p className="bg-[#283342] text-white pl-4 ">
+          <button onClick={HandleAddTenants} className="text-orange-600">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </button>
+        </p>
+      </div>
+
       <form
         className=" flex flex-col gap-5 p-12"
         onSubmit={handleSubmit(onSubmit)}

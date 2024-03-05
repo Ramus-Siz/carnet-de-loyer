@@ -10,9 +10,7 @@ export default function Sidebar() {
       <div className="">
         <Navigation />
       </div>
-      <div className="fixed bottom-0">
-        <Avatar />
-      </div>
+      <Avatar />
     </>
   );
 }
