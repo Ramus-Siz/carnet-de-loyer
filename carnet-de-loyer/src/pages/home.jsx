@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const navigation = useNavigate();
+
   return (
     <>
       <div className="">
