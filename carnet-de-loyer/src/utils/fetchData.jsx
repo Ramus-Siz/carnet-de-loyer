@@ -1,14 +1,21 @@
 import axios from "axios";
 
-const FetchData = async () => {
+export const FetchData = async () => {
   const { data } = await axios.get(
-    `https://tenents-management-api.onrender.com/data`
+    `https://tenents-management-api.onrender.com/data/my-houses`
   );
   const housesAndTenants = data;
 
   return housesAndTenants;
 };
 
-// let housesAndTenants = await getData();
+export const FetchDataTenants = async () => {
+  const { data } = await axios.get(
+    `https://tenents-management-api.onrender.com/data/my-tenants`
+  );
+  const tenants = data;
 
-export default FetchData;
+  return tenants;
+};
+
+// let housesAndTenants = await getData();
