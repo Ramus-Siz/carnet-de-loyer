@@ -22,6 +22,7 @@ import MyAgreement from "./pages/tenantsPages/my-agreement.jsx";
 import MyRentBook from "./pages/tenantsPages/my-rent-booklet.jsx";
 import Notifications from "./pages/tenantsPages/notifications.jsx";
 import TenantsLayout from "./components/tenantsDashboard/tenantsLayout.jsx";
+import MoreInfosOfLandLord from "./pages/more-infos-landlord.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/new-account",
     element: <NewAccount />,
+  },
+  {
+    path: "/signup/more-infos",
+    element: <MoreInfosOfLandLord />,
   },
 
   {

@@ -24,22 +24,23 @@ export default function MyHouses() {
   const [list, setList] = useState([]);
 
   const HandleDelete = () => {
-    let housesAfterDelete = [];
+    let housesAfterDelete = [...houses];
     if (selectAll) {
       houses = [];
       setSelectAll(false);
       isCheck.choises = [];
+      housesAfterDelete = [];
       updateHouses(housesAfterDelete);
     } else {
       for (let index = 0; index < isCheck.choises.length; index++) {
-        housesAfterDelete = houses.filter(
+        housesAfterDelete = housesAfterDelete.filter(
           (house) => house.id !== isCheck.choises[index]
         );
-        console.log(housesAfterDelete);
-        updateHouses(housesAfterDelete);
-
-        isCheck.choises = [];
       }
+      console.log(housesAfterDelete);
+      updateHouses(housesAfterDelete);
+
+      isCheck.choises = [];
     }
   };
   const handleSelectAll = (e) => {
@@ -67,7 +68,7 @@ export default function MyHouses() {
   const catalog = list.map(({ id, libele }) => {
     return (
       <div key={id}>
-        <div className="flex gap-4 p-3 justify-between text-[#b3b5b7]  shadow-xl  w-full hover:scale-95 ">
+        <div className="flex gap-4 p-3 justify-between text-[#b3b5b7] pl-8 shadow-xl  w-full hover:scale-95 ">
           <div className="flex gap-4">
             <CheckBox
               name={libele}
@@ -95,8 +96,9 @@ export default function MyHouses() {
 
   return (
     <>
-      <div>
+      <div className="">
         <Header />
+
         <Options
           selectAll={selectAll}
           handleSelectAll={handleSelectAll}

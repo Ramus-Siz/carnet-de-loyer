@@ -24,8 +24,20 @@ export default function AddHouses({ HandleAddHouses }) {
   function onSubmit(newHouse) {
     console.log(newHouse);
     const houseObjectBuild = BuildNewHouseObject(newHouse);
-    updateHouses([...houses, houseObjectBuild]);
+    handleClickButtonEnregister(houseObjectBuild);
+  }
+
+  async function handleClickButtonEnregister(houseObjectBuild) {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/my-houses",
+        houseObjectBuild
+      );
+    } catch (error) {
+      console.log(error);
+    }
     reset();
+    updateHouses([...houses, houseObjectBuild]);
   }
 
   function BuildNewHouseObject(newHouse) {

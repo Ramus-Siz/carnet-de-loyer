@@ -20,22 +20,22 @@ export default function MyTenants() {
     setIsTrueToAddData(!isTrueToAddData);
   };
   const HandleDelete = () => {
-    let tenantsAfterDelete = [];
+    let tenantsAfterDelete = [...tenants];
     if (selectAll) {
       tenants = [];
       setSelectAll(false);
+      tenantsAfterDelete = [];
       updateTenants(tenantsAfterDelete);
-
       isCheck.choises = [];
     } else {
       for (let index = 0; index < isCheck.choises.length; index++) {
-        tenantsAfterDelete = tenants.filter(
+        tenantsAfterDelete = tenantsAfterDelete.filter(
           (tenant) => tenant.id !== isCheck.choises[index]
         );
-        console.log(tenantsAfterDelete);
-        updateTenants(tenantsAfterDelete);
-        isCheck.choises = [];
       }
+      console.log(tenantsAfterDelete);
+      updateTenants(tenantsAfterDelete);
+      isCheck.choises = [];
     }
   };
 
