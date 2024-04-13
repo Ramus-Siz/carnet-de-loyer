@@ -93,7 +93,6 @@ export default function MyHouses() {
   });
   //re set the list of house
   useEffect(() => {
-    fetchDataFromAPI();
     setList(houses);
   }, [houses]);
 

@@ -87,7 +87,6 @@ export default function MyTenants() {
   });
 
   useEffect(() => {
-    fetchDataFromAPI();
     setList(tenants);
   }, [tenants]);
 
