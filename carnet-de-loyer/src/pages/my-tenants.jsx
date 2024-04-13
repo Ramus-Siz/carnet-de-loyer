@@ -7,6 +7,7 @@ import { useRentBooklet } from "../components/contexts/context";
 export default function MyTenants() {
   let tenants = useRentBooklet((state) => state.tenants);
   const updateTenants = useRentBooklet((state) => state.updateTenants);
+  const fetchDataFromAPI = useRentBooklet((state) => state.fetchDataFromAPI);
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -86,6 +87,7 @@ export default function MyTenants() {
   });
 
   useEffect(() => {
+    fetchDataFromAPI();
     setList(tenants);
   }, [tenants]);
 

@@ -8,6 +8,8 @@ import { useRentBooklet } from "../../components/contexts/context";
 export default function MyHouses() {
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
+  const fetchDataFromAPI = useRentBooklet((state) => state.fetchDataFromAPI);
+
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
   console.log("Mhouses: ", houses);
@@ -91,6 +93,7 @@ export default function MyHouses() {
   });
   //re set the list of house
   useEffect(() => {
+    fetchDataFromAPI();
     setList(houses);
   }, [houses]);
 
