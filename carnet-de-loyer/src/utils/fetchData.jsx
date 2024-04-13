@@ -1,21 +1,21 @@
 import axios from "axios";
 
-export const FetchData = async () => {
-  const { data } = await axios.get(
-    `https://tenents-management-api.onrender.com/data/my-houses`
-  );
-  const housesAndTenants = data;
+// export const FetchData = async () => {
+//   const { data } = await axios.get(
+//     `https://tenents-management-api.onrender.com/data/my-houses`
+//   );
+//   const housesAndTenants = data;
 
-  return housesAndTenants;
-};
+//   return housesAndTenants;
+// };
 
-export const FetchDataTenants = async () => {
-  const { data } = await axios.get(
-    `https://tenents-management-api.onrender.com/data/my-tenants`
-  );
-  const tenants = data;
+// export const FetchDataTenants = async () => {
+//   const { data } = await axios.get(
+//     `https://tenents-management-api.onrender.com/data/my-tenants`
+//   );
+//   const tenants = data;
 
-  return tenants;
-};
+//   return tenants;
+// };
 
 // let housesAndTenants = await getData();
