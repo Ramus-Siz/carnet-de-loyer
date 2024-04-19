@@ -81,7 +81,6 @@ export default function MyRentBook() {
                     <span className="text-5xl">0</span>
                     <span className="flex flex-col">
                       <span className="text-xl">Notifications</span>
-                      <span className="text-xs">voir</span>
                     </span>
                   </div>
                 </div>
