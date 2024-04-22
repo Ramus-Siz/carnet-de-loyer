@@ -19,27 +19,35 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <h3 className="pr-12 p-5 text-xl bg-gradient-to-r from-[#283342] to-fuchsia-500 bg-clip-text text-transparent leading-tight text-end">
+            <h3 className="pr-12 p-5 text-xl  leading-tight text-end text-[#edeeef]">
               Mes biens
             </h3>
-            <div className="flex  h-3/4 justify-around items-center p-5">
+            <div className="flex  h-3/4 justify-around items-center p-5 ">
               <div className="text-5xl text-white border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="home-outline"></ion-icon>
               </div>
-              <div className="flex flex-col text-xl bg-gradient-to-r from-[#c299d0] to-[#283342] bg-clip-text text-transparent">
+              <div className="flex flex-col text-xl text-white">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">7</span>
+                  <span className="text-5xl font-semibold text-[#edeeef]">
+                    7
+                  </span>
                   <span className="flex flex-col">
-                    <span className="text-xl text-[#283342]">Maisons</span>
-                    <span className="text-xs">Basses / Appartements</span>
+                    <span className="text-xl">Maisons</span>
+                    <span className="text-xs text-[#283342]">
+                      Basses / Appartements
+                    </span>
                   </span>
                 </div>
                 <div className="">
                   <div className="flex items-center gap-2">
-                    <span className="text-5xl font-semibold">8</span>
+                    <span className="text-5xl font-semibold text-[#edeeef]">
+                      8
+                    </span>
                     <span className="flex flex-col">
-                      <span className="text-xl text-[#283342]">Boutiques</span>
-                      <span className="text-xs">Commerce et autres</span>
+                      <span className="text-xl ">Boutiques</span>
+                      <span className="text-xs text-[#283342]">
+                        Commerce et autres
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -53,27 +61,31 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <h3 className="pr-12 text-xl p-5 bg-gradient-to-r from-[#283342] to-fuchsia-500 bg-clip-text text-transparent leading-tight  text-end ">
+            <h3 className="pr-12 text-xl p-5 text-[#edeeef] leading-tight  text-end ">
               Locataires
             </h3>
-            <div className="flex  h-3/4 justify-around items-center p-5">
+            <div className="flex  h-3/4 justify-around items-center p-5 text-[#edeeef]">
               <div className="text-5xl text-white border-solid border-white border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="person-outline"></ion-icon>
               </div>
-              <div className="flex flex-col text-xl bg-gradient-to-r from-[#ff69b4] to-[#283342] bg-clip-text text-transparent">
+              <div className="flex flex-col text-xl ">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">4</span>
+                  <span className="text-5xl font-semibold text-[#edeeef]">
+                    4
+                  </span>
                   <span className="flex flex-col">
-                    <span className="text-xl text-[#283342]">Occupants</span>
-                    <span className="text-xs">Maisons</span>
+                    <span className="text-xl ">Occupants</span>
+                    <span className="text-xs text-[#283342]">Maisons</span>
                   </span>
                 </div>
                 <div className="">
                   <div className="flex items-center gap-3">
-                    <span className="text-5xl font-semibold">5</span>
+                    <span className="text-5xl font-semibold text-[#edeeef]">
+                      5
+                    </span>
                     <span className="flex flex-col">
-                      <span className="text-xl text-[#283342]">Occupants</span>
-                      <span className="text-xs">Boutiques</span>
+                      <span className="text-xl ">Occupants</span>
+                      <span className="text-xs text-[#283342]">Boutiques</span>
                     </span>
                   </div>
                 </div>
@@ -87,27 +99,31 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            <h3 className=" p-5 pr-12 text-xl bg-gradient-to-r from-[#283342] to-fuchsia-500 bg-clip-text text-transparent leading-tight  text-end ">
+            <h3 className=" p-5 pr-12 text-xl text-[#edeeef] leading-tight  text-end ">
               Locations
             </h3>
             <div className="flex  h-3/4 justify-around items-center p-5">
               <div className="text-5xl text-white border-solid border-white border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="key-outline"></ion-icon>
               </div>
-              <div className="flex flex-col text-xl bg-gradient-to-r from-[#c299d0] to-[#283342] bg-clip-text text-transparent">
+              <div className="flex flex-col text-xl text-[#edeeef]">
                 <div className="flex items-center gap-2">
                   <span className="text-5xl font-semibold">4</span>
                   <span className="flex flex-col">
-                    <span className="text-xl text-[#283342]">Maisons</span>
-                    <span className="text-xs ">3 Disponibles</span>
+                    <span className="text-xl ">Maisons</span>
+                    <span className="text-xs text-[#283342] ">
+                      3 Disponibles
+                    </span>
                   </span>
                 </div>
                 <div className="">
                   <div className="flex items-center gap-3">
                     <span className="text-5xl font-semibold">5</span>
                     <span className="flex flex-col">
-                      <span className="text-xl text-[#283342]">Boutiques</span>
-                      <span className="text-xs">3 Disponibles</span>
+                      <span className="text-xl ">Boutiques</span>
+                      <span className="text-xs text-[#283342]">
+                        3 Disponibles
+                      </span>
                     </span>
                   </div>
                 </div>

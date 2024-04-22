@@ -7,7 +7,7 @@ export default function SinglePreviewTenants() {
   const listTenants = useRentBooklet((state) => state.tenants);
   const { id } = useParams();
   const tenants = listTenants.find((tenant) => tenant.id === id);
-  console.log(listTenants);
+  console.log(tenants);
   return (
     <>
       <Header />
@@ -54,82 +54,65 @@ export default function SinglePreviewTenants() {
               </span>
             </div>
             <table className=" border-collapse border border-[#b3b5b7] rounded-3xl text-[#b3b5b7]">
-              <tr>
-                <td scope="col" className=" p-4 border border-[#b3b5b7] ...">
-                  Genre :
-                </td>
-                <td scope="col" className=" p-4 border border-[#b3b5b7] ...">
-                  {tenants.genre}
-                </td>
-              </tr>
-
-              <tr className="">
-                <td className=" p-4 border border-[#b3b5b7] ...">
-                  Naissance :
-                </td>
-                <td className="p-4 border border-[#b3b5b7] ...">
-                  {tenants.birthday}
-                </td>
-              </tr>
-              <tr className="">
-                <td className=" p-4 border border-[#b3b5b7] ...">ID :</td>
-                <td className="p-4 border border-[#b3b5b7] ...">
-                  {tenants.id}
-                </td>
-              </tr>
-              <tr className="">
-                <td className=" p-4 border border-[#b3b5b7] ...">Tél :</td>
-                <td className="p-4 border border-[#b3b5b7] ...">
-                  {tenants.phoneNumber}
-                </td>
-              </tr>
+              <thead>
+                <tr className="border border-1 bg-[#b7bf7f] text-white">
+                  <th
+                    scope="col"
+                    className=" p-4 border border-[#b3b5b7] text-start ..."
+                  >
+                    Genre :
+                  </th>
+                  <th
+                    scope="col"
+                    className=" p-4 border border-[#b3b5b7] text-start ..."
+                  >
+                    {tenants.genre}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="">
+                  <td className=" p-4 border border-[#b3b5b7] ...">
+                    Naissance :
+                  </td>
+                  <td className="p-4 border border-[#b3b5b7] ...">
+                    {tenants.birthday}
+                  </td>
+                </tr>
+                <tr className="border border-1 bg-[#b7bf7f] text-white">
+                  <td className=" p-4 border border-[#b3b5b7] ...">ID :</td>
+                  <td className="p-4 border border-[#b3b5b7] ...">
+                    {tenants.id}
+                  </td>
+                </tr>
+                <tr className="">
+                  <td className=" p-4 border border-[#b3b5b7] ...">Tél :</td>
+                  <td className="p-4 border border-[#b3b5b7] ...">
+                    {tenants.phoneNumber}
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </motion.div>
 
           <motion.div
-            className="flex gap-10 flex-col  w-[50%] h-[400px] text-[#d6d8da] shadow-2xl  rounded-3xl p-8 shadow-2xl bg-gradient-to-t from-[#67456d] to-[#283342]"
+            className="flex gap-10 flex-col  w-[30%] h-[400px] text-[#d6d8da] shadow-2xl  rounded-3xl p-8 shadow-2xl bg-gradient-to-t from-[#67456d] to-[#283342]"
             initial={{ opacity: 0 }}
             whileHover={{ scale: 0.9 }}
             animate={{ opacity: 1 }}
             transition={{ delayChildren: 0.4 }}
           >
             <div className="flex justify-between items-center p-2 rounded-xl border-solid border text-[#acaeb0] border-[#6e6f70]">
-              <h2 className="text-xl">Contrat</h2>
+              <h2 className="text-xl">Filtre</h2>
               <span className="text-xl hover:text-white">
                 <ion-icon name="create-outline"></ion-icon>
               </span>
             </div>
-            <table className=" border-collapse border-[#b3b5b7] rounded-3xl text-[#b3b5b7]">
-              <tr>
-                <td scope="col" className=" p-4 border border-[#afb0b1] ...">
-                  Maison :
-                </td>
-                <td scope="col" className=" p-4 border border-[#afb0b1] ...">
-                  {tenants.maison}
-                </td>
-              </tr>
-
-              <tr className="">
-                <td className=" p-4 border border-[#afb0b1] ...">Début :</td>
-                <td className="p-4 border border-[#afb0b1] ...">
-                  {tenants.contrat.start}
-                </td>
-              </tr>
-              <tr className="">
-                <td className=" p-4 border border-[#afb0b1] ...">Garantie :</td>
-                <td className="p-4 border border-[#afb0b1] ...">
-                  {tenants.contrat.guarantee}
-                </td>
-              </tr>
-              <tr className="">
-                <td className=" p-4 border border-[#afb0b1] ...">
-                  Prix loyer/mois :
-                </td>
-                <td className="p-4 border border-[#afb0b1] ...">
-                  {tenants.contrat.rentPrice}
-                </td>
-              </tr>
-            </table>
+            <div className="justify-self-center self-center">
+              <span className="text-6xl  hover:text-white ">
+                <ion-icon name="checkmark-circle-outline"></ion-icon>
+              </span>
+            </div>
           </motion.div>
         </motion.div>
       </div>
