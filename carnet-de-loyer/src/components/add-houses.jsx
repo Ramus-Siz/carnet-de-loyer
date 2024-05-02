@@ -57,11 +57,11 @@ export default function AddHouses({ HandleAddHouses }) {
 
     const newHouseObject = {
       id: `${keyOfHouse}`,
-      libele: newHouse.libele,
       adress: newHouse.adress,
-      composition: newHouse.composition,
       type: newHouse.type,
+      composition: newHouse.composition,
       description: newHouse.description,
+      lessorId: houses.lessorId,
     };
     return newHouseObject;
   }

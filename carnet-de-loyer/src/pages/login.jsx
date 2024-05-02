@@ -5,28 +5,108 @@ import Signin from "../components/signin";
 import Signup from "../components/signup";
 import MoreInfosOfLandLord from "./more-infos-landlord";
 import LoginTenants from "./login-tenants";
+import axios from "axios";
+import { useRentBooklet } from "../components/contexts/context";
 
 export default function Login({}) {
   const [isTenant, setIsTenant] = useState(false);
   const [isNeedToCreate, setIsNeedToCreate] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
+  const updateTenants = useRentBooklet((state) => state.updateTenants);
+  const updateHouses = useRentBooklet((state) => state.updateHouses);
 
-  const onSubmit = (data) => {
-    navigate("/home");
+  const onSubmit = async (data) => {
+    try {
+      // Envoyer les données à l'API
+      const response = await axios.post(
+        "http://localhost:3000/auth/signin",
+        data
+      );
+
+      // Vérifier la réponse de l'API
+      if (response.status === 200) {
+        // Si l'authentification est réussie, naviguer vers la page d'accueil
+        updateTenants(response.data.lessor.tenants);
+        updateHouses(response.data.lessor.houses);
+        navigate("/home");
+      } else {
+        // Gérer les erreurs d'authentification
+        console.error("Erreur d'authentification:", response.data);
+        // Afficher un message d'erreur à l'utilisateur
+      }
+    } catch (error) {
+      // Gérer les erreurs de requête
+      console.error("Erreur lors de l'envoi de la requête:", error);
+      // Afficher un message d'erreur à l'utilisateur
+    }
   };
-  const onSubmitTenant = (data) => {
-    navigate("/my-rent-book");
+  const onSubmitTenant = async (data) => {
+    try {
+      // Envoyer les données à l'API
+      const response = await axios.post(
+        "http://localhost:3000/auth/login",
+        data
+      );
+
+      // Vérifier la réponse de l'API
+      if (response.status === 200) {
+        // Si l'authentification est réussie, naviguer vers la page d'accueil
+        navigate("/my-rent-book");
+      } else {
+        // Gérer les erreurs d'authentification
+        console.error("Erreur d'authentification:", response.data);
+        // Afficher un message d'erreur à l'utilisateur
+      }
+    } catch (error) {
+      // Gérer les erreurs de requête
+      console.error("Erreur lors de l'envoi de la requête:", error);
+      // Afficher un message d'erreur à l'utilisateur
+    }
   };
-  const onRegister = (data) => {
-    {
-      setIsRegister(true);
+  const onRegister = async (data) => {
+    try {
+      // Envoyer les données à l'API
+      const response = await axios.post(
+        "http://localhost:3000/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
+        data
+      );
+
+      // Vérifier la réponse de l'API
+      if (response.status === 201) {
+        setIsRegister(true);
+      } else {
+        console.error("Erreur lors de la création:", response.data);
+        // Afficher un message d'erreur à l'utilisateur
+      }
+    } catch (error) {
+      // Gérer les erreurs de requête
+      console.error("Erreur lors de l'envoi de la requête:", error);
+      // Afficher un message d'erreur à l'utilisateur
     }
   };
 
-  const onRegisterMoreInfos = (data) => {
-    {
-      navigate("/home");
+  const onRegisterMoreInfos = async (data) => {
+    try {
+      // Envoyer les données à l'API
+      const response = await axios.post(
+        "http://localhost:3000/landlords/add",
+        data
+      );
+
+      // Vérifier la réponse de l'API
+      if (response.status === 200) {
+        // Si l'authentification est réussie, naviguer vers la page d'accueil
+        navigate("/");
+      } else {
+        // Gérer les erreurs d'authentification
+        console.error("Erreur lors de l'ajout de vos infos:", response.data);
+        // Afficher un message d'erreur à l'utilisateur
+      }
+    } catch (error) {
+      // Gérer les erreurs de requête
+      console.error("Erreur lors de l'envoi de la requête:", error);
+      // Afficher un message d'erreur à l'utilisateur
     }
   };
 

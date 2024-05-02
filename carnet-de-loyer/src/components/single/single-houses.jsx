@@ -6,8 +6,8 @@ export default function SinglePreviewHouses() {
   const { id } = useParams();
   const listHouses = useRentBooklet((state) => state.houses);
 
-  const houses = listHouses.find((house) => house.id === id);
-  console.log(houses);
+  const houses = listHouses.find((house) => house.id === +id);
+
   return (
     <>
       <Header />
@@ -17,7 +17,7 @@ export default function SinglePreviewHouses() {
             <ion-icon name="home-outline"></ion-icon>
           </span>
           <h2 className="text-white font-semibold">
-            Maison sur {houses.libele}
+            Maison sur {houses.adress}
           </h2>
         </div>
 
@@ -33,9 +33,7 @@ export default function SinglePreviewHouses() {
               <th scope="col" className="p-8  border border-[#b3b5b7] ...">
                 Composition
               </th>
-              <th scope="col" className="p-8 border border-[#b3b5b7] ...">
-                Disponible
-              </th>
+
               <th scope="col" className="p-8 border border-[#b3b5b7] ...">
                 Locataire
               </th>
@@ -52,8 +50,7 @@ export default function SinglePreviewHouses() {
               <td className="p-8 border border-slate-300 ...">
                 {houses.composition}
               </td>
-              <td className="p-8 border border-slate-300 ...">Oui</td>
-              <td className="p-8 border border-slate-300 ...">Non</td>
+              <td className="p-8 border border-slate-300 ...">Nom</td>
             </tr>
           </tbody>
           <tfoot></tfoot>

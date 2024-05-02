@@ -8,7 +8,6 @@ import { useRentBooklet } from "../../components/contexts/context";
 export default function MyHouses() {
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
-  const fetchDataFromAPI = useRentBooklet((state) => state.fetchDataFromAPI);
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -26,25 +25,27 @@ export default function MyHouses() {
   const [list, setList] = useState([]);
 
   const HandleDelete = () => {
+    // Créez une copie de `houses` pour éviter de modifier directement l'état original
     let housesAfterDelete = [...houses];
-    if (selectAll) {
-      houses = [];
-      setSelectAll(false);
-      isCheck.choises = [];
-      housesAfterDelete = [];
-      updateHouses(housesAfterDelete);
-    } else {
-      for (let index = 0; index < isCheck.choises.length; index++) {
-        housesAfterDelete = housesAfterDelete.filter(
-          (house) => house.id !== isCheck.choises[index]
-        );
-      }
-      console.log(housesAfterDelete);
-      updateHouses(housesAfterDelete);
 
-      isCheck.choises = [];
+    if (selectAll) {
+      // Réinitialiser les maisons et les choix
+      setIsCheck({ choises: [] });
+      setSelectAll(false);
+      housesAfterDelete = [];
+      updateHouses([]);
+    } else {
+      // Filtrer `housesAfterDelete` pour supprimer les maisons sélectionnées
+      isCheck.choises.forEach((choiceId) => {
+        housesAfterDelete = housesAfterDelete.filter(
+          (house) => house.id !== choiceId
+        );
+      });
+      updateHouses(housesAfterDelete);
+      setIsCheck({ choises: [] });
     }
   };
+
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
     setIsCheck({ choises: list.map((li) => li.id) });
@@ -53,34 +54,48 @@ export default function MyHouses() {
     }
   };
 
+  // const handleClick = (e) => {
+  //   const { id, checked } = e.target;
+  //   const { choises: reponses } = isCheck;
+  //   console.log(id, "is", checked);
+
+  //   if (checked) {
+  //     setIsCheck({ choises: [...reponses, id] });
+  //   } else {
+  //     setIsCheck({ choises: reponses.filter((item) => item !== id) });
+  //   }
+  // };
+
   const handleClick = (e) => {
     const { id, checked } = e.target;
+    const idInt = parseInt(id, 10); // Convertir l'ID en nombre entier
     const { choises: reponses } = isCheck;
-    console.log(id, "is", checked);
 
     if (checked) {
-      setIsCheck({ choises: [...reponses, id] });
+      // Ajoutez l'ID à la liste de choix
+      setIsCheck({ choises: [...reponses, idInt] });
     } else {
-      setIsCheck({ choises: reponses.filter((item) => item !== id) });
+      // Supprimez l'ID de la liste de choix
+      setIsCheck({ choises: reponses.filter((item) => item !== idInt) });
     }
   };
 
   console.log(isCheck.choises);
 
-  const catalog = list.map(({ id, libele }) => {
+  const catalog = list.map(({ id, adress }) => {
     return (
       <div key={id}>
         <div className="flex gap-4 p-3 justify-between text-[#b3b5b7] pl-8 shadow-xl  w-full hover:scale-95 ">
           <div className="flex gap-4">
             <CheckBox
-              name={libele}
+              name={adress}
               key={id}
               type="checkbox"
               id={id}
               isChecked={isCheck.choises.includes(id)}
               handleClick={handleClick}
             />
-            {libele}
+            {adress}
           </div>
           <Link to={`/my-houses/${id}`}>
             <span className="justify-self-end pr-2 text-fuchsia-700">

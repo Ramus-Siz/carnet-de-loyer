@@ -17,20 +17,20 @@ export default function LoginTenants({ onSubmitTenant }) {
           >
             <div className="flex flex-col ">
               <div className="">
-                <label className="text-base">Username</label>
+                <label className="text-base">Email</label>
                 <input
                   className="border-2 border-[#f4f4f4] rounded-lg outline-0 w-[100%] p-2"
-                  type="text"
-                  name="tenantUsername"
-                  {...register("tenantUsername", {
+                  type="tenantEmail"
+                  name="tenantEmail"
+                  {...register("tenantEmail", {
                     required: "ce champ est obligatoir",
                   })}
                 />
               </div>
               <p className="self-end text-xs h-4">
-                {errors.tenantUsername && (
+                {errors.tenantEmail && (
                   <span style={{ color: "red" }}>
-                    {errors.tenantUsername.message}
+                    {errors.tenantEmail.message}
                   </span>
                 )}
               </p>

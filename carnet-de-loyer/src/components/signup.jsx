@@ -41,8 +41,8 @@ export default function Signup({ onRegister }) {
                 <input
                   className="border-2 border-[#f4f4f4] rounded-lg outline-0 w-[100%] p-2"
                   type="email"
-                  name="email"
-                  {...register("email", {
+                  name="emailOnRegister"
+                  {...register("emailOnRegister", {
                     required: "ce champ est obligatoir",
                   })}
                 />
@@ -56,20 +56,20 @@ export default function Signup({ onRegister }) {
 
             <div className="flex flex-col">
               <div className="">
-                <label className="text-base">Passeword</label>
+                <label className="text-base">Password</label>
                 <input
                   className="pl-2 border-[#f4f4f4] rounded-lg outline-0 w-[100%] p-2"
                   type="password"
-                  name="passewordOnRegister"
-                  {...register("passewordOnRegister", {
+                  name="passwordOnRegister"
+                  {...register("passwordOnRegister", {
                     required: "ce champ est obligatoir",
                   })}
                 />
               </div>
               <p className="self-end text-xs h-4">
-                {errors.passewordOnRegister && (
+                {errors.passwordOnRegister && (
                   <span style={{ color: "red" }}>
-                    {errors.passewordOnRegister.message}
+                    {errors.passwordOnRegister.message}
                   </span>
                 )}
               </p>

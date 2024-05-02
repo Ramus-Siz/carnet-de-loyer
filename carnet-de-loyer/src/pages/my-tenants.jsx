@@ -7,7 +7,6 @@ import { useRentBooklet } from "../components/contexts/context";
 export default function MyTenants() {
   let tenants = useRentBooklet((state) => state.tenants);
   const updateTenants = useRentBooklet((state) => state.updateTenants);
-  const fetchDataFromAPI = useRentBooklet((state) => state.fetchDataFromAPI);
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -22,21 +21,27 @@ export default function MyTenants() {
   };
   const HandleDelete = () => {
     let tenantsAfterDelete = [...tenants];
+
     if (selectAll) {
-      tenants = [];
-      setSelectAll(false);
       tenantsAfterDelete = [];
-      updateTenants(tenantsAfterDelete);
-      isCheck.choises = [];
+      setIsCheck({ choises: [] });
+      setSelectAll(false);
     } else {
-      for (let index = 0; index < isCheck.choises.length; index++) {
+      isCheck.choises.forEach((choiceId) => {
         tenantsAfterDelete = tenantsAfterDelete.filter(
-          (tenant) => tenant.id !== isCheck.choises[index]
+          (tenant) => tenant.id !== choiceId
         );
-      }
-      console.log(tenantsAfterDelete);
+      });
+      setIsCheck({ choises: [] });
+    }
+
+    // Appelez updateTenants pour mettre à jour l'état
+    try {
       updateTenants(tenantsAfterDelete);
-      isCheck.choises = [];
+      // Mettez à jour la liste affichée
+      setList(tenantsAfterDelete);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour des locataires : ", error);
     }
   };
 
@@ -61,22 +66,22 @@ export default function MyTenants() {
 
   console.log(isCheck.choises);
 
-  const catalog = list.map(({ id, name, prenom }) => {
+  const catalog = list.map((item, index) => {
     return (
-      <div key={id}>
+      <div key={item.id || index}>
         <div className="flex gap-4 p-3 justify-between shadow-xl text-[#b3b5b7]  w-full hover:scale-95 ">
           <div className="flex gap-4">
             <CheckBox
-              name={name}
-              key={id}
+              name={item.name}
+              key={item.id || index}
               type="checkbox"
-              id={id}
-              isChecked={isCheck.choises.includes(id)}
+              id={item.id}
+              isChecked={isCheck.choises.includes(item.id)}
               handleClick={handleClick}
             />
-            {`${name} ${prenom}`}
+            {`${item.name} ${item.prenom}`}
           </div>
-          <Link to={`/my-tenants/${id}`}>
+          <Link to={`/my-tenants/${item.id}`}>
             <span className="justify-self-end pr-2 text-fuchsia-700">
               <ion-icon name="eye-outline"></ion-icon>
             </span>

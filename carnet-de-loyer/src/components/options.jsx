@@ -11,6 +11,7 @@ export default function Options({
   HandleDelete,
   isCheck,
   catalog,
+  index,
   user,
   isTrueToAddData,
   HandleAddData,

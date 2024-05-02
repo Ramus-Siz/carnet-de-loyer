@@ -50,15 +50,10 @@ export default function AddTenants({ HandleAddTenants }) {
       id: `${keyOfTenants}`,
       name: newTenant.name,
       prenom: newTenant.prenom,
-      birthday: newTenant.birthday,
-      genre: newTenant.genre,
-      maison: newTenant.maison,
-      phoneNumber: newTenant.phoneNumber,
-      contrat: {
-        start: newTenant.start,
-        guarantee: `${newTenant.guarantee} Mois`,
-        rentPrice: `${newTenant.rentPrice}$`,
-      },
+      adress: newTenant.adress,
+      email: newTenant.email,
+      telephone: newTenant.telephone,
+      lessorId: tenants.bails.residentId,
     };
     return newTenantsObject;
   }
@@ -114,34 +109,23 @@ export default function AddTenants({ HandleAddTenants }) {
         </div>
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-2">
-            <label>Genre</label>
-            <div className="flex gap-3">
-              Masculin
-              <input
-                type="radio"
-                value="masculin"
-                id=""
-                className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
-                {...register("genre", { require: "Obligatoire" })}
-              />
-              Feminin
-              <input
-                type="radio"
-                value="feminin"
-                id=""
-                className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
-                {...register("genre", { require: "Obligatoire" })}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <label>Date de Naissance</label>
+            <label>Email</label>
             <input
-              type="date"
-              name="birthday"
+              type="email"
+              name="email"
               id=""
               className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
-              {...register("birthday", { require: "Obligatoire" })}
+              {...register("email", { require: "email Obligatoire" })}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label>Adresse</label>
+            <input
+              type="text"
+              name="adress"
+              id=""
+              className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
+              {...register("adress", { require: "adresse Obligatoire" })}
             />
           </div>
         </div>
@@ -152,9 +136,9 @@ export default function AddTenants({ HandleAddTenants }) {
             <input
               className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
               type="text"
-              name="phoneNumber"
+              name="telephone"
               placeholder="09700452686"
-              {...register("phoneNumber", {
+              {...register("telephone", {
                 required: "ce champ est obligatoir",
                 pattern: {
                   value: /^[0-9]{10}$/i,
@@ -171,48 +155,6 @@ export default function AddTenants({ HandleAddTenants }) {
               id=""
               className="p-2 bg-[#F7FAFD] border-none outline-none pl-3"
               {...register("start", { require: "Obligatoire" })}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-2">
-            <label>Maison</label>
-
-            <select
-              name="maison"
-              {...register("maison")}
-              className="border-none outline-none p-2 pr-3 rounded  bg-[#F7FAFD] "
-            >
-              <option value="choix" className="text-[#a1a9b4]">
-                Choisir
-              </option>
-              {catalog}
-            </select>
-          </div>
-          <div className="flex flex-col gap-2">
-            <label>Garantee</label>
-            <input
-              type="number"
-              name="guarantee"
-              id=""
-              className="p-2 bg-[#F7FAFD] border-none outline-none pl-3 w-[100px]"
-              placeholder="1"
-              {...register("guarantee", { require: "Obligatoire" })}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-2">
-            <label>Prix</label>
-            <input
-              type="number"
-              name="rentPrice"
-              id=""
-              className="p-2 bg-[#F7FAFD] border-none outline-none pl-3  w-[80pxpx]"
-              placeholder="1"
-              {...register("rentPrice", { require: "Obligatoire" })}
             />
           </div>
         </div>

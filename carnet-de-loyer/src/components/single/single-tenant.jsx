@@ -6,7 +6,7 @@ import { delay, motion } from "framer-motion";
 export default function SinglePreviewTenants() {
   const listTenants = useRentBooklet((state) => state.tenants);
   const { id } = useParams();
-  const tenants = listTenants.find((tenant) => tenant.id === id);
+  const tenants = listTenants.find((tenant) => tenant.id === +id);
   console.log(tenants);
   return (
     <>
@@ -55,30 +55,9 @@ export default function SinglePreviewTenants() {
             </div>
             <table className=" border-collapse border border-[#b3b5b7] rounded-3xl text-[#b3b5b7]">
               <thead>
-                <tr className="border border-1 bg-[#b7bf7f] text-white">
-                  <th
-                    scope="col"
-                    className=" p-4 border border-[#b3b5b7] text-start ..."
-                  >
-                    Genre :
-                  </th>
-                  <th
-                    scope="col"
-                    className=" p-4 border border-[#b3b5b7] text-start ..."
-                  >
-                    {tenants.genre}
-                  </th>
-                </tr>
+                <tr className="border border-1 bg-[#b7bf7f] text-white"></tr>
               </thead>
               <tbody>
-                <tr className="">
-                  <td className=" p-4 border border-[#b3b5b7] ...">
-                    Naissance :
-                  </td>
-                  <td className="p-4 border border-[#b3b5b7] ...">
-                    {tenants.birthday}
-                  </td>
-                </tr>
                 <tr className="border border-1 bg-[#b7bf7f] text-white">
                   <td className=" p-4 border border-[#b3b5b7] ...">ID :</td>
                   <td className="p-4 border border-[#b3b5b7] ...">
@@ -88,7 +67,7 @@ export default function SinglePreviewTenants() {
                 <tr className="">
                   <td className=" p-4 border border-[#b3b5b7] ...">Tél :</td>
                   <td className="p-4 border border-[#b3b5b7] ...">
-                    {tenants.phoneNumber}
+                    {tenants.telephone}
                   </td>
                 </tr>
               </tbody>

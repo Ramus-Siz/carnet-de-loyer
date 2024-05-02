@@ -17,38 +17,36 @@ export default function Signin({ onSubmit, loginTenants }) {
           >
             <div className="flex flex-col ">
               <div className="">
-                <label className="text-base">Username</label>
+                <label className="text-base">Email</label>
                 <input
                   className="border-2 border-[#f4f4f4] rounded-lg outline-0 w-[100%] p-2"
-                  type="text"
-                  name="username"
-                  {...register("username", {
+                  type="email"
+                  name="email"
+                  {...register("email", {
                     required: "ce champ est obligatoire",
                   })}
                 />
               </div>
               <p className="self-end text-xs h-4">
-                {errors.username && (
-                  <span style={{ color: "red" }}>
-                    {errors.username.message}
-                  </span>
+                {errors.email && (
+                  <span style={{ color: "red" }}>{errors.email.message}</span>
                 )}
               </p>
             </div>
             <div className="flex flex-col">
               <div className="">
-                <label className="text-base">Passeword</label>
+                <label className="text-base">Password</label>
                 <input
                   className="p-2 border-2 border-[#f4f4f4] rounded-lg outline-0 w-[100%]"
                   type="password"
-                  name="passeword"
-                  {...register("passeword", {
+                  name="password"
+                  {...register("password", {
                     required: "ce champ est obligatoire",
                   })}
                 />
               </div>
               <p className="self-end text-xs h-4">
-                {errors.passeword && (
+                {errors.password && (
                   <span style={{ color: "red" }}>
                     {errors.passeword.message}
                   </span>
