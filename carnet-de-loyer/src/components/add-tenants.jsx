@@ -23,10 +23,28 @@ export default function AddTenants({ HandleAddTenants }) {
   } = useForm({ defaultValues: formData });
   const [list, setList] = useState([]);
 
-  function onSubmit(newTenant) {
+  async function onSubmit(newTenant) {
     console.log(newTenant);
     const tenantObjetBuild = BuildNewTenantObject(newTenant);
+    handleClickButtonEnregister(tenantObjetBuild);
     console.log(tenantObjetBuild);
+  }
+
+  async function handleClickButtonEnregister(tenantObjetBuild) {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:3000/my-tenants/add",
+        tenantObjetBuild,
+        {
+          headers: {
+            authorization: `${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
     updateTenants([...tenants, tenantObjetBuild]);
     reset();
   }

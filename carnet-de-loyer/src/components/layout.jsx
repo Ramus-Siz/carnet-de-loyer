@@ -1,7 +1,19 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/sidebar";
+import { useRentBooklet } from "./contexts/context";
+import { useEffect } from "react";
 
 export default function Layout() {
+  let currentUser = useRentBooklet((state) => state.currentUser);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  useEffect(() => {
+    let currentUser = sessionStorage.getItem("currentUser");
+    if (!currentUser) {
+      return;
+    }
+    const currentUserParse = JSON.parse(currentUser);
+    updateCurrentUser(currentUserParse);
+  }, [updateCurrentUser]);
   return (
     <>
       <div className="h-screen  w-[300px] flex flex-col bg-gradient-to-t from-[#32033a] to-[#283342]  ">

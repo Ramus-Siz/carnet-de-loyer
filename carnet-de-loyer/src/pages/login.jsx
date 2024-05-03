@@ -7,6 +7,7 @@ import MoreInfosOfLandLord from "./more-infos-landlord";
 import LoginTenants from "./login-tenants";
 import axios from "axios";
 import { useRentBooklet } from "../components/contexts/context";
+import { headers } from "next/headers";
 
 export default function Login({}) {
   const [isTenant, setIsTenant] = useState(false);
@@ -15,13 +16,17 @@ export default function Login({}) {
   const navigate = useNavigate();
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
 
   const onSubmit = async (data) => {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
         "http://localhost:3000/auth/signin",
-        data
+        data,
+        {
+          withCredentials: true,
+        }
       );
 
       // Vérifier la réponse de l'API
@@ -29,6 +34,12 @@ export default function Login({}) {
         // Si l'authentification est réussie, naviguer vers la page d'accueil
         updateTenants(response.data.lessor.tenants);
         updateHouses(response.data.lessor.houses);
+        updateCurrentUser(response.data.user);
+        sessionStorage.setItem(
+          "currentUser",
+          JSON.stringify(response.data.user)
+        );
+        sessionStorage.setItem("token", response.data.token);
         navigate("/home");
       } else {
         // Gérer les erreurs d'authentification
@@ -46,7 +57,8 @@ export default function Login({}) {
       // Envoyer les données à l'API
       const response = await axios.post(
         "http://localhost:3000/auth/login",
-        data
+        data,
+        { withCredentials: true }
       );
 
       // Vérifier la réponse de l'API
@@ -69,7 +81,8 @@ export default function Login({}) {
       // Envoyer les données à l'API
       const response = await axios.post(
         "http://localhost:3000/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
-        data
+        data,
+        { withCredentials: true }
       );
 
       // Vérifier la réponse de l'API
@@ -91,7 +104,8 @@ export default function Login({}) {
       // Envoyer les données à l'API
       const response = await axios.post(
         "http://localhost:3000/landlords/add",
-        data
+        data,
+        { withCredentials: true }
       );
 
       // Vérifier la réponse de l'API

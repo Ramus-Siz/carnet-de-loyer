@@ -8,7 +8,6 @@ export default function AddHouses({ HandleAddHouses }) {
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
   const [formData, setFormData] = useState({
-    libele: "",
     adress: "",
     type: "",
     composition: "",
@@ -29,9 +28,15 @@ export default function AddHouses({ HandleAddHouses }) {
 
   async function handleClickButtonEnregister(houseObjectBuild) {
     try {
+      const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/my-houses",
-        houseObjectBuild
+        "http://localhost:3000/my-houses/add",
+        houseObjectBuild,
+        {
+          headers: {
+            authorization: `${token}`,
+          },
+        }
       );
     } catch (error) {
       console.log(error);
@@ -80,17 +85,6 @@ export default function AddHouses({ HandleAddHouses }) {
         className=" flex flex-col gap-5 p-12"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col gap-2">
-          <label>Libele</label>
-          <input
-            type="text"
-            name="libele"
-            id=""
-            className=" p-2 bg-[#F7FAFD] border-none outline-none pl-3"
-            placeholder="Ex:Boende 32"
-            {...register("libele", { required: "Obligatoire" })}
-          />
-        </div>
         <div className="flex flex-col gap-2">
           <label>Adresse</label>
           <input

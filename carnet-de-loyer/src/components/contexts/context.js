@@ -9,6 +9,8 @@ export const useRentBooklet = create((set) => ({
     username: "",
     email: "",
     role: "",
+    lessorId: "",
+    tenantId: "",
   },
   // Fonction pour récupérer les données des maisons et locataires depuis une API
   // fetchDataFromAPI: async () => {

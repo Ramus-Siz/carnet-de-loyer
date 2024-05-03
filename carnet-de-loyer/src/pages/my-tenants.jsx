@@ -4,11 +4,15 @@ import CheckBox from "../components/checkbox";
 import Options from "../components/options";
 import { Link } from "react-router-dom";
 import { useRentBooklet } from "../components/contexts/context";
+import axios from "axios";
 export default function MyTenants() {
   let tenants = useRentBooklet((state) => state.tenants);
   const updateTenants = useRentBooklet((state) => state.updateTenants);
-
+  let currentUser = useRentBooklet((state) => state.currentUser);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
+  // const [currentUser, setCurrentUser] = useState();
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
 
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
@@ -19,54 +23,89 @@ export default function MyTenants() {
   const HandleAddData = () => {
     setIsTrueToAddData(!isTrueToAddData);
   };
-  const HandleDelete = () => {
+  const HandleDelete = async () => {
     let tenantsAfterDelete = [...tenants];
 
     if (selectAll) {
-      tenantsAfterDelete = [];
-      setIsCheck({ choises: [] });
-      setSelectAll(false);
-    } else {
-      isCheck.choises.forEach((choiceId) => {
-        tenantsAfterDelete = tenantsAfterDelete.filter(
-          (tenant) => tenant.id !== choiceId
-        );
-      });
-      setIsCheck({ choises: [] });
-    }
+      try {
+        const token = sessionStorage.getItem("token");
+        // Envoyer les données à l'API
+        for (const tenant of tenantsAfterDelete) {
+          const response = await axios.post(
+            `http://localhost:3000/my-tenants/delete/${tenant.id}`,
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          );
+        }
 
-    // Appelez updateTenants pour mettre à jour l'état
-    try {
-      updateTenants(tenantsAfterDelete);
-      // Mettez à jour la liste affichée
-      setList(tenantsAfterDelete);
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour des locataires : ", error);
+        tenantsAfterDelete = [];
+        setIsCheck({ choises: [] });
+        setSelectAll(false);
+      } catch (error) {
+        // Gérer les erreurs de requête
+        console.error("Erreur lors de la suppression:", error);
+        // Afficher un message d'erreur à l'utilisateur
+      }
+    } else {
+      try {
+        for (const choiceId of isCheck.choises) {
+          // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
+          await axios.delete(
+            `http://localhost:3000/my-tenants/delete/${choiceId}`
+          );
+          // Filtrer `tenants` pour supprimer les tenants sélectionnés
+          tenantsAfterDelete = tenantsAfterDelete.filter(
+            (tenant) => tenant.id !== choiceId
+          );
+        }
+
+        updateTenants(tenantsAfterDelete);
+        setIsCheck({ choises: [] });
+      } catch (error) {
+        console.error("Erreur lors de la suppression:", error);
+      }
     }
   };
 
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
-    setIsCheck({ choises: list.map((li) => li.id) });
+    setIsCheck({ choises: tenants.map((li) => li.id) });
     if (selectAll) {
       setIsCheck({ choises: [] });
     }
   };
 
+  // const handleClick = (e) => {
+  //   const { id, checked } = e.target;
+  //   const { choises: reponses } = isCheck;
+  //   console.log(id, "is", checked);
+  //   if (checked) {
+  //     setIsCheck({ choises: [...reponses, id] });
+  //   } else {
+  //     setIsCheck({ choises: reponses.filter((item) => item !== id) });
+  //   }
+  // };
+
   const handleClick = (e) => {
     const { id, checked } = e.target;
+    const idInt = parseInt(id, 10); // Convertir l'ID en nombre entier
     const { choises: reponses } = isCheck;
-    console.log(id, "is", checked);
+
     if (checked) {
-      setIsCheck({ choises: [...reponses, id] });
+      // Ajoutez l'ID à la liste de choix
+      setIsCheck({ choises: [...reponses, idInt] });
     } else {
-      setIsCheck({ choises: reponses.filter((item) => item !== id) });
+      // Supprimez l'ID de la liste de choix
+      setIsCheck({ choises: reponses.filter((item) => item !== idInt) });
     }
   };
 
   console.log(isCheck.choises);
 
-  const catalog = list.map((item, index) => {
+  const catalog = tenants.map((item, index) => {
     return (
       <div key={item.id || index}>
         <div className="flex gap-4 p-3 justify-between shadow-xl text-[#b3b5b7]  w-full hover:scale-95 ">
@@ -91,9 +130,33 @@ export default function MyTenants() {
     );
   });
 
+  // useEffect(() => {
+  //   let currentUser = sessionStorage.getItem("currentUser");
+  //   if (!currentUser) {
+  //     return;
+  //   }
+  //   const currentUserParse = JSON.parse(currentUser);
+  //   updateCurrentUser(currentUserParse);
+  // }, [updateCurrentUser]);
+  const getTenantData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const { data } = await axios.get(userUrl, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+
+      console.log("Tenantsdata: ", data);
+      updateTenants(data);
+      console.log("tenants: ", tenants);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
   useEffect(() => {
-    setList(tenants);
-  }, [tenants]);
+    getTenantData();
+  }, [currentUser.lessorId, updateCurrentUser]);
 
   return (
     <>

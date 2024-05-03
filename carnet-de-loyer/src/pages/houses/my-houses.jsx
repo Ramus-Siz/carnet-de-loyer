@@ -4,10 +4,14 @@ import Header from "../../components/header";
 import Options from "../../components/options";
 import { Link } from "react-router-dom";
 import { useRentBooklet } from "../../components/contexts/context";
+import axios from "axios";
 
 export default function MyHouses() {
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+
+  let currentUser = useRentBooklet((state) => state.currentUser);
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -24,47 +28,62 @@ export default function MyHouses() {
 
   const [list, setList] = useState([]);
 
-  const HandleDelete = () => {
+  const HandleDelete = async () => {
     // Créez une copie de `houses` pour éviter de modifier directement l'état original
     let housesAfterDelete = [...houses];
 
     if (selectAll) {
-      // Réinitialiser les maisons et les choix
-      setIsCheck({ choises: [] });
-      setSelectAll(false);
-      housesAfterDelete = [];
-      updateHouses([]);
+      try {
+        for (const house of housesAfterDelete) {
+          const response = await axios.post(
+            `http://localhost:3000/my-houses/delete/${house.id}`,
+            {
+              headers: {
+                authorization: `${token}`,
+              },
+            }
+          );
+        }
+
+        housesAfterDelete = [];
+        setIsCheck({ choises: [] });
+        setSelectAll(false);
+      } catch (error) {
+        console.error("Erreur lors de la suppression:", error);
+      }
     } else {
-      // Filtrer `housesAfterDelete` pour supprimer les maisons sélectionnées
-      isCheck.choises.forEach((choiceId) => {
-        housesAfterDelete = housesAfterDelete.filter(
-          (house) => house.id !== choiceId
-        );
-      });
-      updateHouses(housesAfterDelete);
-      setIsCheck({ choises: [] });
+      try {
+        for (const choiceId of isCheck.choises) {
+          // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
+          await axios.delete(
+            `http://localhost:3000/my-houses/delete/${choiceId}`,
+            {
+              headers: {
+                authorization: `${token}`,
+              },
+            }
+          );
+          // Filtrer `tenants` pour supprimer les houses sélectionnés
+          housesAfterDelete = housesAfterDelete.filter(
+            (house) => house.id !== choiceId
+          );
+        }
+
+        updateHouses(housesAfterDelete);
+        setIsCheck({ choises: [] });
+      } catch (error) {
+        console.error("Erreur lors de la suppression:", error);
+      }
     }
   };
 
   const handleSelectAll = (e) => {
     setSelectAll(!selectAll);
-    setIsCheck({ choises: list.map((li) => li.id) });
+    setIsCheck({ choises: houses.map((li) => li.id) });
     if (selectAll) {
       setIsCheck({ choises: [] });
     }
   };
-
-  // const handleClick = (e) => {
-  //   const { id, checked } = e.target;
-  //   const { choises: reponses } = isCheck;
-  //   console.log(id, "is", checked);
-
-  //   if (checked) {
-  //     setIsCheck({ choises: [...reponses, id] });
-  //   } else {
-  //     setIsCheck({ choises: reponses.filter((item) => item !== id) });
-  //   }
-  // };
 
   const handleClick = (e) => {
     const { id, checked } = e.target;
@@ -82,7 +101,7 @@ export default function MyHouses() {
 
   console.log(isCheck.choises);
 
-  const catalog = list.map(({ id, adress }) => {
+  const catalog = houses.map(({ id, adress }) => {
     return (
       <div key={id}>
         <div className="flex gap-4 p-3 justify-between text-[#b3b5b7] pl-8 shadow-xl  w-full hover:scale-95 ">
@@ -106,10 +125,27 @@ export default function MyHouses() {
       </div>
     );
   });
+
+  const getHousesData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const { data } = await axios.get(
+        `http://localhost:3000/my-houses/lessor/${currentUser.lessorId}`,
+        {
+          headers: {
+            authorization: `${token}`,
+          },
+        }
+      );
+      updateHouses(data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
   //re set the list of house
   useEffect(() => {
-    setList(houses);
-  }, [houses]);
+    getHousesData();
+  }, [currentUser.lessorId, updateHouses]);
 
   return (
     <>
