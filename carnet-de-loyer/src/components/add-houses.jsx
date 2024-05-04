@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import RegisterButton from "./registre-button";
 import { useRentBooklet } from "./contexts/context";
+import axios from "axios";
 
 export default function AddHouses({ HandleAddHouses }) {
   const houses = useRentBooklet((state) => state.houses);
@@ -38,11 +39,15 @@ export default function AddHouses({ HandleAddHouses }) {
           },
         }
       );
+      if (response.status === 200) {
+        updateHouses([...houses, houseObjectBuild]);
+        reset();
+      } else {
+        console.log("Error lors de l'ajout, veillez recommencer ");
+      }
     } catch (error) {
-      console.log(error);
+      console.log("Erreur Serveur", error);
     }
-    reset();
-    updateHouses([...houses, houseObjectBuild]);
   }
 
   function BuildNewHouseObject(newHouse) {
@@ -59,14 +64,16 @@ export default function AddHouses({ HandleAddHouses }) {
       console.log(keyOftheLastHouse);
       keyOfHouse = Math.max(...keyOftheLastHouse) + 1;
     }
+    const getcurrentUser = sessionStorage.getItem("currentUser");
+    const user = JSON.parse(getcurrentUser);
 
     const newHouseObject = {
-      id: `${keyOfHouse}`,
+      id: `+${keyOfHouse}`,
       adress: newHouse.adress,
       type: newHouse.type,
       composition: newHouse.composition,
       description: newHouse.description,
-      lessorId: houses.lessorId,
+      lessorId: user.lessorId,
     };
     return newHouseObject;
   }

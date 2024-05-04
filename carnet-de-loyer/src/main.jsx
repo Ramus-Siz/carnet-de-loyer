@@ -23,6 +23,7 @@ import MyRentBook from "./pages/tenantsPages/my-rent-booklet.jsx";
 import Notifications from "./pages/tenantsPages/notifications.jsx";
 import TenantsLayout from "./components/tenantsDashboard/tenantsLayout.jsx";
 import MoreInfosOfLandLord from "./pages/more-infos-landlord.jsx";
+import ProtectedRoute from "./components/protect-routes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,23 +45,43 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/home",
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/my-houses",
-        element: <Houses />,
+        element: (
+          <ProtectedRoute>
+            <Houses />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "",
-            element: <MyHouses />,
+            element: (
+              <ProtectedRoute>
+                <MyHouses />
+              </ProtectedRoute>
+            ),
           },
           {
             path: ":id",
-            element: <SinglePreviewHouses />,
+            element: (
+              <ProtectedRoute>
+                <SinglePreviewHouses />
+              </ProtectedRoute>
+            ),
           },
         ],
       },
@@ -71,12 +92,20 @@ const router = createBrowserRouter([
       // },
       {
         path: "/messages",
-        element: <Messages />,
+        element: (
+          <ProtectedRoute>
+            <Messages />
+          </ProtectedRoute>
+        ),
       },
 
       {
         path: "/settings",
-        element: <Settings />,
+        element: (
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/my-tenants",
@@ -84,17 +113,29 @@ const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <MyTenants />,
+            element: (
+              <ProtectedRoute>
+                <MyTenants />
+              </ProtectedRoute>
+            ),
           },
           {
             path: ":id",
-            element: <SinglePreviewTenants />,
+            element: (
+              <ProtectedRoute>
+                <SinglePreviewTenants />
+              </ProtectedRoute>
+            ),
           },
         ],
       },
       {
         path: "/locations",
-        element: <Locations />,
+        element: (
+          <ProtectedRoute>
+            <Locations />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -104,7 +145,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <MyRentBook />,
+        element: (
+          <ProtectedRoute>
+            <MyRentBook />
+          </ProtectedRoute>
+        ),
       },
 
       // {
@@ -114,16 +159,28 @@ const router = createBrowserRouter([
       // },
       {
         path: "/my-agreement",
-        element: <MyAgreement />,
+        element: (
+          <ProtectedRoute>
+            <MyAgreement />
+          </ProtectedRoute>
+        ),
       },
 
       {
         path: "/my-rent-book",
-        element: <MyRentBook />,
+        element: (
+          <ProtectedRoute>
+            <MyRentBook />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/notifications",
-        element: <Notifications />,
+        element: (
+          <ProtectedRoute>
+            <Notifications />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

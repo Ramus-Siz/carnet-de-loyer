@@ -2,9 +2,53 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useRentBooklet } from "../components/contexts/context";
+import axios from "axios";
 
 export default function Home() {
   const navigation = useNavigate();
+  let tenants = useRentBooklet((state) => state.tenants);
+  let houses = useRentBooklet((state) => state.houses);
+  const updateHouses = useRentBooklet((state) => state.updateHouses);
+
+  const updateTenants = useRentBooklet((state) => state.updateTenants);
+  let currentUser = useRentBooklet((state) => state.currentUser);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const getHouseData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const { data } = await axios.get(userUrl, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+
+      updateHouses(data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
+  const getTenantData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const { data } = await axios.get(userUrl, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+
+      console.log("Tenantsdata: ", data);
+      updateTenants(data);
+      console.log("tenants: ", tenants);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
+  useEffect(() => {
+    getTenantData();
+    getHouseData();
+  }, [currentUser.lessorId, updateCurrentUser]);
 
   return (
     <>
@@ -29,7 +73,7 @@ export default function Home() {
               <div className="flex flex-col text-xl text-white">
                 <div className="flex items-center gap-2">
                   <span className="text-5xl font-semibold text-[#edeeef]">
-                    7
+                    {`${houses.length}`}
                   </span>
                   <span className="flex flex-col">
                     <span className="text-xl">Maisons</span>
@@ -71,7 +115,7 @@ export default function Home() {
               <div className="flex flex-col text-xl ">
                 <div className="flex items-center gap-2">
                   <span className="text-5xl font-semibold text-[#edeeef]">
-                    4
+                    {`${tenants.length}`}
                   </span>
                   <span className="flex flex-col">
                     <span className="text-xl ">Occupants</span>
@@ -108,11 +152,11 @@ export default function Home() {
               </div>
               <div className="flex flex-col text-xl text-[#edeeef]">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">4</span>
+                  <span className="text-5xl font-semibold">{`${tenants.length}`}</span>
                   <span className="flex flex-col">
                     <span className="text-xl ">Maisons</span>
                     <span className="text-xs text-[#283342] ">
-                      3 Disponibles
+                      {`${houses.length - tenants.length} Disponibles`}
                     </span>
                   </span>
                 </div>

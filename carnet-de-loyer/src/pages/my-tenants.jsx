@@ -51,10 +51,17 @@ export default function MyTenants() {
       }
     } else {
       try {
+        const token = sessionStorage.getItem("token");
+
         for (const choiceId of isCheck.choises) {
           // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
           await axios.delete(
-            `http://localhost:3000/my-tenants/delete/${choiceId}`
+            `http://localhost:3000/my-tenants/delete/${choiceId}`,
+            {
+              headers: {
+                authorization: token,
+              },
+            }
           );
           // Filtrer `tenants` pour supprimer les tenants sélectionnés
           tenantsAfterDelete = tenantsAfterDelete.filter(
@@ -143,7 +150,7 @@ export default function MyTenants() {
       const token = sessionStorage.getItem("token");
       const { data } = await axios.get(userUrl, {
         headers: {
-          authorization: `${token}`,
+          authorization: token,
         },
       });
 

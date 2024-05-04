@@ -34,12 +34,13 @@ export default function MyHouses() {
 
     if (selectAll) {
       try {
+        const token = sessionStorage.getItem("token");
         for (const house of housesAfterDelete) {
           const response = await axios.post(
             `http://localhost:3000/my-houses/delete/${house.id}`,
             {
               headers: {
-                authorization: `${token}`,
+                authorization: token,
               },
             }
           );
@@ -53,13 +54,15 @@ export default function MyHouses() {
       }
     } else {
       try {
+        const token = sessionStorage.getItem("token");
+
         for (const choiceId of isCheck.choises) {
           // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
           await axios.delete(
             `http://localhost:3000/my-houses/delete/${choiceId}`,
             {
               headers: {
-                authorization: `${token}`,
+                authorization: token,
               },
             }
           );

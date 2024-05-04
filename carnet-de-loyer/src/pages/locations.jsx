@@ -1,6 +1,74 @@
+import { useEffect } from "react";
+import { useRentBooklet } from "../components/contexts/context";
 import Header from "../components/header";
+import axios from "axios";
 
 export default function Locations() {
+  let tenants = useRentBooklet((state) => state.tenants);
+  let houses = useRentBooklet((state) => state.houses);
+  const updateHouses = useRentBooklet((state) => state.updateHouses);
+
+  const updateTenants = useRentBooklet((state) => state.updateTenants);
+  let currentUser = useRentBooklet((state) => state.currentUser);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+
+  const catalog = tenants.map((item, index) => {
+    let background = "";
+    if (index % 2 !== 0) {
+      background = " bg-[#b7bf7f] text-white";
+    }
+    console.log(item.id, "And", index);
+    return (
+      <tr
+        key={item.id || index}
+        className={`border border-1 border-[#5f6263] ${background}`}
+      >
+        <td className="border border-1  border-[#5f6263] p-4">{`${item.name} ${item.prenom}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">{`${item.telephone}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">
+          {`${item.adress}`}
+        </td>
+        <td className="border border-1 border-[#5f6263] p-4">House 1</td>
+        <td className="border border-1 border-[#5f6263] p-4">2024-01-01</td>
+        <td className="border border-1 border-[#5f6263] p-4">2024-12-31</td>
+        <td className="border border-1 border-[#5f6263] p-4">Actif</td>
+      </tr>
+    );
+  });
+  const getHouseData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const { data } = await axios.get(userUrl, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+
+      updateHouses(data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
+  const getTenantData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const { data } = await axios.get(userUrl, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+
+      updateTenants(data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
+  useEffect(() => {
+    getTenantData();
+    getHouseData();
+  }, [currentUser.lessorId, updateCurrentUser]);
+
   return (
     <>
       <Header />
@@ -25,44 +93,7 @@ export default function Locations() {
               <th className="border border-1 border-[#5f6263] p-4">État</th>
             </tr>
           </thead>
-          <tbody className="border border-1 border-[#5f6263]">
-            <tr className="border border-1 border-[#5f6263]">
-              <td className="border border-1  border-[#5f6263] p-4">
-                John Doe
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                123456789
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                123 Main Street
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">House 1</td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                2024-01-01
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                2024-12-31
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">Actif</td>
-            </tr>
-            <tr className="border border-1 bg-[#b7bf7f] text-white">
-              <td className="border border-1 border-[#5f6263] p-4">John Doe</td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                123456789
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                123 Main Street
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">House 1</td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                2024-01-01
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">
-                2024-12-31
-              </td>
-              <td className="border border-1 border-[#5f6263] p-4">Actif</td>
-            </tr>
-          </tbody>
+          <tbody className="border border-1 border-[#5f6263]">{catalog}</tbody>
         </table>
       </div>
     </>
