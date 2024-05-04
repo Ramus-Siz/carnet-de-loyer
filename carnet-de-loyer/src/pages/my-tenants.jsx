@@ -31,7 +31,7 @@ export default function MyTenants() {
         const token = sessionStorage.getItem("token");
         // Envoyer les données à l'API
         for (const tenant of tenantsAfterDelete) {
-          const response = await axios.post(
+          const response = await axios.delete(
             `http://localhost:3000/my-tenants/delete/${tenant.id}`,
             {
               headers: {
@@ -39,11 +39,14 @@ export default function MyTenants() {
               },
             }
           );
+          if (response.status === 202) {
+            tenantsAfterDelete = [];
+            setIsCheck({ choises: [] });
+            setSelectAll(false);
+          } else {
+            console.log("Error suppression");
+          }
         }
-
-        tenantsAfterDelete = [];
-        setIsCheck({ choises: [] });
-        setSelectAll(false);
       } catch (error) {
         // Gérer les erreurs de requête
         console.error("Erreur lors de la suppression:", error);
@@ -55,7 +58,7 @@ export default function MyTenants() {
 
         for (const choiceId of isCheck.choises) {
           // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
-          await axios.delete(
+          const response = await axios.delete(
             `http://localhost:3000/my-tenants/delete/${choiceId}`,
             {
               headers: {
@@ -63,14 +66,17 @@ export default function MyTenants() {
               },
             }
           );
-          // Filtrer `tenants` pour supprimer les tenants sélectionnés
-          tenantsAfterDelete = tenantsAfterDelete.filter(
-            (tenant) => tenant.id !== choiceId
-          );
+          if (response.status === 202) {
+            tenantsAfterDelete = tenantsAfterDelete.filter(
+              (tenant) => tenant.id !== choiceId
+            );
+          }
+
+          updateTenants(tenantsAfterDelete);
+          setIsCheck({ choises: [] });
         }
 
-        updateTenants(tenantsAfterDelete);
-        setIsCheck({ choises: [] });
+        // Filtrer `tenants` pour supprimer les tenants sélectionnés
       } catch (error) {
         console.error("Erreur lors de la suppression:", error);
       }
