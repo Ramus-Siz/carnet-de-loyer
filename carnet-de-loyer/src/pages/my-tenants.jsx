@@ -5,6 +5,7 @@ import Options from "../components/options";
 import { Link } from "react-router-dom";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
+import Loader from "../components/loader";
 export default function MyTenants() {
   let tenants = useRentBooklet((state) => state.tenants);
   const updateTenants = useRentBooklet((state) => state.updateTenants);
@@ -13,6 +14,9 @@ export default function MyTenants() {
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
   // const [currentUser, setCurrentUser] = useState();
   const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [selectAll, setSelectAll] = useState(false);
   const [isCheck, setIsCheck] = useState({
@@ -39,14 +43,11 @@ export default function MyTenants() {
               },
             }
           );
-          if (response.status === 202) {
-            tenantsAfterDelete = [];
-            setIsCheck({ choises: [] });
-            setSelectAll(false);
-          } else {
-            console.log("Error suppression");
-          }
         }
+        tenantsAfterDelete = [];
+        setIsCheck({ choises: [] });
+        setSelectAll(false);
+        updateTenants(tenantsAfterDelete);
       } catch (error) {
         // Gérer les erreurs de requête
         console.error("Erreur lors de la suppression:", error);
@@ -154,36 +155,55 @@ export default function MyTenants() {
   const getTenantData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const { data } = await axios.get(userUrl, {
+      const response = await axios.get(userUrl, {
         headers: {
           authorization: token,
         },
       });
 
-      console.log("Tenantsdata: ", data);
-      updateTenants(data);
+      updateTenants(response.data);
       console.log("tenants: ", tenants);
+      setData(response.data);
     } catch (error) {
+      setError(error);
+
       console.error("Erreur lors de la récupération des données:", error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
     getTenantData();
   }, [currentUser.lessorId, updateCurrentUser]);
 
-  return (
-    <>
-      <Header />
-      <Options
-        selectAll={selectAll}
-        handleSelectAll={handleSelectAll}
-        HandleDelete={HandleDelete}
-        isCheck={isCheck}
-        catalog={catalog}
-        user="un / une locataire"
-        HandleAddData={HandleAddData}
-        isTrueToAddData={isTrueToAddData}
-      />
-    </>
-  );
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className=" flex justify-center items-center h-[70%]">
+          <Loader />
+        </div>
+      </>
+    );
+  }
+  if (error) {
+    alert("Il y a une Ereeur");
+  }
+  if (data) {
+    return (
+      <>
+        <Header />
+        <Options
+          selectAll={selectAll}
+          handleSelectAll={handleSelectAll}
+          HandleDelete={HandleDelete}
+          isCheck={isCheck}
+          catalog={catalog}
+          user="un / une locataire"
+          HandleAddData={HandleAddData}
+          isTrueToAddData={isTrueToAddData}
+        />
+      </>
+    );
+  }
 }

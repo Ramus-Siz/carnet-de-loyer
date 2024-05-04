@@ -7,8 +7,9 @@ import axios from "axios";
 
 export default function Home() {
   const navigation = useNavigate();
-  let tenants = useRentBooklet((state) => state.tenants);
-  let houses = useRentBooklet((state) => state.houses);
+  const tenants = useRentBooklet((state) => state.tenants);
+  const houses = useRentBooklet((state) => state.houses);
+  console.log(houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
   const updateTenants = useRentBooklet((state) => state.updateTenants);
@@ -20,11 +21,16 @@ export default function Home() {
       const token = sessionStorage.getItem("token");
       const { data } = await axios.get(userUrl, {
         headers: {
-          authorization: `${token}`,
+          authorization: token,
         },
       });
+      let getMyHouses = sessionStorage.getItem("myHouses");
 
-      updateHouses(data);
+      const myHouses = JSON.parse(getMyHouses);
+
+      updateTenants(myHouses);
+
+      updateHouses(myHouses);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
@@ -37,17 +43,19 @@ export default function Home() {
           authorization: `${token}`,
         },
       });
+      let getMyTenants = sessionStorage.getItem("mytenants");
 
-      console.log("Tenantsdata: ", data);
-      updateTenants(data);
+      const mytenants = JSON.parse(getMyTenants);
+
+      updateTenants(mytenants);
       console.log("tenants: ", tenants);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
   };
   useEffect(() => {
-    getTenantData();
     getHouseData();
+    getTenantData();
   }, [currentUser.lessorId, updateCurrentUser]);
 
   return (

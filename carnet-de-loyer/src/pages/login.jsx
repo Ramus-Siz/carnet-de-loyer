@@ -39,6 +39,15 @@ export default function Login({}) {
           "currentUser",
           JSON.stringify(response.data.user)
         );
+        sessionStorage.setItem(
+          "mytenants",
+          JSON.stringify(response.data.lessor.tenants)
+        );
+        sessionStorage.setItem(
+          "myHouses",
+          JSON.stringify(response.data.lessor.houses)
+        );
+
         sessionStorage.setItem("token", response.data.token);
         navigate("/home");
       } else {

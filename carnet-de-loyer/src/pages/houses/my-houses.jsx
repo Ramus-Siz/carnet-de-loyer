@@ -5,11 +5,15 @@ import Options from "../../components/options";
 import { Link } from "react-router-dom";
 import { useRentBooklet } from "../../components/contexts/context";
 import axios from "axios";
+import Loader from "../../components/loader";
 
 export default function MyHouses() {
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   let currentUser = useRentBooklet((state) => state.currentUser);
 
@@ -141,18 +145,40 @@ export default function MyHouses() {
         }
       );
       updateHouses(data);
+      setData(data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
   //re set the list of house
   useEffect(() => {
     getHousesData();
   }, [currentUser.lessorId, updateHouses]);
-
-  return (
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className=" flex justify-center items-center h-[70%]">
+          <Loader />
+        </div>
+      </>
+    );
+  }
+  if (error) {
     <>
-      <div className="">
+      <Header />
+      <div className=" flex justify-center items-center h-[70%]">
+        <Loader />
+      </div>
+    </>;
+  }
+
+  if (data) {
+    return (
+      <>
         <Header />
 
         <Options
@@ -165,7 +191,7 @@ export default function MyHouses() {
           HandleAddData={HandleAddData}
           isTrueToAddData={isTrueToAddData}
         />
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
