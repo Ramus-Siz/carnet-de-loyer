@@ -17,9 +17,14 @@ export default function Login({}) {
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
+
       // Envoyer les données à l'API
       const response = await axios.post(
         "http://localhost:3000/auth/signin",
@@ -49,7 +54,9 @@ export default function Login({}) {
         );
 
         sessionStorage.setItem("token", response.data.token);
+        setData(response.data);
         navigate("/home");
+        setLoading(false);
       } else {
         // Gérer les erreurs d'authentification
         console.error("Erreur d'authentification:", response.data);
@@ -58,7 +65,9 @@ export default function Login({}) {
     } catch (error) {
       // Gérer les erreurs de requête
       console.error("Erreur lors de l'envoi de la requête:", error);
-      // Afficher un message d'erreur à l'utilisateur
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
   const onSubmitTenant = async (data) => {
@@ -147,7 +156,13 @@ export default function Login({}) {
               {!isNeedToCreate ? (
                 <>
                   {!isTenant ? (
-                    <Signin onSubmit={onSubmit} loginTenants={loginTenants} />
+                    <Signin
+                      onSubmit={onSubmit}
+                      loginTenants={loginTenants}
+                      loading={loading}
+                      error={error}
+                      data={data}
+                    />
                   ) : (
                     <LoginTenants onSubmitTenant={onSubmitTenant} />
                   )}
