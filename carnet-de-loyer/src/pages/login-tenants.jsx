@@ -40,7 +40,7 @@ export default function LoginTenants({ onSubmitTenant }) {
                 <label className="text-base">Passeword</label>
                 <input
                   className="border-2 border-[#f4f4f4] rounded-lg outline-0 w-[100%] p-2"
-                  type="tenantPassword"
+                  type="password"
                   name="tenantPassword"
                   {...register("tenantPassword", {
                     required: "ce champ est obligatoir",
