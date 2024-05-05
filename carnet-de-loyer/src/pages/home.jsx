@@ -18,37 +18,41 @@ export default function Home() {
   const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
   const getHouseData = async () => {
     try {
-      const token = sessionStorage.getItem("token");
-      const { data } = await axios.get(userUrl, {
-        headers: {
-          authorization: token,
-        },
-      });
-      let getMyHouses = sessionStorage.getItem("myHouses");
+      // const token = sessionStorage.getItem("token");
+      // const { data } = await axios.get(userUrl, {
+      //   headers: {
+      //     authorization: token,
+      //   },
+      // });
+      // let getMyHouses = sessionStorage.getItem("myHouses");
+      // const myHouses = JSON.parse(getMyHouses);
 
-      const myHouses = JSON.parse(getMyHouses);
+      // sessionStorage.removeItem(myHouses);
+      // sessionStorage.setItem("myHouses", JSON.stringify(data));
+      let getMyHousesUpdate = sessionStorage.getItem("myHouses");
 
-      updateTenants(myHouses);
+      const myHousesUpdate = JSON.parse(getMyHousesUpdate);
 
-      updateHouses(myHouses);
+      updateHouses(myHousesUpdate);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
   };
   const getTenantData = async () => {
     try {
-      const token = sessionStorage.getItem("token");
-      const { data } = await axios.get(userUrl, {
-        headers: {
-          authorization: `${token}`,
-        },
-      });
-      let getMyTenants = sessionStorage.getItem("mytenants");
-
-      const mytenants = JSON.parse(getMyTenants);
-
-      updateTenants(mytenants);
-      console.log("tenants: ", tenants);
+      // const token = sessionStorage.getItem("token");
+      // const { data } = await axios.get(userUrl, {
+      //   headers: {
+      //     authorization: token,
+      //   },
+      // });
+      // const getMyTenants = sessionStorage.getItem("mytenants");
+      // const mytenants = JSON.parse(getMyTenants);
+      // sessionStorage.removeItem(mytenants);
+      // sessionStorage.setItem("mytenants", JSON.stringify(data));
+      let getMyTenantsUpdate = sessionStorage.getItem("mytenants");
+      const mytenantsUpdate = JSON.parse(getMyTenantsUpdate);
+      updateTenants(mytenantsUpdate);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
@@ -56,7 +60,7 @@ export default function Home() {
   useEffect(() => {
     getHouseData();
     getTenantData();
-  }, [currentUser.lessorId, updateCurrentUser]);
+  }, [updateCurrentUser]);
 
   return (
     <>

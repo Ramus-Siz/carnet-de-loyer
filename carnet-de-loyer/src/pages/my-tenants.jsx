@@ -180,14 +180,19 @@ export default function MyTenants() {
     return (
       <>
         <Header />
-        <div className=" flex justify-center items-center h-[70%]">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <Loader />
         </div>
       </>
     );
   }
   if (error) {
-    alert("Il y a une Ereeur");
+    <>
+      <Header />
+      <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <Loader />
+      </div>
+    </>;
   }
   if (data) {
     return (

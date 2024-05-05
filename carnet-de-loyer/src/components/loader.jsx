@@ -3,7 +3,7 @@ export default function Loader() {
     <div role="status" className="flex flex-col items-center justify-center">
       <svg
         aria-hidden="true"
-        className="w-[50%] h-[50%] text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+        className="w-[50%] h-[50%] text-gray-200 animate-spin dark:text-gray-600 fill-fuchsia-700"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ export default function Loader() {
           fill="currentFill"
         />
       </svg>
-      <span className="text-white">Loading...</span>
+      <span className="text-[#b3b5b7]">Loading...</span>
     </div>
   );
 }

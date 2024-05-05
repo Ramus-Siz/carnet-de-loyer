@@ -8,14 +8,14 @@ import axios from "axios";
 import Loader from "../../components/loader";
 
 export default function MyHouses() {
-  let houses = useRentBooklet((state) => state.houses);
-  const updateHouses = useRentBooklet((state) => state.updateHouses);
-  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  let houses = useRentBooklet((state) => state.houses);
+  const updateHouses = useRentBooklet((state) => state.updateHouses);
+  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   let currentUser = useRentBooklet((state) => state.currentUser);
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -136,16 +136,13 @@ export default function MyHouses() {
   const getHousesData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const { data } = await axios.get(
-        `http://localhost:3000/my-houses/lessor/${currentUser.lessorId}`,
-        {
-          headers: {
-            authorization: `${token}`,
-          },
-        }
-      );
-      updateHouses(data);
-      setData(data);
+      const response = await axios.get(`${userUrl}`, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+      updateHouses(response.data);
+      setData(response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
       setError(error);
@@ -156,12 +153,13 @@ export default function MyHouses() {
   //re set the list of house
   useEffect(() => {
     getHousesData();
-  }, [currentUser.lessorId, updateHouses]);
+  }, [currentUser.lessorId, updateCurrentUser]);
+
   if (loading) {
     return (
       <>
         <Header />
-        <div className=" flex justify-center items-center h-[70%]">
+        <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <Loader />
         </div>
       </>
@@ -170,7 +168,7 @@ export default function MyHouses() {
   if (error) {
     <>
       <Header />
-      <div className=" flex justify-center items-center h-[70%]">
+      <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
         <Loader />
       </div>
     </>;
@@ -180,7 +178,6 @@ export default function MyHouses() {
     return (
       <>
         <Header />
-
         <Options
           selectAll={selectAll}
           handleSelectAll={handleSelectAll}

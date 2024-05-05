@@ -2,12 +2,34 @@ import { useParams } from "react-router-dom";
 import { useRentBooklet } from "../contexts/context";
 import Header from "../header";
 import { delay, motion } from "framer-motion";
+import ModifyContract from "../modifyContract";
+import { useState } from "react";
+import Paiement from "../paiement";
 
 export default function SinglePreviewTenants() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalPayementOpen, setIsModalPayementOpen] = useState(false);
+
   const listTenants = useRentBooklet((state) => state.tenants);
   const { id } = useParams();
   const tenants = listTenants.find((tenant) => tenant.id === +id);
   console.log(tenants);
+
+  const openPayementModal = () => {
+    setIsModalPayementOpen(true);
+  };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsModalPayementOpen(false);
+  };
+
+  const closePayementModal = () => {
+    setIsModalPayementOpen(false);
+  };
   return (
     <>
       <Header />
@@ -22,17 +44,23 @@ export default function SinglePreviewTenants() {
             <ion-icon name="checkmark-outline"></ion-icon>
           </div>
           <motion.div className="flex gap-8">
-            <button className="  flex items-center  p-2 pr-8 pl-8 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-3xl ">
+            <button
+              className="  flex items-center  p-2 pr-8 pl-8 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-3xl "
+              onClick={openModal}
+            >
               <span className="text-white text-2xl">
                 <ion-icon name="create-outline"></ion-icon>
               </span>
               <span>Modifier le Contrat</span>
             </button>
-            <button className=" flex items-center p-2 pr-8 pl-8 bg-fuchsia-700 hover:scale-95 rounded-3xl ">
+            <button
+              className=" flex items-center p-2 pr-8 pl-8 bg-fuchsia-700 hover:scale-95 rounded-3xl "
+              onClick={openPayementModal}
+            >
               <span className="text-2xl animate-bounce">
                 <ion-icon name="download-outline"></ion-icon>
               </span>
-              Telecharger le Contrat
+              Paiement
             </button>
           </motion.div>
         </motion.div>
@@ -95,6 +123,16 @@ export default function SinglePreviewTenants() {
           </motion.div>
         </motion.div>
       </div>
+      <ModifyContract
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        id={id}
+      />
+      <Paiement
+        isModalPayementOpen={isModalPayementOpen}
+        closePayementModal={closePayementModal}
+        id={id}
+      />
     </>
   );
 }
