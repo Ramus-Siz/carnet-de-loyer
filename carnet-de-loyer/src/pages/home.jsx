@@ -1,62 +1,40 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
 
 export default function Home() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const tenants = useRentBooklet((state) => state.tenants);
   const houses = useRentBooklet((state) => state.houses);
-  console.log(houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
-
   const updateTenants = useRentBooklet((state) => state.updateTenants);
-  let currentUser = useRentBooklet((state) => state.currentUser);
-  const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const currentUser = useRentBooklet((state) => state.currentUser);
+
+  const userUrl = `https://tenants-management-api.onrender.com/my-tenants/lessor/${currentUser.lessorId}`;
+
   const getHouseData = async () => {
     try {
-      // const token = sessionStorage.getItem("token");
-      // const { data } = await axios.get(userUrl, {
-      //   headers: {
-      //     authorization: token,
-      //   },
-      // });
-      // let getMyHouses = sessionStorage.getItem("myHouses");
-      // const myHouses = JSON.parse(getMyHouses);
-
-      // sessionStorage.removeItem(myHouses);
-      // sessionStorage.setItem("myHouses", JSON.stringify(data));
-      let getMyHousesUpdate = sessionStorage.getItem("myHouses");
-
-      const myHousesUpdate = JSON.parse(getMyHousesUpdate);
-
-      updateHouses(myHousesUpdate);
+      let myHousesUpdate = sessionStorage.getItem("myHouses");
+      const housesUpdate = JSON.parse(myHousesUpdate);
+      updateHouses(housesUpdate);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
   };
+
   const getTenantData = async () => {
     try {
-      // const token = sessionStorage.getItem("token");
-      // const { data } = await axios.get(userUrl, {
-      //   headers: {
-      //     authorization: token,
-      //   },
-      // });
-      // const getMyTenants = sessionStorage.getItem("mytenants");
-      // const mytenants = JSON.parse(getMyTenants);
-      // sessionStorage.removeItem(mytenants);
-      // sessionStorage.setItem("mytenants", JSON.stringify(data));
-      let getMyTenantsUpdate = sessionStorage.getItem("mytenants");
-      const mytenantsUpdate = JSON.parse(getMyTenantsUpdate);
-      updateTenants(mytenantsUpdate);
+      let myTenantsUpdate = sessionStorage.getItem("mytenants");
+      const tenantsUpdate = JSON.parse(myTenantsUpdate);
+      updateTenants(tenantsUpdate);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
   };
+
   useEffect(() => {
     getHouseData();
     getTenantData();
@@ -64,28 +42,26 @@ export default function Home() {
 
   return (
     <>
-      <div className="">
-        <Header />
-      </div>
+      <Header />
       <div className="p-10">
-        <div className="flex gap-8">
+        <div className="flex flex-wrap gap-8 justify-center">
+          {/* Carte Mes Biens */}
           <motion.div
-            className="h-[250px] w-[385px] shadow-2xl hover:shadow-xl cursor-pointer  rounded-xl bg-[#b7bf7f]  hover:text-white"
-            onClick={() => navigation("/my-houses")}
+            className="h-[250px] w-[385px] shadow-lg rounded-xl bg-[#b7bf7f] hover:bg-[#a0a872] hover:text-white cursor-pointer transition-colors duration-300"
+            onClick={() => navigate("/my-houses")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            whileHover={{ scale: 1.05 }}
           >
-            <h3 className="pr-12 p-5 text-xl  leading-tight text-end text-[#edeeef]">
-              Mes biens
-            </h3>
-            <div className="flex  h-3/4 justify-around items-center p-5 ">
+            <h3 className="text-xl p-5 text-end text-[#edeeef]">Mes biens</h3>
+            <div className="flex justify-around items-center h-3/4 p-5">
               <div className="text-5xl text-white border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="home-outline"></ion-icon>
               </div>
               <div className="flex flex-col text-xl text-white">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold text-[#edeeef]">
-                    {`${houses.length}`}
+                  <span className="text-5xl font-semibold">
+                    {houses.length}
                   </span>
                   <span className="flex flex-col">
                     <span className="text-xl">Maisons</span>
@@ -94,109 +70,105 @@ export default function Home() {
                     </span>
                   </span>
                 </div>
-                <div className="">
-                  <div className="flex items-center gap-2">
-                    <span className="text-5xl font-semibold text-[#edeeef]">
-                      8
+                <div className="flex items-center gap-2">
+                  <span className="text-5xl font-semibold">8</span>
+                  <span className="flex flex-col">
+                    <span className="text-xl">Boutiques</span>
+                    <span className="text-xs text-[#283342]">
+                      Commerce et autres
                     </span>
-                    <span className="flex flex-col">
-                      <span className="text-xl ">Boutiques</span>
-                      <span className="text-xs text-[#283342]">
-                        Commerce et autres
-                      </span>
-                    </span>
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>
           </motion.div>
+
+          {/* Carte Locataires */}
           <motion.div
-            className="h-[250px] w-[385px] shadow-2xl hover:shadow-xl rounded-xl  bg-[#c299d0]  cursor-pointer hover:text-white"
-            onClick={() => navigation("/my-tenants")}
+            className="h-[250px] w-[385px] shadow-lg rounded-xl bg-[#c299d0] hover:bg-[#b085b7] hover:text-white cursor-pointer transition-colors duration-300"
+            onClick={() => navigate("/my-tenants")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ delay: 0.2 }}
           >
-            <h3 className="pr-12 text-xl p-5 text-[#edeeef] leading-tight  text-end ">
-              Locataires
-            </h3>
-            <div className="flex  h-3/4 justify-around items-center p-5 text-[#edeeef]">
-              <div className="text-5xl text-white border-solid border-white border-2 p-3 rounded-full animate-pulse">
+            <h3 className="text-xl p-5 text-end text-[#edeeef]">Locataires</h3>
+            <div className="flex justify-around items-center h-3/4 p-5 text-[#edeeef]">
+              <div className="text-5xl border-white border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="person-outline"></ion-icon>
               </div>
               <div className="flex flex-col text-xl ">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold text-[#edeeef]">
-                    {`${tenants.length}`}
+                  <span className="text-5xl font-semibold">
+                    {tenants.length}
                   </span>
                   <span className="flex flex-col">
-                    <span className="text-xl ">Occupants</span>
+                    <span className="text-xl">Occupants</span>
                     <span className="text-xs text-[#283342]">Maisons</span>
                   </span>
                 </div>
-                <div className="">
-                  <div className="flex items-center gap-3">
-                    <span className="text-5xl font-semibold text-[#edeeef]">
-                      5
-                    </span>
-                    <span className="flex flex-col">
-                      <span className="text-xl ">Occupants</span>
-                      <span className="text-xs text-[#283342]">Boutiques</span>
-                    </span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-5xl font-semibold">5</span>
+                  <span className="flex flex-col">
+                    <span className="text-xl">Occupants</span>
+                    <span className="text-xs text-[#283342]">Boutiques</span>
+                  </span>
                 </div>
               </div>
             </div>
           </motion.div>
+
+          {/* Carte Locations */}
           <motion.div
-            className="h-[250px] w-[385px] rounded-xl bg-[#b7bf7f] shadow-2xl hover:shadow-xl cursor-pointer hover:text-white"
-            onClick={() => navigation("/locations")}
+            className="h-[250px] w-[385px] shadow-lg rounded-xl bg-[#b7bf7f] hover:bg-[#a0a872] hover:text-white cursor-pointer transition-colors duration-300"
+            onClick={() => navigate("/locations")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ delay: 0.4 }}
           >
-            <h3 className=" p-5 pr-12 text-xl text-[#edeeef] leading-tight  text-end ">
-              Locations
-            </h3>
-            <div className="flex  h-3/4 justify-around items-center p-5">
-              <div className="text-5xl text-white border-solid border-white border-2 p-3 rounded-full animate-pulse">
+            <h3 className="text-xl p-5 text-end text-[#edeeef]">Locations</h3>
+            <div className="flex justify-around items-center h-3/4 p-5">
+              <div className="text-5xl border-white border-2 p-3 rounded-full animate-pulse">
                 <ion-icon name="key-outline"></ion-icon>
               </div>
               <div className="flex flex-col text-xl text-[#edeeef]">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">{`${tenants.length}`}</span>
+                  <span className="text-5xl font-semibold">
+                    {tenants.length}
+                  </span>
                   <span className="flex flex-col">
-                    <span className="text-xl ">Maisons</span>
-                    <span className="text-xs text-[#283342] ">
-                      {`${houses.length - tenants.length} Disponibles`}
-                    </span>
+                    <span className="text-xl">Maisons</span>
+                    <span className="text-xs text-[#283342]">{`${
+                      houses.length - tenants.length
+                    } Disponibles`}</span>
                   </span>
                 </div>
-                <div className="">
-                  <div className="flex items-center gap-3">
-                    <span className="text-5xl font-semibold">5</span>
-                    <span className="flex flex-col">
-                      <span className="text-xl ">Boutiques</span>
-                      <span className="text-xs text-[#283342]">
-                        3 Disponibles
-                      </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-5xl font-semibold">5</span>
+                  <span className="flex flex-col">
+                    <span className="text-xl">Boutiques</span>
+                    <span className="text-xs text-[#283342]">
+                      3 Disponibles
                     </span>
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Section Loyers en retard */}
         <motion.div
-          className="flex items-center p-5 mt-8 text-red-500 bg-[#f2dedf] gap-4  rounded-lg cursor-pointer overflow-hidden"
+          className="flex items-center p-5 mt-8 bg-[#f2dedf] gap-4 rounded-lg cursor-pointer overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 0.6 }}
         >
-          <span className="text-xl">
+          <span className="text-xl text-red-500">
             <ion-icon name="chatbox-ellipses-outline"></ion-icon>
           </span>
-          <h3 className="">3 Loyers en retard</h3>
+          <h3 className="text-red-500">3 Loyers en retard</h3>
         </motion.div>
       </div>
     </>
