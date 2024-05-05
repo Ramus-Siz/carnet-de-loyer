@@ -98,7 +98,7 @@ export default function Login({}) {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
-        "http://localhost:3000/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
+        "https://tenents-management-api.onrender.com/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
         data,
         { withCredentials: true }
       );
@@ -121,7 +121,7 @@ export default function Login({}) {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
-        "http://localhost:3000/landlords/add",
+        "https://tenents-management-api.onrender.com/landlords/add",
         data,
         { withCredentials: true }
       );

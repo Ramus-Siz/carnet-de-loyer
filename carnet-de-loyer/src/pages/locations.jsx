@@ -15,8 +15,8 @@ export default function Locations() {
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const [tenantState, settenantState] = useState([]);
 
-  const tenantUrl = `http://localhost:3000/my-tenants/${tenants[0].id}`;
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const tenantUrl = `https://tenents-management-api.onrender.com/my-tenants/${tenants[0].id}`;
+  const userUrl = `https://tenents-management-api.onrender.com/my-tenants/lessor/${currentUser.lessorId}`;
 
   const [data, setData] = useState({});
   const [tenantData, setTenanteData] = useState({});
