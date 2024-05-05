@@ -148,7 +148,9 @@ export default function Login({}) {
 
   return (
     <div className=" flex text-black w-screen  items-center">
-      <div className=" flex justify-end items-center h-screen w-[50%]   bg-[url('./assets/19198828.jpg')] bg-contain bg-center bg-no-repeat"></div>
+      <div className="h-screen w-[50%]   bg-[url('./assets/19198828.jpg')] bg-contain bg-center bg-no-repeat">
+        {/* <button className="">Retournez vers la page login</button> */}
+      </div>
       <div className=" flex h-screen w-[50%] justify-center items-center bg-[#f4f4f4]  ">
         <div className="flex flex-col justify-center items-center  w-[100%] p-2 gap-6 ">
           {!isRegister ? (
