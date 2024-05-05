@@ -17,25 +17,29 @@ export default function Locations() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const catalog = tenants.map((item, index) => {
-    let background = "";
-    if (index % 2 !== 0) {
-      background = " bg-[#b7bf7f] text-white";
+  const catalog = tenants.map((tenant, index) => {
+    const backgroundClass = index % 2 !== 0 ? "bg-[#b7bf7f] text-white" : "";
+    let startDate = "";
+    let endDate = "";
+
+    if (tenant.bails && tenant.bails.length > 0) {
+      const firstBail = tenant.bails[0]; // Choisissez un bail (ici, le premier bail)
+      console.log(fir);
+
+      // Accédez à startDate et endDate
+      startDate = firstBail.start || "";
+      endDate = firstBail.finish || "";
     }
-    console.log(item.id, "And", index);
     return (
       <tr
-        key={item.id || index}
-        className={`border border-1 border-[#5f6263] ${background}`}
+        key={tenant.id || index}
+        className={`border border-1 border-[#5f6263] ${backgroundClass}`}
       >
-        <td className="border border-1  border-[#5f6263] p-4">{`${item.name} ${item.prenom}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">{`${item.telephone}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">
-          {`${item.adress}`}
-        </td>
-        <td className="border border-1 border-[#5f6263] p-4">House 1</td>
-        <td className="border border-1 border-[#5f6263] p-4">2024-01-01</td>
-        <td className="border border-1 border-[#5f6263] p-4">2024-12-31</td>
+        <td className="border border-1  border-[#5f6263] p-4">{`${tenant.name} ${tenant.prenom}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.telephone}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.adress}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">{`${startDate}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">{`${endDate}`}</td>
         <td className="border border-1 border-[#5f6263] p-4">Actif</td>
       </tr>
     );

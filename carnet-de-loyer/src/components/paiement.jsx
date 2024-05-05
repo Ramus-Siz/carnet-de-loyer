@@ -20,7 +20,7 @@ export default function Paiement({
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const payementURL = `http://localhost:3000/tenant/payement`;
+  const payementURL = `http://localhost:3000/tenant/payement/`;
 
   const onSubmit = async (newPayement) => {
     const payementObjetBuild = BuildNewPayementObject(newPayement);

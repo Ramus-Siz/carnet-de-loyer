@@ -3,16 +3,23 @@ import { useRentBooklet } from "../contexts/context";
 import Header from "../header";
 import { delay, motion } from "framer-motion";
 import ModifyContract from "../modifyContract";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Paiement from "../paiement";
+import FilterForm from "../filterForm";
+import axios from "axios";
 
 export default function SinglePreviewTenants() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalPayementOpen, setIsModalPayementOpen] = useState(false);
+  const [inOder, setInOder] = useState(false);
+  const [tenantData, setTenantData] = useState({});
+  console.log(tenantData);
 
   const listTenants = useRentBooklet((state) => state.tenants);
   const { id } = useParams();
   const tenants = listTenants.find((tenant) => tenant.id === +id);
+  const tenantURL = `http://localhost:3000/my-tenants/${id}`;
+
   console.log(tenants);
 
   const openPayementModal = () => {
@@ -30,6 +37,25 @@ export default function SinglePreviewTenants() {
   const closePayementModal = () => {
     setIsModalPayementOpen(false);
   };
+
+  const getTenantData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(tenantURL, {
+        headers: {
+          authorization: token,
+        },
+      });
+      if (response.status === 201) {
+        setTenantData(response.data);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
+  };
+  useEffect(() => {
+    getTenantData();
+  }, []);
   return (
     <>
       <Header />
@@ -45,7 +71,7 @@ export default function SinglePreviewTenants() {
           </div>
           <motion.div className="flex gap-8">
             <button
-              className="  flex items-center  p-2 pr-8 pl-8 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-3xl "
+              className="  flex items-center  p-2 pr-8 pl-8 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
               onClick={openModal}
             >
               <span className="text-white text-2xl">
@@ -54,47 +80,43 @@ export default function SinglePreviewTenants() {
               <span>Modifier le Contrat</span>
             </button>
             <button
-              className=" flex items-center p-2 pr-8 pl-8 bg-fuchsia-700 hover:scale-95 rounded-3xl "
+              className=" flex items-center p-2 pr-8 pl-8 bg-[#a1a76a] text-white-700 hover:scale-95 rounded-xl "
               onClick={openPayementModal}
             >
               <span className="text-2xl animate-bounce">
-                <ion-icon name="download-outline"></ion-icon>
+                <ion-icon name="create-outline"></ion-icon>
               </span>
               Paiement
             </button>
           </motion.div>
         </motion.div>
-        <motion.div className=" flex justify-between gap-8 ">
+        <motion.div className="flex justify-between gap-8">
+          {/* Première section avec les détails du locataire */}
           <motion.div
-            className=" flex flex-col gap-10 w-[50%] h-[400px]  rounded-3xl p-8 shadow-2xl "
+            className="flex flex-col gap-10 w-1/2 h-96 rounded-3xl p-8 shadow-2xl bg-[#2d3446}"
             initial={{ opacity: 0 }}
             whileHover={{ scale: 0.9 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
           >
-            <div className="flex justify-between items-center p-2 rounded-xl border-solid border text-[#acaeb0] border-[#6e6f70]">
+            <div className="flex justify-between items-center p-2 rounded-xl border border-solid border-[#6e6f70] bg-[#a1a76a] text-white">
               <div className="flex gap-4">
                 <h2 className="text-xl">{tenants.name}</h2>
                 <h2 className="text-xl">{tenants.prenom}</h2>
               </div>
-              <span className="text-xl hover:text-white">
+              <span className="text-xl hover:text-gray-800">
                 <ion-icon name="create-outline"></ion-icon>
               </span>
             </div>
-            <table className=" border-collapse border border-[#b3b5b7] rounded-3xl text-[#b3b5b7]">
-              <thead>
-                <tr className="border border-1 bg-[#b7bf7f] text-white"></tr>
-              </thead>
+            <table className="w-full border-collapse border border-[#b3b5b7] rounded-3xl text-[#b3b5b7]">
               <tbody>
-                <tr className="border border-1 bg-[#b7bf7f] text-white">
-                  <td className=" p-4 border border-[#b3b5b7] ...">ID :</td>
-                  <td className="p-4 border border-[#b3b5b7] ...">
-                    {tenants.id}
-                  </td>
+                <tr className="border border-1">
+                  <td className="p-4 border border-[#b3b5b7]">ID :</td>
+                  <td className="p-4 border border-[#b3b5b7]">{tenants.id}</td>
                 </tr>
-                <tr className="">
-                  <td className=" p-4 border border-[#b3b5b7] ...">Tél :</td>
-                  <td className="p-4 border border-[#b3b5b7] ...">
+                <tr>
+                  <td className="p-4 border border-[#b3b5b7]">Tél :</td>
+                  <td className="p-4 border border-[#b3b5b7]">
                     {tenants.telephone}
                   </td>
                 </tr>
@@ -102,24 +124,27 @@ export default function SinglePreviewTenants() {
             </table>
           </motion.div>
 
+          {/* Deuxième section avec le formulaire et le statut */}
           <motion.div
-            className="flex gap-10 flex-col  w-[30%] h-[400px] text-[#d6d8da] shadow-2xl  rounded-3xl p-8 shadow-2xl bg-gradient-to-t from-[#67456d] to-[#283342]"
+            className="flex flex-col items-center justify-center w-2/5 h-96 text-[#d6d8da] shadow-2xl rounded-3xl p-8 bg-gradient-to-t from-[#67456d] to-[#283342]"
             initial={{ opacity: 0 }}
             whileHover={{ scale: 0.9 }}
             animate={{ opacity: 1 }}
             transition={{ delayChildren: 0.4 }}
           >
-            <div className="flex justify-between items-center p-2 rounded-xl border-solid border text-[#acaeb0] border-[#6e6f70]">
-              <h2 className="text-xl">Filtre</h2>
-              <span className="text-xl hover:text-white">
-                <ion-icon name="create-outline"></ion-icon>
-              </span>
-            </div>
-            <div className="justify-self-center self-center">
-              <span className="text-6xl  hover:text-white ">
-                <ion-icon name="checkmark-circle-outline"></ion-icon>
-              </span>
-            </div>
+            {/* Utilisez le composant FilterForm */}
+            <FilterForm tenant={tenantData} setInOder={setInOder} />
+
+            {/* Affichez le statut du locataire en fonction de inOder */}
+            {inOder ? (
+              <p className="text-lg text-white">
+                Le locataire {tenants.name} est en règle.
+              </p>
+            ) : (
+              <p className="text-lg text-white">
+                Le locataire {tenants.name} n'est pas en règle.
+              </p>
+            )}
           </motion.div>
         </motion.div>
       </div>
