@@ -10,18 +10,17 @@ export default function Paiement({
   id,
 }) {
   const { register, handleSubmit } = useForm();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   let tenants = useRentBooklet((state) => state.tenants);
   console.log(tenants);
-  console.log(tenants.bails);
 
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const payementURL = `http://localhost:3000/tenant/payement`;
 
   const onSubmit = async (newPayement) => {
     const payementObjetBuild = BuildNewPayementObject(newPayement);
@@ -43,9 +42,10 @@ export default function Paiement({
         }
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         // updateTenants([...tenants, tenantBailObjetBuild]);
-        closeModal();
+
+        closePayementModal();
       } else {
         console.log("Error lors de l'ajout, veillez recommencer ");
       }
@@ -59,11 +59,11 @@ export default function Paiement({
     let keyOftheLastPayement = [];
     let keyOfpayement;
     // console.log(keyOftheLasTenant.length);
-    if (tenants.payement.length === 0) {
+    if (data.length === 0) {
       keyOfpayement = 1;
       console.log(keyOfpayement);
     } else {
-      for (const payement of tenants.payement) {
+      for (const payement of data) {
         keyOftheLastPayement.push(parseInt(payement.id));
       }
       // console.log(keyOftheLasTenant);
@@ -71,15 +71,13 @@ export default function Paiement({
     }
     const getcurrentUser = sessionStorage.getItem("currentUser");
     const user = JSON.parse(getcurrentUser);
-    console.log(user.lessorId);
 
     const newPayementsObject = {
       id: +`${keyOfpayement}`,
       month: newPayement.month,
       year: newPayement.year,
       amount: newPayement.amount,
-      residentId: newPayement.residentId,
-      bailId: newPayement.bailId,
+      residentId: id,
     };
 
     return newPayementsObject;
@@ -87,29 +85,23 @@ export default function Paiement({
   const getMyHouses = sessionStorage.getItem("myHouses");
   const myHouses = JSON.parse(getMyHouses);
 
-  const getTenantData = async () => {
+  const getPaiementtData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const response = await axios.get(userUrl, {
+      const response = await axios.get(payementURL, {
         headers: {
           authorization: token,
         },
       });
 
-      updateTenants(response.data);
-      console.log("tenants: ", tenants);
       setData(response.data);
     } catch (error) {
-      setError(error);
-
       console.error("Erreur lors de la récupération des données:", error);
-    } finally {
-      setLoading(false);
     }
   };
   useEffect(() => {
-    getTenantData();
-  }, [currentUser.lessorId, updateCurrentUser]);
+    getPaiementtData();
+  }, [updateCurrentUser]);
 
   return (
     <>
@@ -121,14 +113,31 @@ export default function Paiement({
               {/* Champ `month` et `year` sur une même ligne */}
               <div className="mb-4 flex space-x-4">
                 <div>
-                  <label className="block mb-2">Mois:</label>
-                  <input
-                    type="text"
+                  <label className="block mb-2" htmlFor="month">
+                    Mois:
+                  </label>
+                  <select
                     name="month"
-                    {...register("month")}
+                    id="month"
+                    {...register("month", { required: "Obligatoire" })}
                     className="border p-2 rounded w-full"
-                    required
-                  />
+                  >
+                    <option value="" disabled>
+                      Sélectionnez un mois
+                    </option>
+                    <option value="01">Janvier</option>
+                    <option value="02">Février</option>
+                    <option value="03">Mars</option>
+                    <option value="04">Avril</option>
+                    <option value="05">Mai</option>
+                    <option value="06">Juin</option>
+                    <option value="07">Juillet</option>
+                    <option value="08">Août</option>
+                    <option value="09">Septembre</option>
+                    <option value="10">Octobre</option>
+                    <option value="11">Novembre</option>
+                    <option value="12">Décembre</option>
+                  </select>
                 </div>
                 <div>
                   <label className="block mb-2">Année:</label>
@@ -149,6 +158,7 @@ export default function Paiement({
                 <input
                   type="number"
                   name="amount"
+                  placeholder="Dollars($)"
                   {...register("amount")}
                   className="border p-2 rounded w-full"
                   required
