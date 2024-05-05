@@ -7,7 +7,6 @@ import MoreInfosOfLandLord from "./more-infos-landlord";
 import LoginTenants from "./login-tenants";
 import axios from "axios";
 import { useRentBooklet } from "../components/contexts/context";
-import { headers } from "next/headers";
 
 export default function Login({}) {
   const [isTenant, setIsTenant] = useState(false);
