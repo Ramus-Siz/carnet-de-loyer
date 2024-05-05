@@ -15,6 +15,10 @@ export default function Signin({
   if (loading) {
     spinner = "animate-spin";
   }
+  const OnloginTenants = () => {
+    loginTenants();
+  };
+
   return (
     <>
       <div className="flex flex-col justify-center items-center h-[50%] w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded-xl  ">
@@ -33,6 +37,10 @@ export default function Signin({
                   name="email"
                   {...register("email", {
                     required: "ce champ est obligatoire",
+                    pattern: {
+                      value: "/^[^s@]+@[^s@]+.[^s@]+$/",
+                      message: "L'email n'est pas valide.",
+                    },
                   })}
                 />
               </div>
@@ -50,7 +58,7 @@ export default function Signin({
                   type="password"
                   name="password"
                   {...register("password", {
-                    required: "ce champ est obligatoire",
+                    required: { message: "ce champ est obligatoire" },
                   })}
                 />
               </div>
@@ -91,7 +99,7 @@ export default function Signin({
 
           <button
             className="w-[65%] border-2 border-fuchsia-700   rounded-md p-1 text-xs font-semibold text-fuchsia-700 p-1"
-            onClick={loginTenants}
+            onClick={OnloginTenants}
           >
             je suis un locataire
           </button>

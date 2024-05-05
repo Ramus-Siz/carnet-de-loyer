@@ -171,13 +171,16 @@ export default function Login({}) {
                 <Signup onRegister={onRegister} />
               )}
 
-              <button
-                onClick={() => setIsNeedToCreate(true)}
-                className="text-xs pt-1"
-              >
+              <div className="text-xs pt-1">
                 Vous n'avez pas de compte?
-                <span className="text-orange-600 font-semibold">Créer</span>
-              </button>
+                <span
+                  className="text-orange-600 font-semibold"
+                  onClick={() => setIsNeedToCreate(true)}
+                >
+                  Créer,
+                </span>
+                <span className="text-orange-600 font-semibold"></span>
+              </div>
             </>
           ) : (
             <MoreInfosOfLandLord onRegisterMoreInfos={onRegisterMoreInfos} />

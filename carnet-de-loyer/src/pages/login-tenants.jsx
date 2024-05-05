@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 export default function LoginTenants({ onSubmitTenant }) {
   const {
@@ -6,6 +7,7 @@ export default function LoginTenants({ onSubmitTenant }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   return (
     <>
       <div className="flex flex-col justify-center items-center h-[50%] w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded  ">

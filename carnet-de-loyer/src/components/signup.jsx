@@ -10,6 +10,9 @@ export default function Signup({ onRegister }) {
     <>
       <div className=" flex flex-col justify-center h-[50%] w-[100%] border-solid shadow-white rounded ">
         <h2 className="text-center text-4xl pb-4">Créer un compte</h2>
+        <h3 className="text-center text-[#a21caf]">
+          Ce compte est propre aux Bailleurs
+        </h3>
         <div className="flex justify-center items-center ">
           <form
             onSubmit={handleSubmit(onRegister)}
@@ -44,6 +47,10 @@ export default function Signup({ onRegister }) {
                   name="emailOnRegister"
                   {...register("emailOnRegister", {
                     required: "ce champ est obligatoir",
+                    pattern: {
+                      value: /^[^s@]+@[^s@]+.[^s@]+$/,
+                      message: "L'email n'est pas valide.",
+                    },
                   })}
                 />
               </div>
@@ -63,6 +70,11 @@ export default function Signup({ onRegister }) {
                   name="passwordOnRegister"
                   {...register("passwordOnRegister", {
                     required: "ce champ est obligatoir",
+                    pattern: {
+                      value:
+                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+                      message: "L'email n'est pas valide.",
+                    },
                   })}
                 />
               </div>

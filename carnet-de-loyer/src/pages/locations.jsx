@@ -6,68 +6,73 @@ import Loader from "../components/loader";
 
 export default function Locations() {
   let tenants = useRentBooklet((state) => state.tenants);
+  console.log(tenants);
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  const [tenantState, settenantState] = useState([]);
+
+  const tenantUrl = `http://localhost:3000/my-tenants/${tenants[0].id}`;
   const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
-  const [data, setData] = useState(null);
+
+  const [data, setData] = useState({});
+  const [tenantData, setTenanteData] = useState({});
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  console.log(data);
+  const catalog = (
+    <tr className={`border border-1 border-[#5f6263]`}>
+      <td className="border border-1  border-[#5f6263] p-4">{`${tenants[0].name} ${tenants[0].prenom}`}</td>
+      <td className="border border-1 border-[#5f6263] p-4">{`${tenants[0].telephone}`}</td>
+      <td className="border border-1 border-[#5f6263] p-4">{`${tenants[0].adress}`}</td>
+      {tenantData.bails && tenantData.bails.length > 0 && (
+        <>
+          {/* const firstBail = data.bails[0]; */}
+          <td className="border border-1 border-[#5f6263] p-4">
+            {tenantData.bails[0].start}
+          </td>
+          {/* Afficher la date de fin du bail */}
+          <td className="border border-1 border-[#5f6263] p-4">
+            {tenantData.bails[0].finish}
+          </td>
+        </>
+      )}
+      <td className="border border-1 border-[#5f6263] p-4">Actif</td>
+    </tr>
+  );
 
-  const catalog = tenants.map((tenant, index) => {
-    const backgroundClass = index % 2 !== 0 ? "bg-[#b7bf7f] text-white" : "";
-    let startDate = "";
-    let endDate = "";
-
-    if (tenant.bails && tenant.bails.length > 0) {
-      const firstBail = tenant.bails[0]; // Choisissez un bail (ici, le premier bail)
-      console.log(fir);
-
-      // Accédez à startDate et endDate
-      startDate = firstBail.start || "";
-      endDate = firstBail.finish || "";
-    }
-    return (
-      <tr
-        key={tenant.id || index}
-        className={`border border-1 border-[#5f6263] ${backgroundClass}`}
-      >
-        <td className="border border-1  border-[#5f6263] p-4">{`${tenant.name} ${tenant.prenom}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.telephone}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.adress}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">{`${startDate}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">{`${endDate}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">Actif</td>
-      </tr>
-    );
-  });
-  const getHouseData = async () => {
+  const getData = async () => {
     try {
       const token = sessionStorage.getItem("token");
       const { data } = await axios.get(userUrl, {
         headers: {
-          authorization: `${token}`,
+          authorization: token,
         },
       });
-
-      updateHouses(data);
+      settenantState(data);
+      updateTenants(data);
+      setData(data);
     } catch (error) {
+      console.log("locations", error);
       console.error("Erreur lors de la récupération des données:", error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
   const getTenantData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const { data } = await axios.get(userUrl, {
+      const { data } = await axios.get(tenantUrl, {
         headers: {
-          authorization: `${token}`,
+          authorization: token,
         },
       });
-
-      updateTenants(data);
+      setTenanteData(data);
       setData(data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
@@ -77,9 +82,11 @@ export default function Locations() {
     }
   };
   useEffect(() => {
-    getTenantData();
-    getHouseData();
-  }, [currentUser.lessorId, updateCurrentUser]);
+    if (tenants && tenants.length > 0 && tenants[0].id) {
+      getData();
+      getTenantData();
+    }
+  }, [tenantData, currentUser.lessorId]);
 
   if (loading) {
     return (
@@ -118,14 +125,13 @@ export default function Locations() {
                 <th className="border border-1  border-[#5f6263] p-4">
                   Adresse
                 </th>
-                <th className="border border-1 border-[#5f6263] p-4">Maison</th>
                 <th className="border border-1 border-[#5f6263] p-4">
                   Début du contrat
                 </th>
-                <th className="border border-1  border-[#5f6263] p-4">
-                  Fin du contrat
+                <th className="border border-1 border-[#5f6263] p-4">
+                  in du contrat
                 </th>
-                <th className="border border-1 border-[#5f6263] p-4">État</th>
+                <th className="border border-1  border-[#5f6263] p-4">Etat</th>
               </tr>
             </thead>
             <tbody className="border border-1 border-[#5f6263]">
