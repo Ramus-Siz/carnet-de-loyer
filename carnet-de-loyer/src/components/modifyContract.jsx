@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
 
 export default function ModifyContract({ isModalOpen, closeModal, id }) {
+  console.log(id);
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,8 +16,8 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `https://tenents-management-api.onrender.com/tenant/bail/${id}`;
-  const bailUrl = `https://tenents-management-api.onrender.com/tenant/bail`;
+  const userUrl = `http://localhost:3000/tenant/bail/${id}`;
+  const bailUrl = `http://localhost:3000/tenant/bail`;
 
   const onSubmit = async (newBail) => {
     const bailObjetBuild = BuildNewBailObject(newBail);
@@ -27,7 +28,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "https://tenents-management-api.onrender.com/tenant/bail/add",
+        "http://localhost:3000/tenant/bail/add",
         bailObjetBuild,
         {
           headers: {

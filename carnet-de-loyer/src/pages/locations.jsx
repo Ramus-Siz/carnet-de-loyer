@@ -15,8 +15,8 @@ export default function Locations() {
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const [tenantState, settenantState] = useState([]);
 
-  const tenantUrl = `https://tenents-management-api.onrender.com/my-tenants/${tenants[0].id}`;
-  const userUrl = `https://tenents-management-api.onrender.com/my-tenants/lessor/${currentUser.lessorId}`;
+  const tenantUrl = `http://localhost:3000/my-tenants/${tenants[0].id}`;
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
 
   const [data, setData] = useState({});
   const [tenantData, setTenanteData] = useState({});
@@ -86,7 +86,7 @@ export default function Locations() {
       getData();
       getTenantData();
     }
-  }, [tenantData, currentUser.lessorId]);
+  }, [tenants[0].id, currentUser.lessorId]);
 
   if (loading) {
     return (
@@ -129,7 +129,7 @@ export default function Locations() {
                   Début du contrat
                 </th>
                 <th className="border border-1 border-[#5f6263] p-4">
-                  in du contrat
+                  Fin du contrat
                 </th>
                 <th className="border border-1  border-[#5f6263] p-4">Etat</th>
               </tr>

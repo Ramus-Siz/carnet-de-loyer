@@ -13,7 +13,7 @@ export default function MyTenants() {
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
   // const [currentUser, setCurrentUser] = useState();
-  const userUrl = `https://tenents-management-api.onrender.com/my-tenants/lessor/${currentUser.lessorId}`;
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,7 +36,7 @@ export default function MyTenants() {
         // Envoyer les données à l'API
         for (const tenant of tenantsAfterDelete) {
           const response = await axios.delete(
-            `https://tenents-management-api.onrender.com/my-tenants/delete/${tenant.id}`,
+            `http://localhost:3000/my-tenants/delete/${tenant.id}`,
             {
               headers: {
                 authorization: token,
@@ -60,7 +60,7 @@ export default function MyTenants() {
         for (const choiceId of isCheck.choises) {
           // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
           const response = await axios.delete(
-            `https://tenents-management-api.onrender.com/my-tenants/delete/${choiceId}`,
+            `http://localhost:3000/my-tenants/delete/${choiceId}`,
             {
               headers: {
                 authorization: token,

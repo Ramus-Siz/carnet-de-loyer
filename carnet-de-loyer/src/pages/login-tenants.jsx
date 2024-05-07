@@ -11,7 +11,8 @@ export default function LoginTenants({ onSubmitTenant }) {
   return (
     <>
       <div className="flex flex-col justify-center items-center h-[50%] w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded  ">
-        <h2 className="text-center text-4xl pb-4">Se connecter</h2>
+        <h2 className="text-center text-4xl">Se connecter</h2>
+        <h3 className="pb-4">En tant que Locataire</h3>
         <div className=" flex justify-center items-center w-[100%]">
           <form
             onSubmit={handleSubmit(onSubmitTenant)}

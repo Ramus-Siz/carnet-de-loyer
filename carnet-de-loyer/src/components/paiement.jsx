@@ -20,7 +20,7 @@ export default function Paiement({
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const payementURL = `https://tenents-management-api.onrender.com/tenant/payement`;
+  const payementURL = `http://localhost:3000/tenant/payement/`;
 
   const onSubmit = async (newPayement) => {
     const payementObjetBuild = BuildNewPayementObject(newPayement);
@@ -33,7 +33,7 @@ export default function Paiement({
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "https://tenents-management-api.onrender.com/tenant/payement/add",
+        "http://localhost:3000/tenant/payement/add",
         payementObjetBuild,
         {
           headers: {

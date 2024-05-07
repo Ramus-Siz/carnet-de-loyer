@@ -18,7 +18,7 @@ export default function SinglePreviewTenants() {
   const listTenants = useRentBooklet((state) => state.tenants);
   const { id } = useParams();
   const tenants = listTenants.find((tenant) => tenant.id === +id);
-  const tenantURL = `https://tenents-management-api.onrender.com/my-tenants/${id}`;
+  const tenantURL = `http://localhost:3000/my-tenants/${id}`;
 
   console.log(tenants);
 

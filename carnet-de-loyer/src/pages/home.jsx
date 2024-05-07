@@ -3,17 +3,19 @@ import Header from "../components/header";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRentBooklet } from "../components/contexts/context";
+import axios from "axios";
 
 export default function Home() {
   const navigation = useNavigate();
   const tenants = useRentBooklet((state) => state.tenants);
   const houses = useRentBooklet((state) => state.houses);
+  console.log(houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `https://tenents-management-api.onrender.com/my-tenants/lessor/${currentUser.lessorId}`;
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
   const getHouseData = async () => {
     try {
       // const token = sessionStorage.getItem("token");

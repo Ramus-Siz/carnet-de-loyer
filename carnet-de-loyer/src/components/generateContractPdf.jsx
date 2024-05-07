@@ -8,9 +8,7 @@ const CreateAgreement = () => {
   const generatePDF = async () => {
     try {
       // Effectuer une requête à l'API pour récupérer les données
-      const response = await axios.get(
-        "https://tenents-management-api.onrender.com/my-houses/1"
-      );
+      const response = await axios.get("http://localhost:3000/my-houses/1");
       const data = response.data;
 
       // Créer un nouveau document PDF
