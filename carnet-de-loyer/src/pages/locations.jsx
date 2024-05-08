@@ -16,8 +16,8 @@ export default function Locations() {
   const userConnected = JSON.parse(getUserConnected);
   const [tenantState, settenantState] = useState([]);
 
-  const tenantUrl = `http://localhost:3000/my-tenants`;
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
+  const tenantUrl = `https://tenents-management-api.onrender.com/my-tenants`;
+  const userUrl = `https://tenents-management-api.onrender.com/my-tenants/lessor/${userConnected.lessorId}`;
 
   const [data, setData] = useState({});
   const [tenantData, setTenanteData] = useState([]);

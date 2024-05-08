@@ -31,7 +31,7 @@ export default function AddHouses({ HandleAddHouses }) {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/my-houses/add",
+        "https://tenents-management-api.onrender.com/my-houses/add",
         houseObjectBuild,
         {
           headers: {

@@ -35,7 +35,7 @@ export default function AddTenants({ HandleAddTenants }) {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/my-tenants/add",
+        "https://tenents-management-api.onrender.com/my-tenants/add",
         tenantObjetBuild,
         {
           headers: {

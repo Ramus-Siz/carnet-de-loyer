@@ -11,11 +11,12 @@ export default function Home() {
   const houses = useRentBooklet((state) => state.houses);
   console.log(houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
-
+  const getUserConnected = sessionStorage.getItem("currentUser");
+  const userConnected = JSON.parse(getUserConnected);
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const userUrl = `https://tenents-management-api.onrender.com/lessor/${userConnected.lessorId}`;
   const getHouseData = async () => {
     try {
       // const token = sessionStorage.getItem("token");
@@ -32,7 +33,6 @@ export default function Home() {
       let getMyHousesUpdate = sessionStorage.getItem("myHouses");
 
       const myHousesUpdate = JSON.parse(getMyHousesUpdate);
-
       updateHouses(myHousesUpdate);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
@@ -60,7 +60,7 @@ export default function Home() {
   useEffect(() => {
     getHouseData();
     getTenantData();
-  }, [updateCurrentUser]);
+  }, []);
 
   return (
     <>

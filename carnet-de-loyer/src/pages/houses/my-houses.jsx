@@ -17,7 +17,7 @@ export default function MyHouses() {
   let currentUser = useRentBooklet((state) => state.currentUser);
   const getUserConnected = sessionStorage.getItem("currentUser");
   const userConnected = JSON.parse(getUserConnected);
-  const userUrl = `http://localhost:3000/my-houses/lessor/${userConnected.lessorId}`;
+  const userUrl = `https://tenents-management-api.onrender.com/my-houses/lessor/${userConnected.lessorId}`;
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -43,7 +43,7 @@ export default function MyHouses() {
         const token = sessionStorage.getItem("token");
         for (const house of housesAfterDelete) {
           const response = await axios.post(
-            `http://localhost:3000/my-houses/delete/${house.id}`,
+            `https://tenents-management-api.onrender.com/my-houses/delete/${house.id}`,
             {
               headers: {
                 authorization: token,
@@ -65,7 +65,7 @@ export default function MyHouses() {
         for (const choiceId of isCheck.choises) {
           // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
           await axios.delete(
-            `http://localhost:3000/my-houses/delete/${choiceId}`,
+            `https://tenents-management-api.onrender.com/my-houses/delete/${choiceId}`,
             {
               headers: {
                 authorization: token,
