@@ -15,7 +15,9 @@ export default function MyHouses() {
   const updateHouses = useRentBooklet((state) => state.updateHouses);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   let currentUser = useRentBooklet((state) => state.currentUser);
-  const userUrl = `http://localhost:3000/my-houses/lessor/${currentUser.lessorId}`;
+  const getUserConnected = sessionStorage.getItem("currentUser");
+  const userConnected = JSON.parse(getUserConnected);
+  const userUrl = `http://localhost:3000/my-houses/lessor/${userConnected.lessorId}`;
 
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
 
@@ -153,31 +155,22 @@ export default function MyHouses() {
   //re set the list of house
   useEffect(() => {
     getHousesData();
-  }, [currentUser.lessorId, updateCurrentUser]);
+  }, [userConnected.lessorId]);
 
-  if (loading) {
-    return (
-      <>
-        <Header />
+  return (
+    <>
+      <Header />
+      {loading && (
         <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <Loader />
         </div>
-      </>
-    );
-  }
-  if (error) {
-    <>
-      <Header />
-      <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <Loader />
-      </div>
-    </>;
-  }
-
-  if (data) {
-    return (
-      <>
-        <Header />
+      )}
+      {error && (
+        <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <Loader />
+        </div>
+      )}
+      {data && (
         <Options
           selectAll={selectAll}
           handleSelectAll={handleSelectAll}
@@ -188,7 +181,7 @@ export default function MyHouses() {
           HandleAddData={HandleAddData}
           isTrueToAddData={isTrueToAddData}
         />
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }

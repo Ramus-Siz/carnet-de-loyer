@@ -6,45 +6,76 @@ import Loader from "../components/loader";
 
 export default function Locations() {
   let tenants = useRentBooklet((state) => state.tenants);
-  console.log(tenants);
   let houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
+  const getUserConnected = sessionStorage.getItem("currentUser");
+  const userConnected = JSON.parse(getUserConnected);
   const [tenantState, settenantState] = useState([]);
 
-  const tenantUrl = `http://localhost:3000/my-tenants/${tenants[0].id}`;
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const tenantUrl = `http://localhost:3000/my-tenants`;
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
 
   const [data, setData] = useState({});
-  const [tenantData, setTenanteData] = useState({});
+  const [tenantData, setTenanteData] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(data);
-  const catalog = (
-    <tr className={`border border-1 border-[#5f6263]`}>
-      <td className="border border-1  border-[#5f6263] p-4">{`${tenants[0].name} ${tenants[0].prenom}`}</td>
-      <td className="border border-1 border-[#5f6263] p-4">{`${tenants[0].telephone}`}</td>
-      <td className="border border-1 border-[#5f6263] p-4">{`${tenants[0].adress}`}</td>
-      {tenantData.bails && tenantData.bails.length > 0 && (
-        <>
-          {/* const firstBail = data.bails[0]; */}
-          <td className="border border-1 border-[#5f6263] p-4">
-            {tenantData.bails[0].start}
-          </td>
-          {/* Afficher la date de fin du bail */}
-          <td className="border border-1 border-[#5f6263] p-4">
-            {tenantData.bails[0].finish}
-          </td>
-        </>
-      )}
-      <td className="border border-1 border-[#5f6263] p-4">Actif</td>
-    </tr>
-  );
+  let backgroundList;
+  let thisHouse;
+  const catalog = tenantData.map((tenant, index) => {
+    {
+      index % 2 == 0
+        ? (backgroundList = "")
+        : (backgroundList = "bg-[#a1a76a] text-white");
+    }
 
+    if (tenant.bails) {
+      const getMyhouses = sessionStorage.getItem("myHouses");
+      let houses = JSON.parse(getMyhouses);
+      thisHouse = houses.find(
+        (house) => house.id == tenant.bails[0].myPropertyId
+      );
+    }
+
+    return (
+      <tr
+        key={tenant.id}
+        className={`border border-1 border-[#5f6263] ${backgroundList}`}
+      >
+        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.name} ${tenant.prenom}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.telephone}`}</td>
+
+        {/* Si le locataire a des baux */}
+        {tenant.bails && tenant.bails.length > 0 ? (
+          <>
+            <td className="border border-1 border-[#5f6263] p-4">{`${thisHouse.adress}`}</td>
+
+            {/* Afficher la date de début du premier bail */}
+            <td className="border border-1 border-[#5f6263] p-4">
+              {tenant.bails[0].start}
+            </td>
+            {/* Afficher la date de fin du premier bail */}
+            <td className="border border-1 border-[#5f6263] p-4">
+              {tenant.bails[0].finish}
+            </td>
+            {/* Afficher l'état du locataire en fonction de la disponibilité des baux */}
+            <td className="border border-1 border-[#5f6263] p-4">Actif</td>
+          </>
+        ) : (
+          <>
+            {/* Si le locataire n'a pas de contract */}
+            <td className="border border-1 border-[#5f6263] p-4">{"-"}</td>
+            <td className="border border-1 border-[#5f6263] p-4">{"-"}</td>
+            <td className="border border-1 border-[#5f6263] p-4">Inactif</td>
+          </>
+        )}
+      </tr>
+    );
+  });
   const getData = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -53,7 +84,7 @@ export default function Locations() {
           authorization: token,
         },
       });
-      settenantState(data);
+      setTenanteData(data);
       updateTenants(data);
       setData(data);
     } catch (error) {
@@ -64,54 +95,20 @@ export default function Locations() {
       setLoading(false);
     }
   };
-  const getTenantData = async () => {
-    try {
-      const token = sessionStorage.getItem("token");
-      const { data } = await axios.get(tenantUrl, {
-        headers: {
-          authorization: token,
-        },
-      });
-      setTenanteData(data);
-      setData(data);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données:", error);
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    if (tenants && tenants.length > 0 && tenants[0].id) {
-      getData();
-      getTenantData();
-    }
-  }, [tenants[0].id, currentUser.lessorId]);
 
-  if (loading) {
-    return (
-      <>
-        <Header />
-        <div className=" flex justify-center items-center h-[70%]">
+  useEffect(() => {
+    getData();
+  }, [userConnected.lessorId]);
+  return (
+    <>
+      <Header />
+      {loading && (
+        <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <Loader />
         </div>
-      </>
-    );
-  }
-  if (error) {
-    return (
-      <>
-        <Header />
-        <div className=" flex justify-center items-center h-[70%]">
-          <Loader />
-        </div>
-      </>
-    );
-  }
-  if (data) {
-    return (
-      <>
-        <Header />
+      )}
+
+      {data && (
         <div className="p-1">
           <table className="border border-1 w-full text-[#b3b5b7] ">
             <thead>
@@ -139,9 +136,9 @@ export default function Locations() {
             </tbody>
           </table>
         </div>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }
 
 // {

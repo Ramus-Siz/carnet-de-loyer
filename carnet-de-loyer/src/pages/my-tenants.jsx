@@ -6,14 +6,19 @@ import { Link } from "react-router-dom";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
 import Loader from "../components/loader";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function MyTenants() {
   let tenants = useRentBooklet((state) => state.tenants);
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const [isTrueToAddData, setIsTrueToAddData] = useState(false);
+  const getUserConnected = sessionStorage.getItem("currentUser");
+  const userConnected = JSON.parse(getUserConnected);
   // const [currentUser, setCurrentUser] = useState();
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${currentUser.lessorId}`;
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,58 +33,69 @@ export default function MyTenants() {
     setIsTrueToAddData(!isTrueToAddData);
   };
   const HandleDelete = async () => {
-    let tenantsAfterDelete = [...tenants];
+    const confirmDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer les locataires sélectionnés ?"
+    );
 
-    if (selectAll) {
-      try {
-        const token = sessionStorage.getItem("token");
-        // Envoyer les données à l'API
-        for (const tenant of tenantsAfterDelete) {
-          const response = await axios.delete(
-            `http://localhost:3000/my-tenants/delete/${tenant.id}`,
-            {
-              headers: {
-                authorization: token,
-              },
-            }
-          );
-        }
-        tenantsAfterDelete = [];
-        setIsCheck({ choises: [] });
-        setSelectAll(false);
-        updateTenants(tenantsAfterDelete);
-      } catch (error) {
-        // Gérer les erreurs de requête
-        console.error("Erreur lors de la suppression:", error);
-        // Afficher un message d'erreur à l'utilisateur
-      }
-    } else {
-      try {
-        const token = sessionStorage.getItem("token");
+    if (confirmDelete) {
+      let tenantsAfterDelete = [...tenants];
 
-        for (const choiceId of isCheck.choises) {
-          // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
-          const response = await axios.delete(
-            `http://localhost:3000/my-tenants/delete/${choiceId}`,
-            {
-              headers: {
-                authorization: token,
-              },
-            }
-          );
-          if (response.status === 202) {
-            tenantsAfterDelete = tenantsAfterDelete.filter(
-              (tenant) => tenant.id !== choiceId
+      if (selectAll) {
+        try {
+          const token = sessionStorage.getItem("token");
+          // Envoyer les données à l'API
+          for (const tenant of tenantsAfterDelete) {
+            const response = await axios.delete(
+              `http://localhost:3000/my-tenants/delete/${tenant.id}`,
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
             );
+            if (response.status == 202) {
+              toast.success("Locataire supprimé avec succès !", {
+                position: "bottom-center",
+              });
+            }
+          }
+          tenantsAfterDelete = [];
+          setIsCheck({ choises: [] });
+          setSelectAll(false);
+          updateTenants(tenantsAfterDelete);
+        } catch (error) {
+          // Gérer les erreurs de requête
+          console.error("Erreur lors de la suppression:", error);
+          // Afficher un message d'erreur à l'utilisateur
+        }
+      } else {
+        try {
+          const token = sessionStorage.getItem("token");
+
+          for (const choiceId of isCheck.choises) {
+            // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
+            const response = await axios.delete(
+              `http://localhost:3000/my-tenants/delete/${choiceId}`,
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            );
+            if (response.status === 202) {
+              tenantsAfterDelete = tenantsAfterDelete.filter(
+                (tenant) => tenant.id !== choiceId
+              );
+            }
+
+            updateTenants(tenantsAfterDelete);
+            setIsCheck({ choises: [] });
           }
 
-          updateTenants(tenantsAfterDelete);
-          setIsCheck({ choises: [] });
+          // Filtrer `tenants` pour supprimer les tenants sélectionnés
+        } catch (error) {
+          console.error("Erreur lors de la suppression:", error);
         }
-
-        // Filtrer `tenants` pour supprimer les tenants sélectionnés
-      } catch (error) {
-        console.error("Erreur lors de la suppression:", error);
       }
     }
   };
@@ -116,8 +132,6 @@ export default function MyTenants() {
       setIsCheck({ choises: reponses.filter((item) => item !== idInt) });
     }
   };
-
-  console.log(isCheck.choises);
 
   const catalog = tenants.map((item, index) => {
     return (
@@ -162,7 +176,6 @@ export default function MyTenants() {
       });
 
       updateTenants(response.data);
-      console.log("tenants: ", tenants);
       setData(response.data);
     } catch (error) {
       setError(error);
@@ -174,30 +187,21 @@ export default function MyTenants() {
   };
   useEffect(() => {
     getTenantData();
-  }, [currentUser.lessorId, updateCurrentUser]);
-
-  if (loading) {
-    return (
-      <>
-        <Header />
+  }, [userConnected.lessorId]);
+  return (
+    <>
+      <Header />
+      {loading && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <Loader />
         </div>
-      </>
-    );
-  }
-  if (error) {
-    <>
-      <Header />
-      <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <Loader />
-      </div>
-    </>;
-  }
-  if (data) {
-    return (
-      <>
-        <Header />
+      )}
+      {error && (
+        <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <Loader />
+        </div>
+      )}
+      {data && (
         <Options
           selectAll={selectAll}
           handleSelectAll={handleSelectAll}
@@ -208,7 +212,8 @@ export default function MyTenants() {
           HandleAddData={HandleAddData}
           isTrueToAddData={isTrueToAddData}
         />
-      </>
-    );
-  }
+      )}
+      <ToastContainer />
+    </>
+  );
 }
