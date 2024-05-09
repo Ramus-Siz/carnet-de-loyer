@@ -8,7 +8,7 @@ export default function SinglePreviewHouses() {
   const [houseData, setHouseData] = useState([]);
   const { id } = useParams();
   const listHouses = useRentBooklet((state) => state.houses);
-  const houseURL = `https://tenents-management-api.onrender.com/my-houses/${id}`;
+  const houseURL = `http://localhost:3000/my-houses/${id}`;
   console.log("houseData: ", houseData);
 
   // const houses = listHouses.find((house) => house.id === +id);

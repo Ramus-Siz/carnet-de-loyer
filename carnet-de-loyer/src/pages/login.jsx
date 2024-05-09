@@ -26,7 +26,7 @@ export default function Login({}) {
 
       // Envoyer les données à l'API
       const response = await axios.post(
-        "https://tenents-management-api.onrender.com/auth/signin",
+        "http://localhost:3000/auth/signin",
         data,
         {
           withCredentials: true,
@@ -73,7 +73,7 @@ export default function Login({}) {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
-        "https://tenents-management-api.onrender.com/auth/login",
+        "http://localhost:3000/auth/login",
         data,
         { withCredentials: true }
       );
@@ -97,7 +97,7 @@ export default function Login({}) {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
-        "https://tenents-management-api.onrender.com/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
+        "http://localhost:3000/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
         data,
         { withCredentials: true }
       );
@@ -120,7 +120,7 @@ export default function Login({}) {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
-        "https://tenents-management-api.onrender.com/landlords/add",
+        "http://localhost:3000/landlords/add",
         data,
         { withCredentials: true }
       );
@@ -146,11 +146,11 @@ export default function Login({}) {
   }
 
   return (
-    <div className=" flex text-black w-screen  items-center">
-      <div className="h-screen w-[50%]   bg-[url('./assets/19198828.jpg')] bg-contain bg-center bg-no-repeat">
+    <div className=" md:flex text-black w-screen  items-center">
+      <div className="md:h-screen md:w-[50%]   md:bg-[url('./assets/19198828.jpg')] bg-contain bg-center bg-no-repeat">
         {/* <button className="">Retournez vers la page login</button> */}
       </div>
-      <div className=" flex h-screen w-[50%] justify-center items-center bg-[#f4f4f4]  ">
+      <div className=" flex h-screen md:w-[50%] justify-center items-center bg-[#f4f4f4]  ">
         <div className="flex flex-col justify-center items-center  w-[100%] p-2 gap-6 ">
           {!isRegister ? (
             <>

@@ -16,7 +16,7 @@ export default function Home() {
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `https://tenents-management-api.onrender.com/lessor/${userConnected.lessorId}`;
+  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
   const getHouseData = async () => {
     try {
       // const token = sessionStorage.getItem("token");

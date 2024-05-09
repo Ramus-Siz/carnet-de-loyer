@@ -43,7 +43,7 @@ export default function MyHouses() {
         const token = sessionStorage.getItem("token");
         for (const house of housesAfterDelete) {
           const response = await axios.post(
-            `https://tenents-management-api.onrender.com/my-houses/delete/${house.id}`,
+            `http://localhost:3000/my-houses/delete/${house.id}`,
             {
               headers: {
                 authorization: token,
@@ -65,7 +65,7 @@ export default function MyHouses() {
         for (const choiceId of isCheck.choises) {
           // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
           await axios.delete(
-            `https://tenents-management-api.onrender.com/my-houses/delete/${choiceId}`,
+            `http://localhost:3000/my-houses/delete/${choiceId}`,
             {
               headers: {
                 authorization: token,

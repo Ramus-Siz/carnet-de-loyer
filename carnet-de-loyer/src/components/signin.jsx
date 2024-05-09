@@ -21,12 +21,12 @@ export default function Signin({
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-[50%] w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded-xl  ">
+      <div className="flex flex-col justify-center items-center md:h-[50%] md:w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded-xl  ">
         <h2 className="text-center text-4xl pb-4">Se connecter</h2>
         <div className="flex flex-col gap-4 justify-center items-center w-[100%]">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col w-[65%] pt-4"
+            className="flex flex-col  md:w-[65%] md:pt-4 pt-1"
           >
             <div className="flex flex-col ">
               <div className="">
