@@ -17,7 +17,6 @@ export default function Locations() {
   const userConnected = JSON.parse(getUserConnected);
   const [tenantState, settenantState] = useState([]);
 
-  const tenantUrl = `http://localhost:3000/my-tenants`;
   const userUrl = `${BASE_API_URL}/my-tenants/lessor/${userConnected.lessorId}`;
 
   const [data, setData] = useState({});
@@ -110,7 +109,7 @@ export default function Locations() {
       )}
 
       {data && (
-        <div className="p-1">
+        <div className="p-1 overflow-x-auto">
           <table className="border border-1 w-full text-[#b3b5b7] ">
             <thead>
               <tr className="bg-[#c299d0] text-white">
