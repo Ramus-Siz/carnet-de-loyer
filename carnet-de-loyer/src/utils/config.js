@@ -1,1 +1,1 @@
-export const BASE_API_URL = "https://tenents-management-api.onrender.com";
+export const BASE_API_URL = "http://localhost:3000";

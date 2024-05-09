@@ -22,7 +22,11 @@ export default function Signin({
   return (
     <>
       <div className="flex flex-col justify-center items-center md:h-[50%] md:w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded-xl  ">
-        <h2 className="text-center text-4xl pb-4">Se connecter</h2>
+        <h2 className="text-center text-4xl">Se connecter</h2>
+        <h2 className="text-center text-fuchsia-700 pb-4 text-base">
+          En tant que Bailleur
+        </h2>
+
         <div className="flex flex-col gap-4 justify-center items-center w-[100%]">
           <form
             onSubmit={handleSubmit(onSubmit)}
