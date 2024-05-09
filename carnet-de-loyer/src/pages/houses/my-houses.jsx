@@ -7,6 +7,7 @@ import { useRentBooklet } from "../../components/contexts/context";
 import axios from "axios";
 import Loader from "../../components/loader";
 import { BASE_API_URL } from "../../utils/config";
+import Avatar from "../../components/avatar";
 
 export default function MyHouses() {
   const [data, setData] = useState(null);

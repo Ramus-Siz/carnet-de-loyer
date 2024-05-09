@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <>
       <div className="sticky top-0 z-10 bg-[#1c213f]">
-        <div className="flex justify-between items-center bg-[#2b213f] h-20 pr-8 pl-5 border-b-8 border-[#283342] ">
+        <div className="flex justify-between items-center bg-[#2b213f] h-20 pr-8 pl-5 border-b-8 border-[#283342]">
           <SearchBar />
           <DateAndTime />
           <div className="md:hidden">
