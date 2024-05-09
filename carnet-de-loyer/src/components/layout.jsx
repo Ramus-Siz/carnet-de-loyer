@@ -16,7 +16,7 @@ export default function Layout() {
   }, [updateCurrentUser]);
   return (
     <>
-      <div className="h-screen  w-[300px] flex flex-col bg-gradient-to-t from-[#32033a] to-[#283342]  ">
+      <div className="md:h-screen  md:w-[300px] md:flex md:flex-col md:bg-gradient-to-t from-[#32033a] to-[#283342]  hidden">
         <Sidebar />
       </div>
       <div className=" bg-[#283342] border-b border-r w-screen border-[#474747]  overflow-y-scroll">
