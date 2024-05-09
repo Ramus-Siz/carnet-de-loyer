@@ -69,12 +69,7 @@ export default function Signup({ onRegister }) {
                   type="password"
                   name="passwordOnRegister"
                   {...register("passwordOnRegister", {
-                    required: "ce champ est obligatoir",
-                    pattern: {
-                      value:
-                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-                      message: "L'email n'est pas valide.",
-                    },
+                    required: "ce champ est obligatoire",
                   })}
                 />
               </div>
