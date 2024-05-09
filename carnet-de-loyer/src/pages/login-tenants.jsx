@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginTenants({ onSubmitTenant }) {
+export default function LoginTenants({ onSubmitTenant, setIsTenant }) {
+  const navigation = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -12,7 +15,17 @@ export default function LoginTenants({ onSubmitTenant }) {
     <>
       <div className="flex flex-col justify-center items-center h-[50%] w-[100%] border-solid shadow-white  bg-[#f4f4f4]  rounded  ">
         <h2 className="text-center text-4xl">Se connecter</h2>
-        <h3 className="pb-4">En tant que Locataire</h3>
+        <h3 className="pb-2 text-fuchsia-700">En tant que Locataire </h3>
+        <div
+          className="pb-4 text-orange-600 text-xs cursor-pointer flex justify-center items-center gap-2"
+          onClick={() => setIsTenant(false)}
+        >
+          <span>Ou se connecter en tant que bailleur</span>
+          <span className="">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </span>
+        </div>
+
         <div className=" flex justify-center items-center w-[100%]">
           <form
             onSubmit={handleSubmit(onSubmitTenant)}

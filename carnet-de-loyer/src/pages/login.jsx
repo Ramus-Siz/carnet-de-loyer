@@ -165,7 +165,10 @@ export default function Login({}) {
                       data={data}
                     />
                   ) : (
-                    <LoginTenants onSubmitTenant={onSubmitTenant} />
+                    <LoginTenants
+                      onSubmitTenant={onSubmitTenant}
+                      setIsTenant={setIsTenant}
+                    />
                   )}
                 </>
               ) : (
@@ -174,12 +177,21 @@ export default function Login({}) {
 
               <div className="text-xs pt-1">
                 Vous n'avez pas de compte?
-                <span
-                  className="text-orange-600 font-semibold"
-                  onClick={() => setIsNeedToCreate(true)}
-                >
-                  Créer,
-                </span>
+                {!isNeedToCreate ? (
+                  <span
+                    className="text-orange-600 font-semibold"
+                    onClick={() => setIsNeedToCreate(!isNeedToCreate)}
+                  >
+                    Créez
+                  </span>
+                ) : (
+                  <span
+                    className="text-orange-600 font-semibold"
+                    onClick={() => setIsNeedToCreate(!isNeedToCreate)}
+                  >
+                    Sinon connectez-vous
+                  </span>
+                )}
                 <span className="text-orange-600 font-semibold"></span>
               </div>
             </>
