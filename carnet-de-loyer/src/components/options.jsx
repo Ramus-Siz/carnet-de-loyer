@@ -61,20 +61,20 @@ export default function Options({
       </div>
       <div className="md:pt-8 pl-8 pr-8 pb-8 z-0">{catalog}</div>
       {isTrueToAddData && user === "une maison" ? (
-        <div className="h-screen w-[39%] bg-[#E3EBF3] absolute  top-0 right-0 ease-in duration-500 z-40">
+        <div className="h-screen md:w-[39%] w-full bg-[#E3EBF3] absolute  top-0 right-0 ease-in duration-500 z-40">
           <AddHouses HandleAddHouses={HandleAddData} />
         </div>
       ) : (
-        <div className="h-screen w-[39%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 translate-x-full z-40">
+        <div className="h-screen md:w-[39%] w-full bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 translate-x-full z-40">
           <AddHouses HandleAddHouses={HandleAddData} />
         </div>
       )}
       {isTrueToAddData && user === "un / une locataire" ? (
-        <div className="h-screen w-[39%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 z-40">
+        <div className="h-screen md:w-[39%] w-full bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 z-40">
           <AddTenants HandleAddTenants={HandleAddData} />
         </div>
       ) : (
-        <div className="h-screen w-[39%] bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 translate-x-full z-40">
+        <div className="h-screen md:w-[39%] w-full bg-[#E3EBF3] fixed  top-0 right-0 ease-in duration-500 translate-x-full z-40">
           <AddTenants HandleAddTenants={HandleAddData} />
         </div>
       )}
