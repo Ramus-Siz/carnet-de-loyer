@@ -3,12 +3,13 @@ import Header from "../header";
 import { useRentBooklet } from "../contexts/context";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_API_URL } from "../../utils/config";
 
 export default function SinglePreviewHouses() {
   const [houseData, setHouseData] = useState([]);
   const { id } = useParams();
   const listHouses = useRentBooklet((state) => state.houses);
-  const houseURL = `http://localhost:3000/my-houses/${id}`;
+  const houseURL = `${BASE_API_URL}/my-houses/${id}`;
   console.log("houseData: ", houseData);
 
   // const houses = listHouses.find((house) => house.id === +id);

@@ -7,6 +7,7 @@ import MoreInfosOfLandLord from "./more-infos-landlord";
 import LoginTenants from "./login-tenants";
 import axios from "axios";
 import { useRentBooklet } from "../components/contexts/context";
+import { BASE_API_URL } from "../utils/config";
 
 export default function Login({}) {
   const [isTenant, setIsTenant] = useState(false);
@@ -25,13 +26,9 @@ export default function Login({}) {
       setLoading(true);
 
       // Envoyer les données à l'API
-      const response = await axios.post(
-        "http://localhost:3000/auth/signin",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${BASE_API_URL}/auth/signin`, data, {
+        withCredentials: true,
+      });
 
       // Vérifier la réponse de l'API
       if (response.status === 200) {
@@ -72,11 +69,9 @@ export default function Login({}) {
   const onSubmitTenant = async (data) => {
     try {
       // Envoyer les données à l'API
-      const response = await axios.post(
-        "http://localhost:3000/auth/login",
-        data,
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${BASE_API_URL}/auth/login`, data, {
+        withCredentials: true,
+      });
 
       // Vérifier la réponse de l'API
       if (response.status === 200) {
@@ -97,7 +92,7 @@ export default function Login({}) {
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
-        "http://localhost:3000/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD",
+        `${BASE_API_URL}/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD`,
         data,
         { withCredentials: true }
       );
@@ -119,11 +114,9 @@ export default function Login({}) {
   const onRegisterMoreInfos = async (data) => {
     try {
       // Envoyer les données à l'API
-      const response = await axios.post(
-        "http://localhost:3000/landlords/add",
-        data,
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${BASE_API_URL}/landlords/add`, data, {
+        withCredentials: true,
+      });
 
       // Vérifier la réponse de l'API
       if (response.status === 200) {

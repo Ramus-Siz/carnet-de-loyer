@@ -3,6 +3,7 @@ import Loader from "./loader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
+import { BASE_API_URL } from "../utils/config";
 
 export default function Paiement({
   isModalPayementOpen,
@@ -20,7 +21,7 @@ export default function Paiement({
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const payementURL = `http://localhost:3000/tenant/payement/`;
+  const payementURL = `${BASE_API_URL}/tenant/payement/`;
 
   const onSubmit = async (newPayement) => {
     const payementObjetBuild = BuildNewPayementObject(newPayement);
@@ -33,7 +34,7 @@ export default function Paiement({
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/tenant/payement/add",
+        `${BASE_API_URL}/tenant/payement/add`,
         payementObjetBuild,
         {
           headers: {

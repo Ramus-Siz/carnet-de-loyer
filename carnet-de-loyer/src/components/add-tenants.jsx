@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import RegisterButton from "./registre-button";
 import { useRentBooklet } from "./contexts/context";
 import axios from "axios";
+import { BASE_API_URL } from "../utils/config";
 
 export default function AddTenants({ HandleAddTenants }) {
   const tenants = useRentBooklet((state) => state.tenants);
@@ -35,7 +36,7 @@ export default function AddTenants({ HandleAddTenants }) {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/my-tenants/add",
+        `${BASE_API_URL}/my-tenants/add`,
         tenantObjetBuild,
         {
           headers: {

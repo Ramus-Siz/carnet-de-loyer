@@ -3,6 +3,7 @@ import { useRentBooklet } from "../components/contexts/context";
 import Header from "../components/header";
 import axios from "axios";
 import Loader from "../components/loader";
+import { BASE_API_URL } from "../utils/config";
 
 export default function Locations() {
   let tenants = useRentBooklet((state) => state.tenants);
@@ -17,7 +18,7 @@ export default function Locations() {
   const [tenantState, settenantState] = useState([]);
 
   const tenantUrl = `http://localhost:3000/my-tenants`;
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
+  const userUrl = `${BASE_API_URL}/my-tenants/lessor/${userConnected.lessorId}`;
 
   const [data, setData] = useState({});
   const [tenantData, setTenanteData] = useState([]);

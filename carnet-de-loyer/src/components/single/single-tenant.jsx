@@ -8,6 +8,7 @@ import Paiement from "../paiement";
 import FilterForm from "../filterForm";
 import axios from "axios";
 import Loader from "../loader";
+import { BASE_API_URL } from "../../utils/config";
 
 export default function SinglePreviewTenants() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function SinglePreviewTenants() {
   const listTenants = useRentBooklet((state) => state.tenants);
   const { id } = useParams();
   const tenants = listTenants.find((tenant) => tenant.id === +id);
-  const tenantURL = `http://localhost:3000/my-tenants/${id}`;
+  const tenantURL = `${BASE_API_URL}/my-tenants/${id}`;
 
   console.log(tenantData);
 

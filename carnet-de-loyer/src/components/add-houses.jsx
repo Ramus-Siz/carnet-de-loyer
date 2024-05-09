@@ -3,6 +3,7 @@ import { useState } from "react";
 import RegisterButton from "./registre-button";
 import { useRentBooklet } from "./contexts/context";
 import axios from "axios";
+import { BASE_API_URL } from "../utils/config";
 
 export default function AddHouses({ HandleAddHouses }) {
   const houses = useRentBooklet((state) => state.houses);
@@ -31,7 +32,7 @@ export default function AddHouses({ HandleAddHouses }) {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/my-houses/add",
+        `${BASE_API_URL}/my-houses/add`,
         houseObjectBuild,
         {
           headers: {

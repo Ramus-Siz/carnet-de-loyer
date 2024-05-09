@@ -3,6 +3,7 @@ import Loader from "./loader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
+import { BASE_API_URL } from "../utils/config";
 
 export default function ModifyContract({ isModalOpen, closeModal, id }) {
   console.log(id);
@@ -16,8 +17,8 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `http://localhost:3000/tenant/bail/${id}`;
-  const bailUrl = `http://localhost:3000/tenant/bail`;
+  const userUrl = `${BASE_API_URL}/tenant/bail/${id}`;
+  const bailUrl = `${BASE_API_URL}/tenant/bail`;
 
   const onSubmit = async (newBail) => {
     const bailObjetBuild = BuildNewBailObject(newBail);
@@ -28,7 +29,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3000/tenant/bail/add",
+        `${BASE_API_URL}/tenant/bail/add`,
         bailObjetBuild,
         {
           headers: {

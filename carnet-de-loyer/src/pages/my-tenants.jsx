@@ -8,6 +8,7 @@ import axios from "axios";
 import Loader from "../components/loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_API_URL } from "../utils/config";
 
 export default function MyTenants() {
   let tenants = useRentBooklet((state) => state.tenants);
@@ -18,7 +19,7 @@ export default function MyTenants() {
   const getUserConnected = sessionStorage.getItem("currentUser");
   const userConnected = JSON.parse(getUserConnected);
   // const [currentUser, setCurrentUser] = useState();
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
+  const userUrl = `${BASE_API_URL}/my-tenants/lessor/${userConnected.lessorId}`;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,7 +47,7 @@ export default function MyTenants() {
           // Envoyer les données à l'API
           for (const tenant of tenantsAfterDelete) {
             const response = await axios.delete(
-              `http://localhost:3000/my-tenants/delete/${tenant.id}`,
+              `${BASE_API_URL}/my-tenants/delete/${tenant.id}`,
               {
                 headers: {
                   authorization: token,
@@ -75,7 +76,7 @@ export default function MyTenants() {
           for (const choiceId of isCheck.choises) {
             // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
             const response = await axios.delete(
-              `http://localhost:3000/my-tenants/delete/${choiceId}`,
+              `${BASE_API_URL}/my-tenants/delete/${choiceId}`,
               {
                 headers: {
                   authorization: token,

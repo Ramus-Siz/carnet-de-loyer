@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
+import { BASE_API_URL } from "../utils/config";
 
 export default function Home() {
   const navigation = useNavigate();
@@ -16,7 +17,7 @@ export default function Home() {
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `http://localhost:3000/my-tenants/lessor/${userConnected.lessorId}`;
+  const userUrl = `${BASE_API_URL}/my-tenants/lessor/${userConnected.lessorId}`;
   const getHouseData = async () => {
     try {
       // const token = sessionStorage.getItem("token");
