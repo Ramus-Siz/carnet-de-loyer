@@ -1,7 +1,7 @@
 export default function Avatar() {
   return (
     <>
-      <div className=" flex items-center gap-10 p-4  w-[14.8em] border-t-8 border-[#283342] fixed bottom-0">
+      <div className=" flex justify-between items-center gap-10 p-4 w-full md:w-[14.8em] border-t-8 border-[#283342] md:fixed bottom-0">
         <div className="flex items-center gap-4">
           <img
             src="/images/rafiki richard mushagalusa.png"

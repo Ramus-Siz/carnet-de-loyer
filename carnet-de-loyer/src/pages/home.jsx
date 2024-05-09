@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
 import { BASE_API_URL } from "../utils/config";
+import Avatar from "../components/avatar";
 
 export default function Home() {
   const navigation = useNavigate();
@@ -68,10 +69,10 @@ export default function Home() {
       <div className="">
         <Header />
       </div>
-      <div className="p-10">
-        <div className="flex gap-8">
+      <div className="md:p-10 p-4">
+        <div className="flex flex-col justify-center items-center md:flex-row gap-4 ">
           <motion.div
-            className="h-[250px] w-[385px] shadow-2xl hover:shadow-xl cursor-pointer  rounded-xl bg-[#b7bf7f]  hover:text-white"
+            className="h-[250px] md:w-[385px] w-[350px] shadow-2xl hover:shadow-xl cursor-pointer  rounded-xl bg-[#b7bf7f]  hover:text-white"
             onClick={() => navigation("/my-houses")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -112,7 +113,7 @@ export default function Home() {
             </div>
           </motion.div>
           <motion.div
-            className="h-[250px] w-[385px] shadow-2xl hover:shadow-xl rounded-xl  bg-[#c299d0]  cursor-pointer hover:text-white"
+            className="h-[250px] w-[350px] md:w-[385px] shadow-2xl hover:shadow-xl rounded-xl  bg-[#c299d0]  cursor-pointer hover:text-white"
             onClick={() => navigation("/my-tenants")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -150,7 +151,7 @@ export default function Home() {
             </div>
           </motion.div>
           <motion.div
-            className="h-[250px] w-[385px] rounded-xl bg-[#b7bf7f] shadow-2xl hover:shadow-xl cursor-pointer hover:text-white"
+            className="h-[250px] md:w-[385px] w-[350px] rounded-xl bg-[#b7bf7f] shadow-2xl hover:shadow-xl cursor-pointer hover:text-white"
             onClick={() => navigation("/locations")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -189,7 +190,7 @@ export default function Home() {
           </motion.div>
         </div>
         <motion.div
-          className="flex items-center p-5 mt-8 text-red-500 bg-[#f2dedf] gap-4  rounded-lg cursor-pointer overflow-hidden"
+          className="flex items-center p-5 mt-4 text-red-500 bg-[#f2dedf] gap-4  rounded-lg cursor-pointer overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
@@ -199,6 +200,9 @@ export default function Home() {
           </span>
           <h3 className="">3 Loyers en retard</h3>
         </motion.div>
+      </div>
+      <div className="md:hidden  bg-gradient-to-t from-[#32033a] to-[#283342] sticky  bottom-0 mt-4 ">
+        <Avatar />
       </div>
     </>
   );

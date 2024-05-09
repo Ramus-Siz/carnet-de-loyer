@@ -19,7 +19,7 @@ export default function Layout() {
       <div className="md:h-screen  md:w-[300px] md:flex md:flex-col md:bg-gradient-to-t from-[#32033a] to-[#283342]  hidden">
         <Sidebar />
       </div>
-      <div className=" bg-[#283342] border-b border-r w-screen border-[#474747]  overflow-y-scroll">
+      <div className=" bg-[#283342] border-b border-r w-screen border-[#474747] overflow-y-scroll">
         <Outlet />
       </div>
     </>
