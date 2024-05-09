@@ -22,7 +22,7 @@ export default function Options({
     <div className="pt-4">
       <div className="sticky top-1 md:pl-8 md mb-5 z-10 md:pr-8  ">
         <div className="flex  flex-wrap md:flex-nowrap gap-4  md:pl-8  p-3 bg-[#283342]  items-center">
-          <div className=" md:flex hidden w-[20%] gap-4">
+          <div className=" md:flex hidden w-[25%] gap-4">
             <CheckBox
               type="checkbox"
               id="all"
@@ -34,13 +34,13 @@ export default function Options({
           </div>
           <div className="flex gap-4 w-full md:flex-row flex-col">
             <button
-              className="flex items-center  w-[40%] md:w-[15%] flex items-center text-white rounded-3xl  p-2 pr-4 pl-8 bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ... "
+              className="flex items-center  w-[40%] md:w-[20%] flex items-center text-white rounded-3xl  p-2 pr-4 pl-8 bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ... "
               onClick={HandleDelete}
             >
               Suprimer
             </button>
             <button
-              className="flex items-center w-[70%] md:w-[23%] bg-fuchsia-700 text-white rounded-3xl  p-2 pl-8 pr-4 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
+              className="flex items-center w-[70%] md:w-[35%] text-center bg-fuchsia-700 text-white rounded-3xl   p-2 md:pl-8 pr-4 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
               onClick={HandleAddData}
             >
               Ajouter {user}

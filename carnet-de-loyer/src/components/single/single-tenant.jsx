@@ -80,28 +80,24 @@ export default function SinglePreviewTenants() {
       )}
       {data && (
         <>
-          <div className="flex flex-col gap-8 p-8">
+          <div className="flex flex-col gap-8 p-4 md:p-8">
             <motion.div
-              className="flex justify-between items-center text-white gap-8 p-5   rounded-xl"
+              className="flex md:flex-row flex-col justify-between items-center text-white gap-8 p-5  w-full  rounded-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <div className="flex gap-4 items-center text-[#b3b5b7]">
+              <div className="flex items-center text-[#b3b5b7] md:w-[60%]">
                 <p>Verifier avec le filtre si {tenantData.name} est en ordre</p>
-                <ion-icon name="checkmark-outline"></ion-icon>
               </div>
-              <motion.div className="flex gap-8">
+              <motion.div className="flex gap-4 w-full">
                 <button
-                  className="  flex items-center  p-2 pr-8 pl-8 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
+                  className="  flex items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
                   onClick={openModal}
                 >
-                  <span className="text-white text-2xl">
-                    <ion-icon name="create-outline"></ion-icon>
-                  </span>
                   <span>Modifier le Contrat</span>
                 </button>
                 <button
-                  className=" flex items-center p-2 pr-8 pl-8 bg-[#a1a76a] text-white-700 hover:scale-95 rounded-xl "
+                  className=" flex items-center p-2 pl-4 pr-4 md:pr-8 md:pl-8 bg-[#a1a76a] text-white-700 hover:scale-95 rounded-xl "
                   onClick={openPayementModal}
                 >
                   <span className="text-2xl animate-bounce">
@@ -111,10 +107,10 @@ export default function SinglePreviewTenants() {
                 </button>
               </motion.div>
             </motion.div>
-            <motion.div className="flex justify-between gap-8">
+            <motion.div className="flex md:flex-row flex-col justify-between gap-8">
               {/* Première section avec les détails du locataire */}
               <motion.div
-                className="flex flex-col justify-center gap-10 w-1/2 h-96 rounded-3xl p-8 shadow-2xl bg-[#2d3446}"
+                className="flex flex-col justify-center gap-10 md:w-1/2 w-full  h-72  rounded-3xl p-8 shadow-2xl bg-[#2d3446}"
                 initial={{ opacity: 0 }}
                 whileHover={{ scale: 0.9 }}
                 animate={{ opacity: 1 }}
@@ -149,7 +145,7 @@ export default function SinglePreviewTenants() {
 
               {/* Deuxième section avec le formulaire et le statut */}
               <motion.div
-                className="flex flex-col items-center justify-center w-2/5 h-96 text-[#d6d8da] shadow-2xl rounded-3xl p-8 bg-gradient-to-t from-[#67456d] to-[#283342]"
+                className="flex flex-col items-center justify-center md:w-2/5 w-full h-96 text-[#d6d8da] shadow-2xl rounded-3xl p-8 bg-gradient-to-t from-[#67456d] to-[#283342]"
                 initial={{ opacity: 0 }}
                 whileHover={{ scale: 0.9 }}
                 animate={{ opacity: 1 }}
