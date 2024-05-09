@@ -17,7 +17,7 @@ export default function SinglePreviewHouses() {
 
   const catalog = (
     <>
-      <div className="flex flex-col gap-8 p-8">
+      <div className="flex flex-col w-full gap-8 p-8">
         <div className="flex gap-4 items-center">
           <span className="text-fuchsia-700  text-xl">
             <ion-icon name="home-outline"></ion-icon>
@@ -27,46 +27,44 @@ export default function SinglePreviewHouses() {
           </h2>
         </div>
 
-        <table className="w-fuul text-[#b3b5b7] text-center border-collapse border border-[#b3b5b7] ... ">
-          <thead>
-            <tr>
-              <th scope="col" className=" p-8 border border-[#b3b5b7] ...">
-                Type
-              </th>
-              <th scope="col" className=" p-8  border border-[#b3b5b7] ...">
-                Adress
-              </th>
-              <th scope="col" className="p-8  border border-[#b3b5b7] ...">
-                Composition
-              </th>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[#b3b5b7] table-auto text-center border-collapse border border-[#b3b5b7]">
+            <thead>
+              <tr>
+                <th scope="col" className="p-8 border border-[#b3b5b7]">
+                  Type
+                </th>
+                <th scope="col" className="p-8 border border-[#b3b5b7]">
+                  Adresse
+                </th>
+                <th scope="col" className="p-8 border border-[#b3b5b7]">
+                  Composition
+                </th>
+                <th scope="col" className="p-8 border border-[#b3b5b7]">
+                  Locataire
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-8 border border-slate-300">
+                  {houseData.type}
+                </td>
+                <td className="p-8 border border-slate-300">
+                  {houseData.adress}
+                </td>
+                <td className="p-8 border border-slate-300">
+                  {houseData.composition}
+                </td>
+                <td className="p-8 border border-slate-300">
+                  {houseData.bails && houseData.bails.length ? "Oui" : "Non"}
+                </td>
+              </tr>
+            </tbody>
+            <tfoot></tfoot>
+          </table>
+        </div>
 
-              <th scope="col" className="p-8 border border-[#b3b5b7] ...">
-                Locataire
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="">
-              <td className=" p-8 border border-slate-300 ...">
-                {houseData.type}
-              </td>
-              <td className="p-8 border border-slate-300 ...">
-                {houseData.adress}
-              </td>
-              <td className="p-8 border border-slate-300 ...">
-                {houseData.composition}
-              </td>
-              <td className="p-8 border border-slate-300 ...">
-                {houseData.bails && houseData.bails.length ? (
-                  <>Oui</>
-                ) : (
-                  <>Non</>
-                )}
-              </td>
-            </tr>
-          </tbody>
-          <tfoot></tfoot>
-        </table>
         <div className="flex flex-col gap-4 w-[90%] ">
           <h2 className="font-semibold text-white ">Description:</h2>
           <p className="text-[#b3b5b7]">{houseData.description}</p>
