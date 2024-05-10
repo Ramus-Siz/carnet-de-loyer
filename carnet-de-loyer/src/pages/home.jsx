@@ -166,7 +166,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col text-xl text-[#edeeef]">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">{`${tenants.length}`}</span>
+                  <span className="text-5xl font-semibold">{`${houses.length}`}</span>
                   <span className="flex flex-col">
                     <span className="text-xl ">Maisons</span>
                     <span className="text-xs text-[#283342] ">

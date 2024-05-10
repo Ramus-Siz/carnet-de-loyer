@@ -26,19 +26,25 @@ export default function Locations() {
   const [error, setError] = useState(null);
   let backgroundList;
   let thisHouse;
-  const catalog = tenantData.map((tenant, index) => {
-    {
-      index % 2 == 0
-        ? (backgroundList = "")
-        : (backgroundList = "bg-[#a1a76a] text-white");
-    }
 
-    if (tenant.bails) {
-      const getMyhouses = sessionStorage.getItem("myHouses");
-      let houses = JSON.parse(getMyhouses);
-      thisHouse = houses.find(
-        (house) => house.id == tenant.bails[0].myPropertyId
-      );
+  const catalog = tenantData.map((tenant, index) => {
+    // Déterminez la couleur d'arrière-plan pour les lignes paires/impaires
+    const backgroundList = index % 2 === 0 ? "" : "bg-[#a1a76a] text-white";
+
+    // Initialisez `thisHouse` à `null` par défaut
+    let thisHouse = null;
+
+    // Si le locataire a des baux et qu'il y a au moins un bail
+    if (tenant.bails && tenant.bails.length > 0) {
+      // Trouvez la maison correspondante à `myPropertyId` du premier bail
+      const getMyHouses = sessionStorage.getItem("myHouses");
+      const houses = JSON.parse(getMyHouses);
+
+      if (houses) {
+        thisHouse = houses.find(
+          (house) => house.id === tenant.bails[0].myPropertyId
+        );
+      }
     }
 
     return (
@@ -46,28 +52,30 @@ export default function Locations() {
         key={tenant.id}
         className={`border border-1 border-[#5f6263] ${backgroundList}`}
       >
-        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.name} ${tenant.prenom}`}</td>
-        <td className="border border-1 border-[#5f6263] p-4">{`${tenant.telephone}`}</td>
+        <td className="border border-1 border-[#5f6263] p-4">
+          {`${tenant.name} ${tenant.prenom}`}
+        </td>
+        <td className="border border-1 border-[#5f6263] p-4">
+          {`${tenant.telephone}`}
+        </td>
 
-        {/* Si le locataire a des baux */}
-        {tenant.bails && tenant.bails.length > 0 ? (
+        {thisHouse ? (
           <>
-            <td className="border border-1 border-[#5f6263] p-4">{`${thisHouse.adress}`}</td>
-
-            {/* Afficher la date de début du premier bail */}
+            <td className="border border-1 border-[#5f6263] p-4">
+              {thisHouse.adress}
+            </td>
             <td className="border border-1 border-[#5f6263] p-4">
               {tenant.bails[0].start}
             </td>
-            {/* Afficher la date de fin du premier bail */}
             <td className="border border-1 border-[#5f6263] p-4">
               {tenant.bails[0].finish}
             </td>
-            {/* Afficher l'état du locataire en fonction de la disponibilité des baux */}
             <td className="border border-1 border-[#5f6263] p-4">Actif</td>
           </>
         ) : (
           <>
-            {/* Si le locataire n'a pas de contract */}
+            {/* Si `thisHouse` est nul ou si le locataire n'a pas de bails */}
+            <td className="border border-1 border-[#5f6263] p-4">{"-"}</td>
             <td className="border border-1 border-[#5f6263] p-4">{"-"}</td>
             <td className="border border-1 border-[#5f6263] p-4">{"-"}</td>
             <td className="border border-1 border-[#5f6263] p-4">Inactif</td>
@@ -76,6 +84,7 @@ export default function Locations() {
       </tr>
     );
   });
+
   const getData = async () => {
     try {
       const token = sessionStorage.getItem("token");

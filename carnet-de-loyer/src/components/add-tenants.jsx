@@ -55,7 +55,7 @@ export default function AddTenants({ HandleAddTenants }) {
         reset();
       } else {
         console.log("Error lors de l'ajout, veillez recommencer ");
-        toast.error("Il y a une erreur, merci de réessayer");
+        toast.error("Il y a une erreur, merci de réessayer!");
       }
 
       console.log(response.data);
