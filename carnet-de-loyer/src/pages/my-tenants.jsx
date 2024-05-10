@@ -59,6 +59,7 @@ export default function MyTenants() {
           setIsCheck({ choises: [] });
           setSelectAll(false);
           updateTenants(tenantsAfterDelete);
+          sessionStorage.removeItem("mytenants");
         } catch (error) {
           // Gérer les erreurs de requête
           console.error("Erreur lors de la suppression:", error);
@@ -86,6 +87,11 @@ export default function MyTenants() {
 
             updateTenants(tenantsAfterDelete);
             setIsCheck({ choises: [] });
+            sessionStorage.removeItem("mytenants");
+            sessionStorage.setItem(
+              "mytenants",
+              JSON.stringify(response.data.lessor.tenants)
+            );
           }
 
           // Filtrer `tenants` pour supprimer les tenants sélectionnés

@@ -87,7 +87,6 @@ export default function AddTenants({ HandleAddTenants }) {
       id: +`${keyOfTenants}`,
       name: newTenant.name,
       prenom: newTenant.prenom,
-      adress: newTenant.adress,
       email: newTenant.email,
       telephone: newTenant.telephone,
       lessorId: user.lessorId,
@@ -147,17 +146,6 @@ export default function AddTenants({ HandleAddTenants }) {
               placeholder="ramus@gmail.com"
               className="p-2 bg-[#F7FAFD] border-none outline-none pl-3 rounded-2xl"
               {...register("email", { require: "email Obligatoire" })}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label>Adresse</label>
-            <input
-              type="text"
-              name="adress"
-              id=""
-              placeholder="32, Av, Quartier, Commune"
-              className="p-2 bg-[#F7FAFD] border-none outline-none pl-3 rounded-2xl"
-              {...register("adress", { require: "adresse Obligatoire" })}
             />
           </div>
         </div>
