@@ -42,7 +42,14 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
 
       if (response.status === 201) {
         //Récupérer les locataires de sessionStorage
-
+        const getMytenants = sessionStorage.getItem("mytenants");
+        const tenants = JSON.parse(getMytenants);
+        sessionStorage.removeItem("mytenants");
+        sessionStorage.setItem(
+          "mytenants",
+          JSON.stringify([...tenants, response.data.tenant])
+        );
+        console.log(tenants);
         toast.success("Contrat ajouter avec succès!");
         closeModal();
       } else {

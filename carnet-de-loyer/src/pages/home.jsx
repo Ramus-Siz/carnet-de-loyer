@@ -134,7 +134,7 @@ export default function Home() {
               <div className="flex flex-col text-xl ">
                 <div className="flex items-center gap-2">
                   <span className="text-5xl font-semibold text-[#edeeef]">
-                    {`${tenants.length}`}
+                    {`${tenants.length - 1}`}
                   </span>
                   <span className="flex flex-col">
                     <span className="text-xl ">Occupants</span>
