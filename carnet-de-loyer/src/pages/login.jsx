@@ -27,9 +27,7 @@ export default function Login({}) {
       setLoading(true);
 
       // Envoyer les données à l'API
-      const response = await axios.post(`${BASE_API_URL}/auth/signin`, data, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${BASE_API_URL}/auth/signin`, data);
 
       // Vérifier la réponse de l'API
       if (response.status === 201) {
