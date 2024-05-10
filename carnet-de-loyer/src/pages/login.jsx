@@ -74,7 +74,7 @@ export default function Login({}) {
       const response = await axios.post(`${BASE_API_URL}/auth/login`, data);
 
       // Vérifier la réponse de l'API
-      if (response.status === 200) {
+      if (response.status === 201) {
         // Si l'authentification est réussie, naviguer vers la page d'accueil
         toast.success("Bievenue dans votre compte, locataire!");
         navigate("/my-rent-book");
