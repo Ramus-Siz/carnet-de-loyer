@@ -5,8 +5,10 @@ import { useRentBooklet } from "./contexts/context";
 import axios from "axios";
 import { BASE_API_URL } from "../utils/config";
 import toast, { Toaster } from "react-hot-toast";
+import TenantLoginInfos from "./tenantLoginIfos";
 
 export default function AddTenants({ HandleAddTenants }) {
+  const [tenantLoginInfos, setTenantLoginInfos] = useState(false);
   const tenants = useRentBooklet((state) => state.tenants);
   const houses = useRentBooklet((state) => state.houses);
 
@@ -49,6 +51,7 @@ export default function AddTenants({ HandleAddTenants }) {
       if (response.status === 200) {
         updateTenants([...tenants, tenantObjetBuild]);
         toast.success("Vous avez créé un locataire!");
+        setTenantLoginInfos(true);
         reset();
       } else {
         console.log("Error lors de l'ajout, veillez recommencer ");
@@ -91,6 +94,10 @@ export default function AddTenants({ HandleAddTenants }) {
     };
     return newTenantsObject;
   }
+
+  const handleClose = () => {
+    setTenantLoginInfos(false);
+  };
 
   return (
     <>
@@ -176,6 +183,7 @@ export default function AddTenants({ HandleAddTenants }) {
 
         <RegisterButton />
       </form>
+      {tenantLoginInfos && <TenantLoginInfos handleClose={handleClose} />}
       <Toaster />
     </>
   );
