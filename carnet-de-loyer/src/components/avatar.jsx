@@ -1,6 +1,20 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Avatar() {
+  const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
+  const navigation = useNavigate();
+
   const getCurrentUser = sessionStorage.getItem("currentUser");
   const currentUser = JSON.parse(getCurrentUser);
+  const openSettingModal = () => {
+    setIsSettingModalOpen(!isSettingModalOpen);
+  };
+
+  const logout = () => {
+    sessionStorage.clear();
+    navigation("/");
+  };
   return (
     <>
       <div className=" flex justify-between items-center gap-10 p-4 w-full md:w-[14.8em] border-t-8 border-[#283342] md:fixed bottom-0">
@@ -15,10 +29,35 @@ export default function Avatar() {
           </div>
         </div>
 
-        <div className="justify-self-end text-white text-lg">
+        <div
+          className="justify-self-end text-white text-lg cursor-pointer"
+          onClick={openSettingModal}
+        >
           <ion-icon name="ellipsis-vertical-outline"></ion-icon>
         </div>
       </div>
+      {isSettingModalOpen && (
+        <div className="flex justify-center items-center w-[180px] h-[80px]  p-8 absolute bottom-0 left-44 md:bottom-12 md:left-64 text-[#b3b5b7] rounded border border-[#b3b5b7] border-4">
+          <ul className="">
+            <li className="cursor-pointer hover:text-white">
+              <span className="flex items-center justify-start gap-2">
+                <span className="text-xl">
+                  <ion-icon name="create-outline"></ion-icon>
+                </span>
+                <span>Modifier</span>
+              </span>
+            </li>
+            <li className="cursor-pointer hover:text-white" onClick={logout}>
+              <span className="flex items-center justify-start gap-2">
+                <span className="text-xl">
+                  <ion-icon name="log-out-outline"></ion-icon>
+                </span>
+                <span>Déconnexion</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      )}
     </>
   );
 }
