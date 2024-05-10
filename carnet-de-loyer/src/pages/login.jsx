@@ -71,9 +71,7 @@ export default function Login({}) {
   const onSubmitTenant = async (data) => {
     try {
       // Envoyer les données à l'API
-      const response = await axios.post(`${BASE_API_URL}/auth/login`, data, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${BASE_API_URL}/auth/login`, data);
 
       // Vérifier la réponse de l'API
       if (response.status === 200) {
@@ -98,8 +96,7 @@ export default function Login({}) {
       // Envoyer les données à l'API
       const response = await axios.post(
         `${BASE_API_URL}/auth/signup/ghjhjhgkjGYB5KJSH85DHJNDHkDHYE65DFHJBD`,
-        data,
-        { withCredentials: true }
+        data
       );
 
       // Vérifier la réponse de l'API
@@ -123,9 +120,7 @@ export default function Login({}) {
   const onRegisterMoreInfos = async (data) => {
     try {
       // Envoyer les données à l'API
-      const response = await axios.post(`${BASE_API_URL}/landlords/add`, data, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${BASE_API_URL}/landlords/add`, data);
 
       // Vérifier la réponse de l'API
       if (response.status === 200) {
