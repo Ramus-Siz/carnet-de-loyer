@@ -22,6 +22,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
   const bailUrl = `${BASE_API_URL}/tenant/bail`;
 
   const onSubmit = async (newBail) => {
+    console.log(newBail.propretyId);
     const bailObjetBuild = BuildNewBailObject(newBail);
     handleClickButtonEnregister(bailObjetBuild);
   };
@@ -40,14 +41,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
       );
 
       if (response.status === 201) {
-        const getMytenants = sessionStorage.getItem("mytenants");
-        const tenants = JSON.parse(getMytenants);
-        sessionStorage.removeItem("mytenants");
-        sessionStorage.setItem(
-          "mytenants",
-          JSON.stringify([...tenants, response.data.tenant])
-        );
-        console.log(tenants);
+        //Récupérer les locataires de sessionStorage
 
         toast.success("Contrat ajouter avec succès!");
         closeModal();
