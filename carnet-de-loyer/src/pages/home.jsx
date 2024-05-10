@@ -8,6 +8,7 @@ import { BASE_API_URL } from "../utils/config";
 import Avatar from "../components/avatar";
 
 export default function Home() {
+  const [tenantCount, setTenantCount] = useState(0);
   const navigation = useNavigate();
   const tenants = useRentBooklet((state) => state.tenants);
   const houses = useRentBooklet((state) => state.houses);
@@ -18,7 +19,7 @@ export default function Home() {
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
-  const userUrl = `${BASE_API_URL}/my-tenants/lessor/${userConnected.lessorId}`;
+  const userUrl = `${BASE_API_URL}/my-tenants/count/count-tenants-with-bail`;
   const getHouseData = async () => {
     try {
       // const token = sessionStorage.getItem("token");
@@ -42,19 +43,23 @@ export default function Home() {
   };
   const getTenantData = async () => {
     try {
-      // const token = sessionStorage.getItem("token");
-      // const { data } = await axios.get(userUrl, {
-      //   headers: {
-      //     authorization: token,
-      //   },
-      // });
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(userUrl, {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      console.log(response.data.count);
+      setTenantCount(response.data.count);
+      let getMyTenantsUpdate = sessionStorage.getItem("mytenants");
+      const mytenantsUpdate = JSON.parse(getMyTenantsUpdate);
+      updateTenants(mytenantsUpdate);
+
       // const getMyTenants = sessionStorage.getItem("mytenants");
       // const mytenants = JSON.parse(getMyTenants);
       // sessionStorage.removeItem(mytenants);
       // sessionStorage.setItem("mytenants", JSON.stringify(data));
-      let getMyTenantsUpdate = sessionStorage.getItem("mytenants");
-      const mytenantsUpdate = JSON.parse(getMyTenantsUpdate);
-      updateTenants(mytenantsUpdate);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
@@ -62,7 +67,7 @@ export default function Home() {
   useEffect(() => {
     getHouseData();
     getTenantData();
-  }, []);
+  }, [tenantCount]);
 
   return (
     <>
@@ -166,11 +171,11 @@ export default function Home() {
               </div>
               <div className="flex flex-col text-xl text-[#edeeef]">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">{`${houses.length}`}</span>
+                  <span className="text-5xl font-semibold">{`${tenantCount}`}</span>
                   <span className="flex flex-col">
                     <span className="text-xl ">Maisons</span>
                     <span className="text-xs text-[#283342] ">
-                      {`${houses.length - tenants.length} Disponibles`}
+                      {`${houses.length - tenantCount} Disponibles`}
                     </span>
                   </span>
                 </div>
