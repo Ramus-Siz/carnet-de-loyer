@@ -32,7 +32,7 @@ export default function Login({}) {
       });
 
       // Vérifier la réponse de l'API
-      if (response.status === 200) {
+      if (response.status === 201) {
         // Si l'authentification est réussie, naviguer vers la page d'accueil
         updateTenants(response.data.lessor.tenants);
         updateHouses(response.data.lessor.houses);
