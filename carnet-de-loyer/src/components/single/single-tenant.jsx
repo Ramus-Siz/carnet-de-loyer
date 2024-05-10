@@ -9,10 +9,12 @@ import FilterForm from "../filterForm";
 import axios from "axios";
 import Loader from "../loader";
 import { BASE_API_URL } from "../../utils/config";
+import UpdateContractPopup from "../updateContract";
 
 export default function SinglePreviewTenants() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalPayementOpen, setIsModalPayementOpen] = useState(false);
+  const [isUpdateContactModaleOpen, setIsUpdateContactModale] = useState(false);
   const [inOder, setInOder] = useState(null);
   const [tenantData, setTenantData] = useState({});
   const [data, setData] = useState(null);
@@ -24,9 +26,12 @@ export default function SinglePreviewTenants() {
   const { id } = useParams();
   const tenants = listTenants.find((tenant) => tenant.id === +id);
   const tenantURL = `${BASE_API_URL}/my-tenants/${id}`;
-
+  console.log(id);
   console.log(tenantData);
-
+  let bailId;
+  if (tenantData.bails && tenantData.bails.length > 0) {
+    bailId = tenantData.bails[0].id;
+  }
   const openPayementModal = () => {
     setIsModalPayementOpen(true);
   };
@@ -39,8 +44,15 @@ export default function SinglePreviewTenants() {
     setIsModalPayementOpen(false);
   };
 
+  const openUpdateModal = () => {
+    setIsUpdateContactModale(true);
+  };
+
   const closePayementModal = () => {
     setIsModalPayementOpen(false);
+  };
+  const closeUpdateContractModal = () => {
+    setIsUpdateContactModale(false);
   };
 
   const getTenantData = async () => {
@@ -90,12 +102,22 @@ export default function SinglePreviewTenants() {
                 <p>Verifier avec le filtre si {tenantData.name} est en ordre</p>
               </div>
               <motion.div className="flex gap-4 w-full">
-                <button
-                  className="  flex items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
-                  onClick={openModal}
-                >
-                  <span>Modifier le Contrat</span>
-                </button>
+                {tenantData.bails && tenantData.bails.length > 0 ? (
+                  <button
+                    className="  flex items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
+                    onClick={openUpdateModal}
+                  >
+                    <span>Modifier le contrat</span>
+                  </button>
+                ) : (
+                  <button
+                    className="  flex items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
+                    onClick={openModal}
+                  >
+                    <span>Créer un Contrat</span>
+                  </button>
+                )}
+
                 <button
                   className=" flex items-center p-2 pl-4 pr-4 md:pr-8 md:pl-8 bg-[#a1a76a] text-white-700 hover:scale-95 rounded-xl "
                   onClick={openPayementModal}
@@ -176,6 +198,12 @@ export default function SinglePreviewTenants() {
             isModalPayementOpen={isModalPayementOpen}
             closePayementModal={closePayementModal}
             id={id}
+          />
+          <UpdateContractPopup
+            isUpdateContactModaleOpen={isUpdateContactModaleOpen}
+            closeUpdateContractModal={closeUpdateContractModal}
+            id={id}
+            bailId={bailId}
           />
         </>
       )}

@@ -50,6 +50,11 @@ export default function AddTenants({ HandleAddTenants }) {
 
       if (response.status === 200) {
         updateTenants([...tenants, tenantObjetBuild]);
+        // Mettez à jour sessionStorage
+        const myTenants = sessionStorage.getItem("mytenants");
+        const tenantsArray = JSON.parse(myTenants) || [];
+        tenantsArray.push(response.data.tenantAdded);
+        sessionStorage.setItem("mytenants", JSON.stringify(tenantsArray));
         toast.success("Vous avez créé un locataire!");
         setTenantLoginInfos(true);
         reset();

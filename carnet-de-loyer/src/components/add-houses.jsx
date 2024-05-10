@@ -43,13 +43,10 @@ export default function AddHouses({ HandleAddHouses }) {
       );
       if (response.status === 200) {
         updateHouses([...houses, houseObjectBuild]);
-        const getMyHouses = sessionStorage.getItem("myHouses");
-        const sessionhouses = JSON.parse(getMyHouses);
-        sessionStorage.removeItem("myHouses");
-        sessionStorage.setItem(
-          "myHouses",
-          JSON.stringify([...sessionhouses, houseObjectBuild])
-        );
+        const myhouses = sessionStorage.getItem("myHouses");
+        const housesArray = JSON.parse(myhouses) || [];
+        housesArray.push(response.data);
+        sessionStorage.setItem("myHouses", JSON.stringify(housesArray));
         toast.success("Vous avez créé une maison!");
 
         reset();

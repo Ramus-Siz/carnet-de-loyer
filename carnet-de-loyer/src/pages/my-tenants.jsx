@@ -60,6 +60,7 @@ export default function MyTenants() {
           setSelectAll(false);
           updateTenants(tenantsAfterDelete);
           sessionStorage.removeItem("mytenants");
+          sessionStorage.setItem("mytenants", JSON.stringify([]));
         } catch (error) {
           // Gérer les erreurs de requête
           console.error("Erreur lors de la suppression:", error);
@@ -84,15 +85,16 @@ export default function MyTenants() {
                 (tenant) => tenant.id !== choiceId
               );
             }
-
-            updateTenants(tenantsAfterDelete);
-            setIsCheck({ choises: [] });
-            sessionStorage.removeItem("mytenants");
-            sessionStorage.setItem(
-              "mytenants",
-              JSON.stringify(response.data.lessor.tenants)
-            );
           }
+          //updata tenants store
+          updateTenants(tenantsAfterDelete);
+          setIsCheck({ choises: [] });
+
+          // Mettre à jour sessionStorage avec la liste mise à jour
+          sessionStorage.setItem(
+            "mytenants",
+            JSON.stringify(tenantsAfterDelete)
+          );
 
           // Filtrer `tenants` pour supprimer les tenants sélectionnés
         } catch (error) {
