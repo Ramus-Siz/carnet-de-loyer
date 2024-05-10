@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
 import Loader from "../components/loader";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { BASE_API_URL } from "../utils/config";
 
 export default function MyTenants() {
@@ -55,9 +53,6 @@ export default function MyTenants() {
               }
             );
             if (response.status == 202) {
-              toast.success("Locataire supprimé avec succès !", {
-                position: "bottom-center",
-              });
             }
           }
           tenantsAfterDelete = [];
@@ -214,7 +209,6 @@ export default function MyTenants() {
           isTrueToAddData={isTrueToAddData}
         />
       )}
-      <ToastContainer />
     </>
   );
 }

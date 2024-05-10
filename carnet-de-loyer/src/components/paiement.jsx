@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
 import { BASE_API_URL } from "../utils/config";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Paiement({
   isModalPayementOpen,
@@ -45,13 +46,14 @@ export default function Paiement({
 
       if (response.status === 201) {
         // updateTenants([...tenants, tenantBailObjetBuild]);
-
+        toast.success("Contrat ajouter avec succès!");
         closePayementModal();
       } else {
+        toast.error("il y a yne erreur!");
         console.log("Error lors de l'ajout, veillez recommencer ");
       }
-      console.log(response.data);
     } catch (error) {
+      console.log(response.data);
       console.log("error serveur", error);
     }
   }
@@ -94,7 +96,6 @@ export default function Paiement({
           authorization: token,
         },
       });
-
       setData(response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
@@ -186,6 +187,7 @@ export default function Paiement({
           </div>
         </div>
       )}
+      <Toaster />
     </>
   );
 }

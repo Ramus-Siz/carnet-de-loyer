@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
 import { BASE_API_URL } from "../utils/config";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ModifyContract({ isModalOpen, closeModal, id }) {
   console.log(id);
@@ -40,12 +41,14 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
 
       if (response.status === 201) {
         // updateTenants([...tenants, tenantBailObjetBuild]);
+        toast.success("Contrat ajouter avec succès!");
         closeModal();
       } else {
+        toast.error("il y a yne erreur!");
         console.log("Error lors de l'ajout, veillez recommencer ");
       }
-      console.log(response.data);
     } catch (error) {
+      toast.error("il y a yne erreur!");
       console.log("error serveur", error);
     }
   }
@@ -144,6 +147,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
           </div>
         </div>
       )}
+      <Toaster />
     </>
   );
 }

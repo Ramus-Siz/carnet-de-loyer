@@ -99,7 +99,7 @@ export default function Home() {
                 <div className="">
                   <div className="flex items-center gap-2">
                     <span className="text-5xl font-semibold text-[#edeeef]">
-                      8
+                      0
                     </span>
                     <span className="flex flex-col">
                       <span className="text-xl ">Boutiques</span>
@@ -139,7 +139,7 @@ export default function Home() {
                 <div className="">
                   <div className="flex items-center gap-3">
                     <span className="text-5xl font-semibold text-[#edeeef]">
-                      5
+                      0
                     </span>
                     <span className="flex flex-col">
                       <span className="text-xl ">Occupants</span>
@@ -176,11 +176,11 @@ export default function Home() {
                 </div>
                 <div className="">
                   <div className="flex items-center gap-3">
-                    <span className="text-5xl font-semibold">5</span>
+                    <span className="text-5xl font-semibold">0</span>
                     <span className="flex flex-col">
                       <span className="text-xl ">Boutiques</span>
                       <span className="text-xs text-[#283342]">
-                        3 Disponibles
+                        0 Disponibles
                       </span>
                     </span>
                   </div>

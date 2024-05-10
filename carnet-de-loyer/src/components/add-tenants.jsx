@@ -4,6 +4,7 @@ import RegisterButton from "./registre-button";
 import { useRentBooklet } from "./contexts/context";
 import axios from "axios";
 import { BASE_API_URL } from "../utils/config";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddTenants({ HandleAddTenants }) {
   const tenants = useRentBooklet((state) => state.tenants);
@@ -47,14 +48,17 @@ export default function AddTenants({ HandleAddTenants }) {
 
       if (response.status === 200) {
         updateTenants([...tenants, tenantObjetBuild]);
+        toast.success("Vous avez créé un locataire!");
         reset();
       } else {
         console.log("Error lors de l'ajout, veillez recommencer ");
+        toast.error("Il y a une erreur, merci de réessayer");
       }
 
       console.log(response.data);
     } catch (error) {
       console.log("error serveur", error);
+      toast.error("Il y a une erreur, merci de réessayer");
     }
   }
 
@@ -172,6 +176,7 @@ export default function AddTenants({ HandleAddTenants }) {
 
         <RegisterButton />
       </form>
+      <Toaster />
     </>
   );
 }

@@ -4,6 +4,7 @@ import RegisterButton from "./registre-button";
 import { useRentBooklet } from "./contexts/context";
 import axios from "axios";
 import { BASE_API_URL } from "../utils/config";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddHouses({ HandleAddHouses }) {
   const houses = useRentBooklet((state) => state.houses);
@@ -42,11 +43,16 @@ export default function AddHouses({ HandleAddHouses }) {
       );
       if (response.status === 200) {
         updateHouses([...houses, houseObjectBuild]);
+        toast.success("Vous avez créé une maison!");
+
         reset();
       } else {
+        toast.error("Il y a une erreur");
+
         console.log("Error lors de l'ajout, veillez recommencer ");
       }
     } catch (error) {
+      toast.error("Il y a une erreur");
       console.log("Erreur Serveur", error);
     }
   }
@@ -143,6 +149,7 @@ export default function AddHouses({ HandleAddHouses }) {
         </div>
         <RegisterButton />
       </form>
+      <Toaster />
     </>
   );
 }

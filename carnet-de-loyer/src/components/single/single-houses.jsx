@@ -4,8 +4,12 @@ import { useRentBooklet } from "../contexts/context";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_API_URL } from "../../utils/config";
+import Loader from "../loader";
 
 export default function SinglePreviewHouses() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [houseData, setHouseData] = useState([]);
   const { id } = useParams();
   const listHouses = useRentBooklet((state) => state.houses);
@@ -82,10 +86,14 @@ export default function SinglePreviewHouses() {
         },
       });
       if (response.status === 201) {
+        setData(response.data);
         setHouseData(response.data);
       }
     } catch (error) {
+      setError(error);
       console.error("Erreur lors de la récupération des données:", error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -95,7 +103,17 @@ export default function SinglePreviewHouses() {
   return (
     <>
       <Header />
-      {catalog}
+      {loading && (
+        <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <Loader />
+        </div>
+      )}
+      {error && (
+        <div className=" fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <Loader />
+        </div>
+      )}
+      {data && <>{catalog}</>}
     </>
   );
 }
