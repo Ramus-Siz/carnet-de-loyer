@@ -75,9 +75,20 @@ export default function Login({}) {
 
       // Vérifier la réponse de l'API
       if (response.status === 201) {
+        updateCurrentUser(response.data.user);
+        sessionStorage.setItem(
+          "currentUser",
+          JSON.stringify(response.data.user)
+        );
+        sessionStorage.setItem("tenant", JSON.stringify(response.data.tenant));
+        sessionStorage.setItem("lessor", JSON.stringify(response.data.lessor));
+        sessionStorage.setItem("token", response.data.token);
+        setData(response.data);
+
         // Si l'authentification est réussie, naviguer vers la page d'accueil
         toast.success("Bievenue dans votre compte, locataire!");
         navigate("/my-rent-book");
+        setLoading(false);
       } else {
         toast.error("il y a une erreur!");
         // Gérer les erreurs d'authentification
@@ -89,6 +100,8 @@ export default function Login({}) {
       // Gérer les erreurs de requête
       console.error("Erreur lors de l'envoi de la requête:", error);
       // Afficher un message d'erreur à l'utilisateur
+    } finally {
+      toast.success("Bievenue dans votre compte, locataire!");
     }
   };
   const onRegister = async (data) => {
@@ -173,6 +186,9 @@ export default function Login({}) {
                     <LoginTenants
                       onSubmitTenant={onSubmitTenant}
                       setIsTenant={setIsTenant}
+                      loading={loading}
+                      error={error}
+                      data={data}
                     />
                   )}
                 </>

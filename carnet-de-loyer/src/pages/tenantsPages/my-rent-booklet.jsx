@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 
 export default function MyRentBook() {
+  const getCurrentUser = sessionStorage.getItem("currentUser");
+  const currentUser = JSON.parse(getCurrentUser);
+  const getTenant = sessionStorage.getItem("tenant");
+  const tenant = JSON.parse(getTenant);
+  const getLessor = sessionStorage.getItem("lessor");
+  const lessor = JSON.parse(getLessor);
+
   return (
     <>
       <div className="pt-12">
@@ -14,7 +21,7 @@ export default function MyRentBook() {
 
             <div className="border-b border-[#5f6263] pt-4  flex justify-between ">
               <div>Moi</div>
-              <div>Nom & Prenom </div>
+              <div>{currentUser.username} </div>
             </div>
             <div className="border-b border-[#5f6263] pt-4 flex justify-between ">
               <div>Maison </div>
@@ -33,8 +40,8 @@ export default function MyRentBook() {
               <div>Prenom </div>
             </div>
             <div className="border-b border-[#5f6263] pt-2 flex justify-between ">
-              <div>ID Bailleur </div>
-              <div>Prenom </div>
+              <div>Bailleur </div>
+              <div> {`${lessor.name} ${lessor.prenom}`}</div>
             </div>
             <span className="text-xl self-end justify-self-end pt-12 text-white">
               <ion-icon name="information-circle-outline"></ion-icon>
