@@ -8,6 +8,7 @@ export default function TenantLoginInfos({ handleClose }) {
         <div className="mb-4">
           <p>Password: 122334450</p>
           <p>Code du bailleur: **********</p>
+          <p className="text-orange-600">Fermer tout puis actualiser la page</p>
         </div>
         <div className="flex justify-end">
           <button

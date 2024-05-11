@@ -108,7 +108,7 @@ export default function AddTenants({ HandleAddTenants }) {
       <div className="flex items-center h-20 bg-[#283342]  border-b-8 border-[#F7FAFD] p-4">
         <p className="bg-[#283342] text-white pl-4 ">
           <button onClick={HandleAddTenants} className="text-orange-600">
-            <ion-icon name="arrow-forward-outline"></ion-icon>
+            <ion-icon name="close-outline"></ion-icon>
           </button>
         </p>
       </div>
