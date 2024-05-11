@@ -161,6 +161,12 @@ export default function SinglePreviewTenants() {
                         {tenantData.telephone}
                       </td>
                     </tr>
+                    <tr>
+                      <td className="p-4 border border-[#b3b5b7]">Email :</td>
+                      <td className="p-4 border border-[#b3b5b7]">
+                        {tenantData.email}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </motion.div>
