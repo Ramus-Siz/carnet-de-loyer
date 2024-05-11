@@ -69,6 +69,8 @@ export default function Login({}) {
     }
   };
   const onSubmitTenant = async (data) => {
+    setLoading(true);
+
     try {
       // Envoyer les données à l'API
       const response = await axios.post(`${BASE_API_URL}/auth/login`, data);
