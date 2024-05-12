@@ -6,11 +6,12 @@ import axios from "axios";
 import { BASE_API_URL } from "../utils/config";
 import toast, { Toaster } from "react-hot-toast";
 import HouseModalWhenAdded from "./houseModalWhenAdded";
+import { useNavigate } from "react-router-dom";
 
 export default function AddHouses({ HandleAddHouses }) {
   const [isHouseMOdalWhenAddedOpen, setIsHouseMOdalWhenAddedOpen] =
     useState(false);
-
+  const navigation = useNavigate();
   const houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
@@ -55,6 +56,7 @@ export default function AddHouses({ HandleAddHouses }) {
         setIsHouseMOdalWhenAddedOpen(true);
 
         reset();
+        navigation("/my-houses");
       } else {
         toast.error("Il y a une erreur");
 
@@ -63,6 +65,7 @@ export default function AddHouses({ HandleAddHouses }) {
     } catch (error) {
       toast.error("Il y a une erreur");
       console.log("Erreur Serveur", error);
+      navigation("/my-houses");
     }
   }
 

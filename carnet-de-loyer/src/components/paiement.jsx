@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
 import { BASE_API_URL } from "../utils/config";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Paiement({
   isModalPayementOpen,
@@ -18,6 +19,7 @@ export default function Paiement({
 
   let tenants = useRentBooklet((state) => state.tenants);
   console.log(tenants);
+  const navigation = useNavigate();
 
   const updateTenants = useRentBooklet((state) => state.updateTenants);
   let currentUser = useRentBooklet((state) => state.currentUser);
@@ -46,8 +48,9 @@ export default function Paiement({
 
       if (response.status === 201) {
         // updateTenants([...tenants, tenantBailObjetBuild]);
-        toast.success("Contrat ajouter avec succès!");
+        toast.success("Paiement effectué avec succès!");
         closePayementModal();
+        navigation("/my-tenants");
       } else {
         toast.error("il y a yne erreur!");
         console.log("Error lors de l'ajout, veillez recommencer ");

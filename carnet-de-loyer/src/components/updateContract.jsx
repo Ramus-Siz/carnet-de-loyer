@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
 import { BASE_API_URL } from "../utils/config";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateContractPopup({
   isUpdateContactModaleOpen,
@@ -24,6 +25,7 @@ export default function UpdateContractPopup({
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const userUrl = `${BASE_API_URL}/tenant/bail/${id}`;
   const bailUrl = `${BASE_API_URL}/tenant/bail`;
+  const navigation = useNavigate();
 
   const onSubmit = async (newBail) => {
     console.log(newBail.propretyId);
@@ -68,6 +70,7 @@ export default function UpdateContractPopup({
 
         toast.success("Contrat mis à jour avec succès!");
         closeUpdateContractModal();
+        navigation("/my-tenants");
       } else {
         toast.error("il y a yne erreur!");
         console.log("Error lors de l'ajout, veillez recommencer ");
@@ -75,6 +78,7 @@ export default function UpdateContractPopup({
     } catch (error) {
       toast.error("il y a yne erreur!");
       console.log("error serveur", error);
+      navigation("/my-tenants");
     }
   }
 

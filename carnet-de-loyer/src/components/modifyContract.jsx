@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRentBooklet } from "./contexts/context";
 import { BASE_API_URL } from "../utils/config";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function ModifyContract({ isModalOpen, closeModal, id }) {
   console.log(id);
@@ -20,6 +21,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
   const updateCurrentUser = useRentBooklet((state) => state.updateCurrentUser);
   const userUrl = `${BASE_API_URL}/tenant/bail/${id}`;
   const bailUrl = `${BASE_API_URL}/tenant/bail`;
+  const navigation = useNavigate();
 
   const onSubmit = async (newBail) => {
     console.log(newBail.propretyId);
@@ -42,16 +44,39 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
 
       if (response.status === 201) {
         //Récupérer les locataires de sessionStorage
-        const getMytenants = sessionStorage.getItem("mytenants");
-        const tenants = JSON.parse(getMytenants);
-        sessionStorage.removeItem("mytenants");
+        // Mise à jour de la session myHouses
+        const updatedHousesSession = myHouses.map((house) => {
+          if (house.adress === bailObjetBuild.myPropertyId) {
+            return {
+              ...house,
+              bails: [...house.bails, response.data.bailAdded], // Ajouter le nouveau bail
+            };
+          }
+          return house;
+        });
+        sessionStorage.setItem(
+          "myHouses",
+          JSON.stringify(updatedHousesSession)
+        );
+
+        // Mise à jour de la session myTenants
+        const updatedTenantsSession = mySessiontenants.map((tenant) => {
+          if (tenant.id === id) {
+            return {
+              ...tenant,
+              bails: [...tenant.bails, response.data.bailAdded], // Ajouter le nouveau bail
+            };
+          }
+          return tenant;
+        });
         sessionStorage.setItem(
           "mytenants",
-          JSON.stringify([...tenants, response.data.tenant])
+          JSON.stringify(updatedTenantsSession)
         );
-        console.log(tenants);
+
         toast.success("Contrat ajouter avec succès!");
         closeModal();
+        navigation(`/my-tenants`);
       } else {
         toast.error("il y a yne erreur!");
         console.log("Error lors de l'ajout, veillez recommencer ");
@@ -90,6 +115,9 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
   }
   const getMyHouses = sessionStorage.getItem("myHouses");
   const myHouses = JSON.parse(getMyHouses);
+
+  const getMyTenants = sessionStorage.getItem("mytenants");
+  const mySessiontenants = JSON.parse(getMyTenants);
 
   const getBailstData = async () => {
     try {
