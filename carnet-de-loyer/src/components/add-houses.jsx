@@ -5,8 +5,12 @@ import { useRentBooklet } from "./contexts/context";
 import axios from "axios";
 import { BASE_API_URL } from "../utils/config";
 import toast, { Toaster } from "react-hot-toast";
+import HouseModalWhenAdded from "./houseModalWhenAdded";
 
 export default function AddHouses({ HandleAddHouses }) {
+  const [isHouseMOdalWhenAddedOpen, setIsHouseMOdalWhenAddedOpen] =
+    useState(false);
+
   const houses = useRentBooklet((state) => state.houses);
   const updateHouses = useRentBooklet((state) => state.updateHouses);
 
@@ -48,6 +52,7 @@ export default function AddHouses({ HandleAddHouses }) {
         housesArray.push(response.data);
         sessionStorage.setItem("myHouses", JSON.stringify(housesArray));
         toast.success("Vous avez créé une maison!");
+        setIsHouseMOdalWhenAddedOpen(true);
 
         reset();
       } else {
@@ -88,6 +93,9 @@ export default function AddHouses({ HandleAddHouses }) {
     };
     return newHouseObject;
   }
+  const handleClose = () => {
+    setIsHouseMOdalWhenAddedOpen(false);
+  };
 
   return (
     <>
@@ -153,6 +161,9 @@ export default function AddHouses({ HandleAddHouses }) {
         </div>
         <RegisterButton />
       </form>
+      {isHouseMOdalWhenAddedOpen && (
+        <HouseModalWhenAdded handleClose={handleClose} />
+      )}
       <Toaster />
     </>
   );

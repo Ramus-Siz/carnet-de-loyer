@@ -8,8 +8,12 @@ import axios from "axios";
 import Loader from "../../components/loader";
 import { BASE_API_URL } from "../../utils/config";
 import Avatar from "../../components/avatar";
+import HouseModaleWhenDelete from "../../components/houseModaleWhenDelete";
 
 export default function MyHouses() {
+  const [isHouseMOdalWhenDeletedOpen, setIsHouseMOdalWhenDeletedOpen] =
+    useState(false);
+  const [houseAdress, setHouseAdress] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,47 +45,68 @@ export default function MyHouses() {
     let housesAfterDelete = [...houses];
 
     if (selectAll) {
-      try {
-        const token = sessionStorage.getItem("token");
-        for (const house of housesAfterDelete) {
-          const response = await axios.post(
-            `${BASE_API_URL}/my-houses/delete/${house.id}`,
-            {
-              headers: {
-                authorization: token,
-              },
-            }
+      // Traitez chaque maison sélectionnée
+      for (const house of housesAfterDelete) {
+        // Vérifiez si la maison contient des baux
+        if (house.bails.length > 0) {
+          // Affichez un message à l'utilisateur indiquant que la maison contient des baux
+          console.log(
+            `La maison ${house.adress} contient est sous contrat et ne peut pas être supprimée.`
           );
+          setHouseAdress(house.adress);
+          setIsHouseMOdalWhenDeletedOpen(true);
+        } else {
+          // Si la maison ne contient aucun bail, procédez à sa suppression
+          await deleteHouse(house.id);
         }
-
-        housesAfterDelete = [];
-        setIsCheck({ choises: [] });
-        setSelectAll(false);
-      } catch (error) {
-        console.error("Erreur lors de la suppression:", error);
       }
-    } else {
-      try {
-        const token = sessionStorage.getItem("token");
 
-        for (const choiceId of isCheck.choises) {
-          // Envoyez une requête DELETE à l'API pour chaque maison sélectionnée
-          await axios.delete(`${BASE_API_URL}/my-houses/delete/${choiceId}`, {
-            headers: {
-              authorization: token,
-            },
-          });
-          // Filtrer `tenants` pour supprimer les houses sélectionnés
+      // Mettez à jour la liste des maisons après la suppression
+      updateHouses(housesAfterDelete);
+      // Réinitialisez les états
+      setIsCheck({ choises: [] });
+      setSelectAll(false);
+      sessionStorage.removeItem("myHouses");
+      sessionStorage.setItem("myHouses", JSON.stringify(housesAfterDelete));
+    } else {
+      // Si seulement certaines maisons sont sélectionnées, traitez-les
+      for (const choiceId of isCheck.choises) {
+        const house = housesAfterDelete.find((house) => house.id === choiceId);
+        if (house && house.bails.length > 0) {
+          console.log(
+            `La maison ${house.adress} contient des baux et ne peut pas être supprimée. `
+          );
+          setHouseAdress(house.adress);
+          setIsHouseMOdalWhenDeletedOpen(true);
+        } else {
+          await deleteHouse(choiceId);
           housesAfterDelete = housesAfterDelete.filter(
             (house) => house.id !== choiceId
           );
         }
-
-        updateHouses(housesAfterDelete);
-        setIsCheck({ choises: [] });
-      } catch (error) {
-        console.error("Erreur lors de la suppression:", error);
       }
+
+      // Mettez à jour la liste des maisons après la suppression
+      updateHouses(housesAfterDelete);
+      // Réinitialisez l'état des cases à cocher
+      setIsCheck({ choises: [] });
+      sessionStorage.setItem("myHouses", JSON.stringify(housesAfterDelete));
+    }
+  };
+
+  const deleteHouse = async (houseId) => {
+    try {
+      const token = sessionStorage.getItem("token");
+      await axios.delete(`${BASE_API_URL}/my-houses/delete/${houseId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log(
+        `La maison avec l'ID ${houseId} a été supprimée avec succès.`
+      );
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la maison:", error);
     }
   };
 
@@ -105,6 +130,9 @@ export default function MyHouses() {
       // Supprimez l'ID de la liste de choix
       setIsCheck({ choises: reponses.filter((item) => item !== idInt) });
     }
+  };
+  const handleClose = () => {
+    setIsHouseMOdalWhenDeletedOpen(false);
   };
 
   console.log(isCheck.choises);
@@ -179,6 +207,12 @@ export default function MyHouses() {
           user="une maison"
           HandleAddData={HandleAddData}
           isTrueToAddData={isTrueToAddData}
+        />
+      )}
+      {isHouseMOdalWhenDeletedOpen && (
+        <HouseModaleWhenDelete
+          handleClose={handleClose}
+          houseAdress={houseAdress}
         />
       )}
     </>

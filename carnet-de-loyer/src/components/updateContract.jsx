@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Loader from "./loader";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,7 +12,7 @@ export default function UpdateContractPopup({
   id,
   bailId,
 }) {
-  const { register, handleSubmit } = useForm();
+  const { control, register, handleSubmit } = useForm();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,6 +27,7 @@ export default function UpdateContractPopup({
 
   const onSubmit = async (newBail) => {
     console.log(newBail.propretyId);
+    console.log(newBail.finish);
     const bailObjetBuild = BuildNewBailObject(newBail);
     handleClickButtonEnregister(bailObjetBuild);
   };
