@@ -13,6 +13,8 @@ import UpdateContractPopup from "../updateContract";
 
 export default function SinglePreviewTenants() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalDeleteBailOpen, setIsModalDeleteOpen] = useState(false);
+
   const [isModalPayementOpen, setIsModalPayementOpen] = useState(false);
   const [isUpdateContactModaleOpen, setIsUpdateContactModale] = useState(false);
   const [inOder, setInOder] = useState(null);
@@ -47,10 +49,40 @@ export default function SinglePreviewTenants() {
   const openUpdateModal = () => {
     setIsUpdateContactModale(true);
   };
+  const deleteContractModal = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      await axios.delete(`${BASE_API_URL}/tenant/bail/delete/${bailId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      const updatedSessionMyHouses = JSON.parse(
+        sessionStorage.getItem("myHouses")
+      ).map((house) => {
+        // Si la maison contient le bail à supprimer, le retire de la liste des bails
+        if (house.bails.some((bail) => bail.id === bailId)) {
+          house.bails = house.bails.filter((bail) => bail.id !== bailId);
+        }
+        return house;
+      });
 
+      // Mettre à jour les données dans le sessionStorage
+      sessionStorage.setItem(
+        "myHouses",
+        JSON.stringify(updatedSessionMyHouses)
+      );
+      console.log(
+        `La maison avec l'ID ${houseId} a été supprimée avec succès.`
+      );
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la maison:", error);
+    }
+  };
   const closePayementModal = () => {
     setIsModalPayementOpen(false);
   };
+
   const closeUpdateContractModal = () => {
     setIsUpdateContactModale(false);
   };
@@ -98,23 +130,43 @@ export default function SinglePreviewTenants() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <div className="flex items-center text-[#b3b5b7] md:w-[60%]">
-                <p>Verifier avec le filtre si {tenantData.name} est en ordre</p>
-              </div>
               <motion.div className="flex gap-4 w-full">
                 {tenantData.bails && tenantData.bails.length > 0 ? (
-                  <button
-                    className="  flex items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
-                    onClick={openUpdateModal}
-                  >
-                    <span>Modifier le contrat</span>
-                  </button>
+                  <>
+                    <button
+                      className="   flex justify-center gap-2 flex items-center md:w-[28%] pl-4 pr-4 md:pr-4 md:pl-4 md:bg-fuchsia-700 bg-orange-600 shadow-inner hover:scale-95 rounded-xl "
+                      onClick={openUpdateModal}
+                    >
+                      <span className="md:text-xl text-2xl">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </span>
+                      <span className="md:text-white hidden md:block">
+                        Suprimer le contrat
+                      </span>
+                    </button>
+                    <button
+                      className="  flex justify-center items-center md:w-[28%] pl-4 pr-4  md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
+                      onClick={deleteContractModal}
+                    >
+                      <span className="md:text-xl text-2xl">
+                        <ion-icon name="create-outline"></ion-icon>
+                      </span>
+                      <span className="md:text-white hidden md:block">
+                        Modifier le contrat
+                      </span>
+                    </button>
+                  </>
                 ) : (
                   <button
-                    className="  flex items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
+                    className="  flex  justify-center items-center md:w-[28%] p-2 pl-2 md:pr-4 md:pl-4 md:bg-fuchsia-700  shadow-inner hover:scale-95 rounded-xl "
                     onClick={openModal}
                   >
-                    <span>Créer un Contrat</span>
+                    <span className="md:text-xl text-2xl">
+                      <ion-icon name="create-outline"></ion-icon>
+                    </span>
+                    <span className="md:text-white hidden md:block">
+                      Créer un Contrat
+                    </span>
                   </button>
                 )}
 
@@ -122,9 +174,7 @@ export default function SinglePreviewTenants() {
                   className=" flex items-center p-2 pl-4 pr-4 md:pr-8 md:pl-8 bg-[#a1a76a] text-white-700 hover:scale-95 rounded-xl "
                   onClick={openPayementModal}
                 >
-                  <span className="text-2xl animate-bounce">
-                    <ion-icon name="create-outline"></ion-icon>
-                  </span>
+                  <span className="text-xl">$</span>
                   Paiement
                 </button>
               </motion.div>
@@ -179,16 +229,20 @@ export default function SinglePreviewTenants() {
                 animate={{ opacity: 1 }}
                 transition={{ delayChildren: 0.4 }}
               >
+                <p className="mb-1">
+                  Verifier si {tenantData.name} est en ordre
+                </p>
+
                 {/* Utilisez le composant FilterForm */}
                 <FilterForm tenant={tenantData} setInOder={setInOder} />
 
                 {/* Affichez le statut du locataire en fonction de inOder */}
                 {inOder ? (
-                  <p className="text-lg text-white">
+                  <p className="text-xs text-white mt-1">
                     Le locataire {tenantData.name} est en règle.
                   </p>
                 ) : (
-                  <p className="text-lg text-white">
+                  <p className="text-xs text-white mt-1">
                     Le locataire {tenantData.name} n'est pas en règle.
                   </p>
                 )}
