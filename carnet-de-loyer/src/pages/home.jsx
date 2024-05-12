@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
-import { motion } from "framer-motion";
+import { motion, delay } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRentBooklet } from "../components/contexts/context";
 import axios from "axios";
@@ -77,10 +77,12 @@ export default function Home() {
       <div className="md:p-10 p-4">
         <div className="flex flex-col justify-center items-center md:flex-row gap-4 ">
           <motion.div
-            className="h-[250px] md:w-[385px] w-[350px] shadow-2xl hover:shadow-xl cursor-pointer  rounded-xl bg-[#b7bf7f]  hover:text-white"
+            className="h-[250px] md:w-[385px] w-[350px] shadow-2xl hover:shadow-xl hover:bg-fuchsia-700 cursor-pointer  rounded-xl bg-[#b7bf7f]  hover:text-white"
             onClick={() => navigation("/my-houses")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            whileHover={{ scale: 0.9 }}
+            transition={{ delayChildren: 0.4 }}
           >
             <h3 className="pr-12 p-5 text-xl  leading-tight text-end text-[#edeeef]">
               Mes biens
@@ -118,10 +120,11 @@ export default function Home() {
             </div>
           </motion.div>
           <motion.div
-            className="h-[250px] w-[350px] md:w-[385px] shadow-2xl hover:shadow-xl rounded-xl  bg-[#c299d0]  cursor-pointer hover:text-white"
+            className="h-[250px] w-[350px] md:w-[385px] shadow-2xl hover:shadow-xl hover:bg-fuchsia-700 rounded-xl  bg-[#c299d0]  cursor-pointer hover:text-white"
             onClick={() => navigation("/my-tenants")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            whileHover={{ scale: 0.9 }}
             transition={{ delay: 0.5 }}
           >
             <h3 className="pr-12 text-xl p-5 text-[#edeeef] leading-tight  text-end ">
@@ -156,7 +159,7 @@ export default function Home() {
             </div>
           </motion.div>
           <motion.div
-            className="h-[250px] md:w-[385px] w-[350px] rounded-xl bg-[#b7bf7f] shadow-2xl hover:shadow-xl cursor-pointer hover:text-white"
+            className="h-[250px] md:w-[385px] w-[350px] rounded-xl bg-[#b7bf7f] hover:bg-fuchsia-700 shadow-2xl hover:shadow-xl hover:bg-fuchsia-700 cursor-pointer hover:text-white"
             onClick={() => navigation("/locations")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -199,6 +202,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
+          whileHover={{ scale: 0.9 }}
         >
           <span className="text-xl">
             <ion-icon name="chatbox-ellipses-outline"></ion-icon>
