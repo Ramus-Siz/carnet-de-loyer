@@ -252,6 +252,10 @@ export default function SinglePreviewTenants() {
                 animate={{ opacity: 1 }}
                 transition={{ delayChildren: 0.4 }}
               >
+                <p className="mb-1">
+                  Verifier si {tenantData.name} est en ordre
+                </p>
+
                 {/* Utilisez le composant FilterForm */}
                 <FilterForm tenant={tenantData} setInOder={setInOder} />
 
