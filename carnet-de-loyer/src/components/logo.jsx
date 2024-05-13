@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Logo() {
+  const navigation = useNavigate();
   return (
     <>
-      <div className="flex flex-row md:h-20 justify-center items-center bg-[#2b213f] md:border-b-8 md:border-[#283342] ">
+      <div
+        className="flex flex-row md:h-20 justify-center items-center bg-[#2b213f] md:border-b-8 md:border-[#283342] cursor-pointer"
+        onClick={() => navigation("/home")}
+      >
         <img
           src="/images/icone-grafiki.png"
           alt=""
