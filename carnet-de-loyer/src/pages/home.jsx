@@ -9,6 +9,8 @@ import Avatar from "../components/avatar";
 
 export default function Home() {
   const [tenantCount, setTenantCount] = useState(0);
+  console.log("tenantCount: ", tenantCount);
+
   const navigation = useNavigate();
   const tenants = useRentBooklet((state) => state.tenants);
   const houses = useRentBooklet((state) => state.houses);
@@ -174,11 +176,13 @@ export default function Home() {
               </div>
               <div className="flex flex-col text-xl text-[#edeeef]">
                 <div className="flex items-center gap-2">
-                  <span className="text-5xl font-semibold">{`${tenantCount}`}</span>
+                  <span className="text-5xl font-semibold">{`${
+                    tenantCount - 1
+                  }`}</span>
                   <span className="flex flex-col">
                     <span className="text-xl ">Maisons</span>
                     <span className="text-xs text-[#283342] ">
-                      {`${houses.length - tenantCount} Disponibles`}
+                      {`${houses.length - (tenantCount - 1)} Disponibles`}
                     </span>
                   </span>
                 </div>

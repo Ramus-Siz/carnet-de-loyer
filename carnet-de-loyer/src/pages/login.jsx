@@ -107,6 +107,8 @@ export default function Login({}) {
     }
   };
   const onRegister = async (data) => {
+    setLoading(true);
+
     try {
       // Envoyer les données à l'API
       const response = await axios.post(
@@ -117,8 +119,8 @@ export default function Login({}) {
       // Vérifier la réponse de l'API
       if (response.status === 201) {
         toast.success("Vous avez créé votre compte bailleur!");
-
         setIsRegister(true);
+        setLoading(false);
       } else {
         toast.error("il y a une erreur!");
         console.error("Erreur lors de la création:", response.data);
@@ -129,10 +131,15 @@ export default function Login({}) {
       toast.error("il y a une erreur, veillez reessayer");
       console.error("Erreur lors de l'envoi de la requête:", error);
       // Afficher un message d'erreur à l'utilisateur
+      setError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const onRegisterMoreInfos = async (data) => {
+    setLoading(true);
+
     try {
       // Envoyer les données à l'API
       const response = await axios.post(`${BASE_API_URL}/landlords/add`, data);
@@ -144,6 +151,8 @@ export default function Login({}) {
         setIsRegister(false);
         setIsNeedToCreate(false);
         setIsTenant(false);
+        setLoading(true);
+
         navigate("/");
       } else {
         // Gérer les erreurs d'authentification
@@ -158,6 +167,8 @@ export default function Login({}) {
 
       console.error("Erreur lors de l'envoi de la requête:", error);
       // Afficher un message d'erreur à l'utilisateur
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -195,7 +206,7 @@ export default function Login({}) {
                   )}
                 </>
               ) : (
-                <Signup onRegister={onRegister} />
+                <Signup onRegister={onRegister} loading={loading} />
               )}
 
               <div className="text-xs pt-1">
@@ -219,7 +230,10 @@ export default function Login({}) {
               </div>
             </>
           ) : (
-            <MoreInfosOfLandLord onRegisterMoreInfos={onRegisterMoreInfos} />
+            <MoreInfosOfLandLord
+              onRegisterMoreInfos={onRegisterMoreInfos}
+              loading={loading}
+            />
           )}
         </div>
       </div>
