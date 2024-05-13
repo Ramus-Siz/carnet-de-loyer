@@ -7,6 +7,8 @@ export default function MyRentBook() {
   const tenant = JSON.parse(getTenant);
   const getLessor = sessionStorage.getItem("lessor");
   const lessor = JSON.parse(getLessor);
+  const getHouse = sessionStorage.getItem("house");
+  const house = JSON.parse(getHouse);
 
   return (
     <>
@@ -20,28 +22,25 @@ export default function MyRentBook() {
             </div>
 
             <div className="border-b border-[#5f6263] pt-4  flex justify-between ">
-              <div>Moi</div>
+              <div className="text-orange-600 bg-clip-text">Moi</div>
               <div>{currentUser.username} </div>
             </div>
             <div className="border-b border-[#5f6263] pt-4 flex justify-between ">
               <div>Maison </div>
-              <div>Prenom </div>
+              <div>{`${house.adress}`} </div>
+            </div>
+
+            <div className="border-b border-[#5f6263] pt-2 flex justify-between ">
+              <div className="text-orange-600 bg-clip-text">Bailleur </div>
+              <div> {`${lessor.name} ${lessor.prenom}`}</div>
             </div>
             <div className="border-b border-[#5f6263] pt-4 flex justify-between">
-              <div>Adresse </div>
-              <div>Prenom </div>
+              <div>Email </div>
+              <div>{`${lessor.email}`} </div>
             </div>
             <div className="border-b border-[#5f6263] pt-4 flex justify-between ">
-              <div>Prix du loyer </div>
-              <div>Prenom </div>
-            </div>
-            <div className="border-b border-[#5f6263] pt-2 flex justify-between ">
-              <div>Eau et Electricité </div>
-              <div>Prenom </div>
-            </div>
-            <div className="border-b border-[#5f6263] pt-2 flex justify-between ">
-              <div>Bailleur </div>
-              <div> {`${lessor.name} ${lessor.prenom}`}</div>
+              <div>Télephone </div>
+              <div>{`${lessor.telephone}`} </div>
             </div>
             <span className="text-xl self-end justify-self-end pt-12 text-white">
               <ion-icon name="information-circle-outline"></ion-icon>

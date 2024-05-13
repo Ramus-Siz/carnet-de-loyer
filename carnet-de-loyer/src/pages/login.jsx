@@ -84,6 +84,8 @@ export default function Login({}) {
         );
         sessionStorage.setItem("tenant", JSON.stringify(response.data.tenant));
         sessionStorage.setItem("lessor", JSON.stringify(response.data.lessor));
+        sessionStorage.setItem("house", JSON.stringify(response.data.house));
+
         sessionStorage.setItem("token", response.data.token);
         setData(response.data);
 
