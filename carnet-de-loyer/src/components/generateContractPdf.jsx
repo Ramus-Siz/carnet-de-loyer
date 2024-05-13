@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { PDFDocument, rgb } from "pdf-lib";
+import { BASE_API_URL } from "../utils/config";
+import Logo from "./logo";
 
 const CreateAgreement = () => {
   const [pdfBlob, setPdfBlob] = useState(null);
 
   const generatePDF = async () => {
     try {
+      const getHouse = sessionStorage.getItem("house");
+      const house = JSON.parse(getHouse);
       // Effectuer une requête à l'API pour récupérer les données
-      const response = await axios.get("http://localhost:3000/my-houses/1");
-      const data = response.data;
 
       // Créer un nouveau document PDF
       const pdfDoc = await PDFDocument.create();
@@ -29,36 +31,64 @@ const CreateAgreement = () => {
       });
 
       // Ajouter les données au document
-      page.drawText(`Adresse: ${data.adress}`, { x: 30, y: 700 }, { size: 12 });
-      page.drawText(`Libellé: ${data.libele}`, { x: 30, y: 670 }, { size: 12 });
-      page.drawText(`Type: ${data.type}`, { x: 30, y: 640 }, { size: 12 });
       page.drawText(
-        `Composition: ${data.composition}`,
+        `Adresse: ${house.adress}`,
+        { x: 30, y: 700 },
+        { size: 12 }
+      );
+      page.drawText(`Libellé: ${house.type}`, { x: 30, y: 670 }, { size: 12 });
+      page.drawText(
+        `Type: ${house.composition}`,
+        { x: 30, y: 640 },
+        { size: 12 }
+      );
+      page.drawText(
+        `Composition: ${house.composition}`,
         { x: 30, y: 610 },
         { size: 12 }
       );
 
-      page.drawText(`Adresse: ${data.adress}`, { x: 30, y: 570 }, { size: 12 });
-      page.drawText(`Libellé: ${data.libele}`, { x: 30, y: 530 }, { size: 12 });
-      page.drawText(`Type: ${data.type}`, { x: 30, y: 490 }, { size: 12 });
       page.drawText(
-        `Composition: ${data.composition}`,
+        `Adresse: ${house.description}`,
+        { x: 30, y: 570 },
+        { size: 12 }
+      );
+      page.drawText(
+        `Libellé: ${house.adress}`,
+        { x: 30, y: 530 },
+        { size: 12 }
+      );
+      page.drawText(`Type: ${house.type}`, { x: 30, y: 490 }, { size: 12 });
+      page.drawText(
+        `Composition: ${house.composition}`,
         { x: 30, y: 450 },
         { size: 12 }
       );
-      page.drawText(`Adresse: ${data.adress}`, { x: 30, y: 410 }, { size: 12 });
-      page.drawText(`Libellé: ${data.libele}`, { x: 30, y: 370 }, { size: 12 });
-      page.drawText(`Type: ${data.type}`, { x: 30, y: 330 }, { size: 12 });
       page.drawText(
-        `Composition: ${data.composition}`,
+        `Adresse: ${house.description}`,
+        { x: 30, y: 410 },
+        { size: 12 }
+      );
+      page.drawText(
+        `Libellé: ${house.composition}`,
+        { x: 30, y: 370 },
+        { size: 12 }
+      );
+      page.drawText(`Type: ${house.type}`, { x: 30, y: 330 }, { size: 12 });
+      page.drawText(
+        `Composition: ${house.composition}`,
         { x: 30, y: 250 },
         { size: 12 }
       );
-      page.drawText(`Adresse: ${data.adress}`, { x: 30, y: 210 }, { size: 12 });
-      page.drawText(`Libellé: ${data.libele}`, { x: 30, y: 170 }, { size: 12 });
-      page.drawText(`Type: ${data.type}`, { x: 30, y: 130 }, { size: 12 });
+      page.drawText(`Adresse: ${house.type}`, { x: 30, y: 210 }, { size: 12 });
       page.drawText(
-        `Composition: ${data.composition}`,
+        `Libellé: ${house.adress}`,
+        { x: 30, y: 170 },
+        { size: 12 }
+      );
+      page.drawText(`Type: ${house.type}`, { x: 30, y: 130 }, { size: 12 });
+      page.drawText(
+        `Composition: ${house.composition}`,
         { x: 30, y: 90 },
         { size: 12 }
       );
@@ -77,30 +107,40 @@ const CreateAgreement = () => {
   };
 
   return (
-    <div className="p-4">
-      <button
-        className="bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ... p-3 text-white rounded-3xl w-[20em]"
-        onClick={generatePDF}
-      >
-        Voir mon contrat
-      </button>
-      {pdfBlob && (
-        <div className="mt-4">
-          <iframe
-            title="contrat de bail"
-            src={URL.createObjectURL(pdfBlob)}
-            className="w-full h-72"
-          />
-          <a
-            href={URL.createObjectURL(pdfBlob)}
-            download="donnees.pdf"
-            className="block mt-2 text-blue-500"
-          >
-            Télécharger PDF
-          </a>
+    <>
+      <div className="flex justify-between p-4 items-center bg-[#2b213f] md:border-b-8 md:border-[#283342] sticky top-0 md:hidden">
+        <div className="md:hidden">
+          <Logo />
         </div>
-      )}
-    </div>
+        <div className="text-white text-2xl">
+          <ion-icon name="menu-outline"></ion-icon>
+        </div>
+      </div>
+      <div className=" flex md:h-screen h-96 flex-col items-center justify-center p-4">
+        <button
+          className="bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ... p-3 text-white rounded-3xl w-[20em]"
+          onClick={generatePDF}
+        >
+          Voir mon contrat
+        </button>
+        {pdfBlob && (
+          <div className="mt-4">
+            <iframe
+              title="contrat de bail"
+              src={URL.createObjectURL(pdfBlob)}
+              className="w-full h-72"
+            />
+            <a
+              href={URL.createObjectURL(pdfBlob)}
+              download="donnees.pdf"
+              className="block mt-2 text-blue-500"
+            >
+              Télécharger PDF
+            </a>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
