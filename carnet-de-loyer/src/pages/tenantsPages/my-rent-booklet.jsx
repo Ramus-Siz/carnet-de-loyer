@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Logo from "../../components/logo";
+import Avatar from "../../components/avatar";
 
 export default function MyRentBook() {
   const getCurrentUser = sessionStorage.getItem("currentUser");
@@ -12,9 +14,18 @@ export default function MyRentBook() {
 
   return (
     <>
+      <div className="flex justify-between p-4 items-center bg-[#2b213f] md:border-b-8 md:border-[#283342] sticky top-0 md:hidden">
+        <div className="md:hidden">
+          <Logo />
+        </div>
+        <div className="text-white text-2xl">
+          <ion-icon name="menu-outline"></ion-icon>
+        </div>
+      </div>
+
       <div className="pt-12">
-        <div className="flex justify-evenly">
-          <div className="w-[35em] h-[37em] p-12 shadow-2xl flex flex-col gap-4 text-[#b3b5b7] rounded-xl">
+        <div className="flex md:flex-row flex-col md:justify-evenly">
+          <div className="md:w-[35em] md:h-[37em] w-full p-12 shadow-2xl flex flex-col gap-4 text-[#b3b5b7] rounded-xl">
             <div className="flex justify-between items-center">
               <span className="text-2xl text-fuchsia-500 bg-clip-text ">
                 Infos
@@ -48,7 +59,7 @@ export default function MyRentBook() {
           </div>
           <div className="flex flex-col justify-center items-center]">
             <motion.div
-              className="h-[200px] w-[385px] shadow-2xl hover:shadow-xl p-8 cursor-pointer  rounded-xl bg-gradient-to-r from-white to-fuchsia-500 bg-clip-text text-transparent hover:text-white flex gap-4  flex-col items-center"
+              className="h-[200px] md:w-[385px] shadow-2xl hover:shadow-xl p-8 cursor-pointer  rounded-xl bg-gradient-to-r from-white to-fuchsia-500 bg-clip-text text-transparent hover:text-white flex gap-4  flex-col items-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
@@ -71,7 +82,7 @@ export default function MyRentBook() {
               </div>
             </motion.div>
             <motion.div
-              className="h-[200px] w-[385px] shadow-2xl hover:shadow-xl p-8 cursor-pointer  rounded-xl bg-gradient-to-r from-white to-fuchsia-500 bg-clip-text text-transparent hover:text-white flex gap-4  flex-col items-center"
+              className="md:h-[200px] md:w-[385px] shadow-2xl hover:shadow-xl p-8 cursor-pointer  rounded-xl bg-gradient-to-r from-white to-fuchsia-500 bg-clip-text text-transparent hover:text-white flex gap-4  flex-col items-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
@@ -94,6 +105,9 @@ export default function MyRentBook() {
             </motion.div>
           </div>
         </div>
+      </div>
+      <div className="md:hidden  bg-gradient-to-t from-[#32033a] to-[#283342] sticky  bottom-0 mt-4">
+        <Avatar />
       </div>
     </>
   );
