@@ -142,7 +142,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg">
-            <h2 className="text-2xl mb-4">Modifier le Contrat</h2>
+            <h2 className="text-2xl mb-4">Créer son contratS</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label className="block mb-2">Date de fin:</label>
@@ -163,7 +163,7 @@ export default function ModifyContract({ isModalOpen, closeModal, id }) {
                 >
                   {/* Générer les options de sélection à partir de `residents` */}
                   {myHouses.map((proprety, index) => (
-                    <option key={index} value={proprety.adress}>
+                    <option key={index} value={proprety.id}>
                       {proprety.adress}
                     </option>
                   ))}
