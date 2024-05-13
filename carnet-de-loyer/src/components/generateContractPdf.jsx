@@ -3,6 +3,7 @@ import axios from "axios";
 import { PDFDocument, rgb } from "pdf-lib";
 import { BASE_API_URL } from "../utils/config";
 import Logo from "./logo";
+import TenantHeaderMobile from "./tenantsDashboard/tenant-header-mobile";
 
 const CreateAgreement = () => {
   const [pdfBlob, setPdfBlob] = useState(null);
@@ -108,14 +109,8 @@ const CreateAgreement = () => {
 
   return (
     <>
-      <div className="flex justify-between p-4 items-center bg-[#2b213f] md:border-b-8 md:border-[#283342] sticky top-0 md:hidden">
-        <div className="md:hidden">
-          <Logo />
-        </div>
-        <div className="text-white text-2xl">
-          <ion-icon name="menu-outline"></ion-icon>
-        </div>
-      </div>
+      <TenantHeaderMobile />
+
       <div className=" flex md:h-screen h-96 flex-col items-center justify-center p-4">
         <button
           className="bg-gradient-to-r from-fuchsia-700 to-fuchsia-700 hover:from-[#283342] hover:to-fuchsia-700 ... p-3 text-white rounded-3xl w-[20em]"

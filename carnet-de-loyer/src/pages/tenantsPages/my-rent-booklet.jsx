@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Logo from "../../components/logo";
 import Avatar from "../../components/avatar";
+import TenantHeaderMobile from "../../components/tenantsDashboard/tenant-header-mobile";
 
 export default function MyRentBook() {
   const getCurrentUser = sessionStorage.getItem("currentUser");
@@ -14,14 +15,7 @@ export default function MyRentBook() {
 
   return (
     <>
-      <div className="flex justify-between p-4 items-center bg-[#2b213f] md:border-b-8 md:border-[#283342] sticky top-0 md:hidden">
-        <div className="md:hidden">
-          <Logo />
-        </div>
-        <div className="text-white text-2xl">
-          <ion-icon name="menu-outline"></ion-icon>
-        </div>
-      </div>
+      <TenantHeaderMobile />
 
       <div className="pt-12">
         <div className="flex md:flex-row flex-col md:justify-evenly">
