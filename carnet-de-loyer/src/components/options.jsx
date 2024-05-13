@@ -34,13 +34,13 @@ export default function Options({
           </div>
           <div className="flex gap-4 w-full md:flex-row flex-col">
             <button
-              className="flex items-center  w-[40%] md:w-[20%] flex items-center text-white rounded-3xl  p-2 pr-4 pl-8 bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ... "
+              className=" w-[40%] md:w-[20%] flex items-center justify-center text-white rounded-3xl  p-2 pr-4 pl-4 bg-fuchsia-700 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ... "
               onClick={HandleDelete}
             >
               Suprimer
             </button>
             <button
-              className="flex items-center w-[70%] md:w-[35%] text-center bg-fuchsia-700 text-white rounded-3xl   p-2 md:pl-8 pr-4 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
+              className="flex items-center justify-center w-[70%] md:w-[35%] text-center bg-fuchsia-700 text-white rounded-3xl   p-2 md:pl-8 pr-4 hover:scale-95 hover:from-[#283342] hover:to-fuchsia-700 ..."
               onClick={HandleAddData}
             >
               Ajouter {user}
