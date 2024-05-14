@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddTenants({ HandleAddTenants }) {
   const [tenantLoginInfos, setTenantLoginInfos] = useState(false);
+  const [tenantPassword, setTenantPassword] = useState("");
   const tenants = useRentBooklet((state) => state.tenants);
   const houses = useRentBooklet((state) => state.houses);
   const navigation = useNavigate();
@@ -59,6 +60,7 @@ export default function AddTenants({ HandleAddTenants }) {
         sessionStorage.setItem("mytenants", JSON.stringify(tenantsArray));
         toast.success("Vous avez créé un locataire!");
         setTenantLoginInfos(true);
+        setTenantPassword(response.data.password);
         reset();
         navigation("/my-tenants");
       } else {
@@ -180,7 +182,12 @@ export default function AddTenants({ HandleAddTenants }) {
 
         <RegisterButton />
       </form>
-      {tenantLoginInfos && <TenantLoginInfos handleClose={handleClose} />}
+      {tenantLoginInfos && (
+        <TenantLoginInfos
+          handleClose={handleClose}
+          tenantPassword={tenantPassword}
+        />
+      )}
       <Toaster />
     </>
   );
